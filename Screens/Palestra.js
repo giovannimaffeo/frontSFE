@@ -42,16 +42,17 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 export default function Palestra( props ){
   return(
 
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes')} >
 
         
-        <View style={styles.horario}>
+        <View style={styles.containerImagem}>
 
-            <Text style={styles.texto}>{props.horario}</Text>
+            <Image  style={styles.fotoPalestrante}
+            source={{ uri: props.foto_palestrante}}/>
 
         </View>
 
-        <TouchableOpacity style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+        <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
 
                 <View>
 
@@ -59,7 +60,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-Regular"}}>{props.tema}</Text>
+                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.tema}</Text>
 
                     </Text>
 
@@ -70,54 +71,82 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Autor:</Text> <Text style={{fontFamily: "Gelasio-Regular"}}>{props.autor}</Text>
+                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.palestrante}</Text>
 
                     </Text>
 
                   </View>
 
+                  <View style={{marginLeft: screenWidth*0.3}}>
+
+                    <Text style={styles.horario}>{props.horario}</Text>
+
+                  </View>
+                  
+
                 
                 </View>
 
 
-        </TouchableOpacity>
+        </View>
 
-    </View>
+    </TouchableOpacity >
 
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ //d9d9d9
 
   container:{
     flexDirection: 'row',
-    borderWidth: screenWidth*0.002,
     borderColor: "#C0C0C0",
-    backgroundColor: "#d9d9d9",
-    height: screenHeight*0.12
+    //backgroundColor: "white",
+    height: screenHeight*0.137,
+    // /borderRadius: screenHeight*0.010,
+    borderBottomWidth: screenHeight*0.003,
+    
+    
 
   },
 
-  horario:{
-    width: '30%',
+  containerImagem:{
+    width: screenWidth*0.25,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: screenWidth*0.002,
     borderColor: "#222222"
 
   },
 
+  fotoPalestrante: {
+    borderRadius: screenWidth*0.095,
+    width: screenWidth*0.19,  
+    height: screenWidth*0.19, 
+    
+
+  },
+
   programacao:{
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
 
   },
 
   texto:{
-    color: 'black',
-    fontFamily: "Gelasio-Bold"
+    color: '#F4893B',
+    fontFamily: "Gelasio-Bold",
+    fontSize: screenHeight*0.023
+  },
+
+  horario:{
+    color: '#F4893B',
+    fontFamily: "Gelasio-Bold",
+    fontSize: screenHeight*0.0215,
+    
+    
+
   }
+
+
 
 }
 )
