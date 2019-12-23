@@ -40,7 +40,7 @@ import Dia3 from './Screens/Dia3'
 import Dia4 from './Screens/Dia4'
 import Dia5 from './Screens/Dia5' 
 
-import Screen1 from './Screens/Screen1'
+
 import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
 import Screen4 from './Screens/Screen4'
@@ -49,6 +49,8 @@ import Informacoes from './Screens/Informacoes'
 import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import TelaFavorito from './Screens/TelaFavorito';
 
 const DATA = 
 
@@ -107,8 +109,28 @@ const Stack = createStackNavigator (
 
 );
 
-
 const AppContainer = createAppContainer(Stack);
+
+
+
+const StackFavorito = createStackNavigator (
+  {
+    TelaFavorito: {
+      screen: TelaFavorito
+    },
+    Informacoes: {
+      screen: Informacoes
+    }
+
+  },
+  {
+    initialRouteName: 'TelaFavorito'
+  }
+);
+
+const AppContainerFavorito = createAppContainer(StackFavorito);
+
+
 
 const CustomDrawer = props => {
   
@@ -164,8 +186,8 @@ const Drawer = createDrawerNavigator(
 
     },
   },
-  Screen1: {
-    screen: Screen1,
+  AppContainerFavorito: {
+    screen: AppContainerFavorito,
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (

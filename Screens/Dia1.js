@@ -169,7 +169,7 @@ Dia1.navigationOptions = ({ navigation }) => ({
 
       <View style={{width: 30}}>
 
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -186,6 +186,7 @@ Dia1.navigationOptions = ({ navigation }) => ({
     
     
     </View>
+
   )
 })
 
