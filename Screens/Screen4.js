@@ -19,6 +19,7 @@ import {
   AppRegistry,
   Image,
   FlatList,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -42,13 +43,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DATA = [
   {
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Globo.com_logo.svg/1280px-Globo.com_logo.svg.png'
+    logo: 'https://s3.glbimg.com/v1/AUTH_b58693ed41d04a39826739159bf600a0/photos/logo_redes.png'
   },
   {
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
     logo: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Logo_Ambev.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
 ];
 
@@ -60,7 +73,7 @@ const DATA = [
 
 export default function TelaCreditos({navigation}){
   return(
-    <View>
+    <ScrollView style={{backgroundColor: '#222222'}}>
 
       <View style={styles.header} >
 
@@ -84,7 +97,7 @@ export default function TelaCreditos({navigation}){
 
       </View>
 
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
 
         <View>
 
@@ -94,11 +107,11 @@ export default function TelaCreditos({navigation}){
 
             <FlatList
 
-            
-
+            horizontal = {true}
+        
             data = {DATA}
 
-            renderItem = { ({item}) =>  <View style={{marginTop: 20}}>< Image source={{ uri: item.logo}} style={{height: 80, width: screenWidth, marginRight: 20}} /></View> }
+            renderItem = { ({item}) =>  <View style={{marginTop: 20}}>< Image source={{ uri: item.logo}} style={{height: 80, width: 150, marginRight: 20}} /></View> }
 
             keyExtractor = { (item, index ) => index }
 
@@ -155,9 +168,9 @@ export default function TelaCreditos({navigation}){
 
 
 
-      </ScrollView>
+      </View>
 
-    </View>
+  </ScrollView>
   
     
 
@@ -208,7 +221,11 @@ logofluxo:{
 
   patrocinadoresContainer:{
     marginTop: screenHeight*0.02,
-    alignItems: 'center'
+    flex:1,
+    maxWidth: Dimensions.get('window').width , // Width / 3 - (marginLeft and marginRight for the components)
+    justifyContent: 'center',
+    alignItems:'center',    
+    margin:5
   },
 
   faleConosco:{
