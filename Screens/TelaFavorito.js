@@ -29,19 +29,20 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { createAppContainer, } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator, Assets } from 'react-navigation-stack';
 
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
-import Palestra from './Palestra';
+import palestra from './Palestra'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Animation from 'lottie-react-native';
 
+import LottieView from 'lottie-react-native';
 
-
+import Palestra from '../Screens/Palestra'
 
 const DATA = 
 
@@ -118,93 +119,75 @@ const DATA =
 ];
 
 
-export default function Dia3({ navigation }){
+
+
+
+
+
+
+
+
+export default function TelaFavorito({ navigation }){
   return(
-
-    <View style={{flex: 1, backgroundColor: '#222222'}}>
-        
-        <View style={styles.title}>
-
-          <TouchableOpacity style={styles.botao} onPress = {() => navigation.navigate('Dia1')} >
-            
-            <Text style={styles.textoBotao}>23</Text>
-
-          </TouchableOpacity>
-
-
-
-          <TouchableOpacity style={styles.botao} onPress = {() => navigation.navigate('Dia2')} >
-            
-            <Text style={styles.textoBotao}>24</Text>
-
-          </TouchableOpacity>
-
-
-
-          <TouchableOpacity style={styles.botao} onPress = {() => navigation.navigate('Dia3')} >
-            
-            <Text style={styles.textoBotao}>25</Text>
-
-          </TouchableOpacity>
-
-
-
-          <TouchableOpacity style={styles.botao} onPress = {() => navigation.navigate('Dia4')} >
-            
-            <Text style={styles.textoBotao}>26</Text>
-
-          </TouchableOpacity>
-
-
-
-          <TouchableOpacity style={styles.botao} onPress = {() => navigation.navigate('Dia5')} >
-            
-            <Text style={styles.textoBotao}>27</Text>
-
-          </TouchableOpacity>
-
-        </View>
-
-
-        <View style={styles.tabela}>
-
-          <FlatList 
-
-            data = {DATA}
-
-            renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} palestrante = {item.palestrante} foto_palestrante = {item.foto_palestrante} navigation = {navigation} /> }
-
-            keyExtractor = { (item, index ) => index }
-
-            />
-
-
-        </View>
-
-    </View>
-
-
-
-
-
-
-
-  
-        
     
+    <View style={styles.container}>
+
+      <View style={styles.titleContainer}>
+
+        <View style={{marginTop: screenHeight*0.02}}>
+
+          <Text style={styles.title}>Palestras Favoritas</Text>
+
+        </View>
+
+        <View>
+
+          <LottieView 
+            source={require('../Assets/coracao_laranja_maior')} 
+            autoPlay 
+            loop 
+            style={{height: 50}}/>
+
+        </View>
+
+      </View>
+
+      <View style={styles.bodyContainer}>
+
+        <FlatList 
+
+        data = {DATA}
+
+        renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} palestrante = {item.palestrante} foto_palestrante = {item.foto_palestrante} navigation = {navigation} /> }
+
+        keyExtractor = { (item, index ) => index }
+
+        />
+
+      </View>
+
       
 
+      
+
+
+        
+
+
+
+    </View>
 
   );
 }
 
-Dia3.navigationOptions = ({ navigation }) => ({
-  header: ( /* Your custom header */
+
+TelaFavorito.navigationOptions = ({ navigation }) => ({
+  header: (  
     <View style={styles.header} >
 
       <View style={{width: 30}}>
 
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -221,133 +204,72 @@ Dia3.navigationOptions = ({ navigation }) => ({
     
     
     </View>
+
   )
-})
-
-/*const AppDrawerNavigator = createDrawerNavigator({
-  Home: HomeScreen,
-  Settings: SettingsScreen
-})*/
-
-
-/*const MainDrawer = createDrawerNavigator({
-  MainTabs: MainTabs,
-  Settings: SettingsStack,
-});*/
-
+}) 
 
 const styles = StyleSheet.create({
 
   header:{
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: screenHeight*0.1,
-      backgroundColor: '#F4893B',
-      borderBottomWidth: screenHeight*0.01,
-      borderBottomColor: "#C0C0C0",
-      justifyContent: "space-between",
-      padding: 20
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: screenHeight*0.1,
+    backgroundColor: '#F4893B',
+    borderBottomWidth: screenHeight*0.01,
+    borderBottomColor: "#C0C0C0",
+    justifyContent: "space-between",
+    padding: 20
 
-      
-  },
+    
+},
 
-  textoHeader:{
-    fontSize: screenHeight*0.03,
-    fontFamily: "Gelasio-Bold"
+textoHeader:{
+  fontSize: screenHeight*0.03,
+  fontFamily: "Gelasio-Bold"
 
+  
+},
+
+logofluxo:{
+  borderRadius:5,
+  width: 65,
+  height: 65,
+
+},
+
+
+  container: {
+    backgroundColor: '#222222',
+    flex: 1,
+  
     
   },
 
-  logofluxo:{
-    borderRadius:5,
-    width: 65,
-    height: 65,
-
-  },
-
-
-  title:{
+  titleContainer: {
+    height: screenHeight*0.1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginHorizontal: screenWidth*0.070,
-    marginTop: screenHeight*0.04,
-    
-  },
+    alignItems: 'center'
 
-  botao:{
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: screenWidth*0.05,
-    backgroundColor: '#F4893B',
-    height: screenHeight*0.06,
-    width: screenWidth*0.1
 
   },
-
-  textoBotao:{
-    color: 'white',
-    fontFamily: "Gelasio-Bold"
+  title:{
+    color: '#F4893B',
+    fontFamily: 'Gelasio-Bold',
+    fontSize: 30
   },
 
-  tabela:{
-    marginTop: screenHeight*0.04,
-    alignSelf: 'center',
-    width: screenWidth*0.93,
-    height: screenHeight*0.684,
+  bodyContainer:{
+    marginTop: screenHeight*0.018,
+    borderTopWidth: screenHeight*0.003,
+    borderBottomColor: '#C0C0C0',
     backgroundColor: 'white',
-    borderRadius: screenHeight*0.02
-    
-    //borderRadius: screenWidth*0.03,
-    //borderWidth: screenWidth*0.002,
-    //borderColor: "#C0C0C0",
-    
-    
-    
-    
-
-
-
-  },
-
-  horarios:{
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    borderRightWidth: screenWidth*0.002,
-    borderRightColor: "white", 
-    marginRight: screenWidth*0.58,
-
-  },
-
-  horario:{
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    height: screenHeight*0.08, 
-    borderBottomWidth: screenWidth*0.002, 
-    borderBottomColor: 'white'
-    
-
-  },
-
-  textoHorario:{
-    color: 'white',
-
-
-
-  },
-
-
-
-
-  footer:{
-    height: screenHeight*0.1,
-    backgroundColor: 'white'
-  },
-
-  container:{
-    
+    borderRadius: screenHeight*0.015
   }
 
-}
 
-);
+}
+)
+
+
+

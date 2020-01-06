@@ -46,38 +46,73 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const DATA = 
 
     [
-    {
-        horario: "10 - 14",
+      {
+        horario: "10 até 12 horas",
         tema: "A Evolução da Ciência",
-        autor: "Richard",
+        palestrante: "Richard Rasmussen",
+        descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
+        descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
+        foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+        dia: "27 de junho de 2020",
+        sala: "Sala 201 do Bloco A do CT",
+        favorito: "False"
+
     },
 
     
 
     {
-      horario: "10 - 12",
+      horario: "10 até 12 horas",
       tema: "A Evolução da Ciência",
-      autor: "Richard",
-    },
+      palestrante: "Richard Rasmussen",
+      descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
+      descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
+      foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+      dia: "27 de junho de 2020",
+      sala: "Sala 201 do Bloco A do CT",
+      favorito: "False"
+
+  },
 
     
-    {
-      horario: "10 - 12",
-      tema: "A Evolução da Ciência",
-      autor: "Richard",
-    },
+  {
+    horario: "10 até 12 horas",
+    tema: "A Evolução da Ciência",
+    palestrante: "Richard Rasmussen",
+    descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
+    descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
+    foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+    dia: "27 de junho de 2020",
+    sala: "Sala 201 do Bloco A do CT",
+    favorito: "False"
 
-    {
-      horario: "10 - 12",
-      tema: "A Evolução da Ciência",
-      autor: "Richard",
-    },
+  },
 
-    {
-      horario: "10 - 12",
-      tema: "A Evolução da Ciência",
-      autor: "Richard",
-    },
+  {
+    horario: "10 até 12 horas",
+    tema: "A Evolução da Ciência",
+    palestrante: "Richard Rasmussen",
+    descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
+    descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
+    foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+    dia: "27 de junho de 2020",
+    sala: "Sala 201 do Bloco A do CT",
+    favorito: "False"
+
+  },
+
+  {
+    horario: "10 até 12 horas",
+    tema: "A Evolução da Ciência",
+    palestrante: "Richard Rasmussen",
+    descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
+    descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
+    foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+    dia: "27 de junho de 2020",
+    sala: "Sala 201 do Bloco A do CT",
+    favorito: "False"
+
+  },
 
 
 ];
@@ -133,11 +168,11 @@ export default function Dia1({ navigation }){
 
         <View style={styles.tabela}>
 
-          <FlatList
+          <FlatList 
 
             data = {DATA}
 
-            renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} autor = {item.autor} navigation = {navigation} /> }
+            renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} palestrante = {item.palestrante} foto_palestrante = {item.foto_palestrante} navigation = {navigation} /> }
 
             keyExtractor = { (item, index ) => index }
 
@@ -169,7 +204,7 @@ Dia1.navigationOptions = ({ navigation }) => ({
 
       <View style={{width: 30}}>
 
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -186,6 +221,7 @@ Dia1.navigationOptions = ({ navigation }) => ({
     
     
     </View>
+
   )
 })
 
@@ -235,7 +271,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginHorizontal: screenWidth*0.070,
-    marginTop: screenHeight*0.060,
+    marginTop: screenHeight*0.04,
     
   },
 
@@ -255,9 +291,12 @@ const styles = StyleSheet.create({
   },
 
   tabela:{
-    marginTop: screenHeight*0.07,
-    marginHorizontal: screenWidth*0.06,
-    height: screenHeight*0.9,
+    marginTop: screenHeight*0.04,
+    alignSelf: 'center',
+    width: screenWidth*0.93,
+    height: screenHeight*0.684,
+    backgroundColor: 'white',
+    borderRadius: screenHeight*0.02
     
     //borderRadius: screenWidth*0.03,
     //borderWidth: screenWidth*0.002,
