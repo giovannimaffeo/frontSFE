@@ -13,11 +13,13 @@ import {
   ScrollView,
   View,
   Text,
+  Linking,
   StatusBar,
   TouchableOpacity,
   AppRegistry,
   Image,
   FlatList,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -34,21 +36,231 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
+import Hyperlink from 'react-native-hyperlink';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+const DATA = [
+  {
+    logo: 'https://s3.glbimg.com/v1/AUTH_b58693ed41d04a39826739159bf600a0/photos/logo_redes.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Logo_Ambev.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+  {
+    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
+  },
+];
 
 
 
 
 
-export default function Palestra(){
+
+
+export default function TelaCreditos({navigation}){
   return(
+    <ScrollView style={{backgroundColor: '#222222'}}>
+
+      <View style={styles.header} >
+
+        <View style={{width: 30}}>
+
+          <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+
+        </View>
+
+
+        <View style={{marginLeft: screenWidth*0.08}}>
+          
+          <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
+
+        </View>
+
+        <Image style={styles.logofluxo}
+          source = {require('../Assets/FluxoSemFundo.png') } />
+
+
+
+      </View>
+
+      <View style={styles.container}>
+
+        <View>
+
+          <Text style={styles.title}>Nossos Colaboradores</Text>
+
+          <View style={styles.patrocinadoresContainer}>  
+
+            <FlatList
+
+            horizontal = {true}
+        
+            data = {DATA}
+
+            renderItem = { ({item}) =>  <View style={{marginTop: 20}}>< Image source={{ uri: item.logo}} style={{height: 80, width: 150, marginRight: 20}} /></View> }
+
+            keyExtractor = { (item, index ) => index }
+
+            />
+
+          </View>
+
+        </View>
+
+        <View style={styles.faleConosco}>
+
+          <Text style={styles.title}>Fale Conosco</Text>
+
+          <Text style={styles.subtitle}>Acompanhe nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
+
+        </View>
+
+        <View style={styles.iconesContainer}>
+
+          <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.instagram.com/fluxoconsultoria/')} style={styles.iconeContainer}>
+
+              <Image 
+              source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/instagram.png'}} 
+              style = {styles.icone}/>
+
+              <Text style={styles.subtitle}>Instagram</Text>
+
+          </TouchableOpacity>
+
+
+          <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.facebook.com/fluxoconsultoria') } style={styles.iconeContainer}>
+
+            <Image 
+            source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/facebook-logo.png'}} 
+            style = {styles.icone}/>
+
+            <Text style={styles.subtitle}>Facebook</Text>
+
+          </TouchableOpacity>
+
+
+          <TouchableOpacity onPress={ ()=> Linking.openURL('https://fluxoconsultoria.poli.ufrj.br/contato') } style={styles.iconeContainer}>
+
+            <Image 
+            source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/01/speech-bubble.png'}} 
+            style = {styles.icone}/>
+
+            <Text style={styles.subtitle}>Nosso site</Text>
+
+          </TouchableOpacity>
+
+        
+        </View>
+
+
+
+      </View>
+
+  </ScrollView>
+  
     
-    <View>
-
-        <Text>Screen4</Text>
-
-
-
-    </View>
 
   );
 }
+
+const styles = StyleSheet.create({
+
+  header:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: screenHeight*0.1,
+    backgroundColor: '#F4893B',
+    borderBottomWidth: screenHeight*0.01,
+    borderBottomColor: "#C0C0C0",
+    justifyContent: "space-between",
+    padding: 20
+
+    
+},
+
+textoHeader:{
+  fontSize: screenHeight*0.03,
+  fontFamily: "Gelasio-Bold"
+
+  
+},
+
+logofluxo:{
+  borderRadius:5,
+  width: 65,
+  height: 65,
+
+},
+
+  container: {
+    
+    backgroundColor: '#222222',
+    padding: screenWidth*0.02
+  }, 
+
+  title: {
+    color: '#F4893B',
+    fontSize: screenHeight*0.04,
+    fontFamily: 'Gelasio-Bold',
+    alignSelf: 'center'
+  },
+
+  patrocinadoresContainer:{
+    marginTop: screenHeight*0.02,
+    flex:1,
+    maxWidth: Dimensions.get('window').width , // Width / 3 - (marginLeft and marginRight for the components)
+    justifyContent: 'center',
+    alignItems:'center',    
+    margin:5
+  },
+
+  faleConosco:{
+    padding: screenWidth*0.05
+  },
+
+  subtitle: {
+    color: '#F4893B',
+    fontSize: screenHeight*0.02,
+    fontFamily: 'Gelasio-Bold',
+    alignSelf: 'center',
+    textAlign: 'center'
+
+  },
+
+  iconesContainer:{
+    padding: screenHeight*0.02,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+
+  },
+
+  iconeContainer:{
+    alignItems: 'center'
+
+
+
+  },
+
+  icone:{
+    width: screenHeight*0.0864,
+    height: screenHeight*0.0864
+  }
+
+
+}
+)
