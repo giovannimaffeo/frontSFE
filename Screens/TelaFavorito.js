@@ -158,7 +158,7 @@ export default function TelaFavorito({ navigation }){
 
         data = {DATA}
 
-        renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} palestrante = {item.palestrante} foto_palestrante = {item.foto_palestrante} navigation = {navigation} /> }
+        renderItem = { ({item}) =>  < Palestra data = {item} navigation = {navigation} /> }
 
         keyExtractor = { (item, index ) => index }
 
