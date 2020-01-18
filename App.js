@@ -6,7 +6,8 @@
  * @flow
  */
 
-import React from 'react';
+import React, { useState, useEffect } from "react";
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,6 +25,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import ImagePicker from 'react-native-image-picker';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -51,6 +54,9 @@ import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TelaFavorito from './Screens/TelaFavorito';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+//foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
 const DATA = 
 
@@ -58,25 +64,11 @@ const DATA =
 
     {
       nome_usuario: "Neymar Júnior",
-      foto_usuario: "https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg"
+      foto_usuario: "https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg"
 
     }
 
 ];
-
-function escolhe_foto_usuario(foto_usuario) {
-
-  if (foto_usuario=="") {
-    return "https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg"
-  }
-  else {
-    return foto_usuario
-  }
-
-}
-
-
-
 
 
 
@@ -133,6 +125,23 @@ const AppContainerFavorito = createAppContainer(StackFavorito);
 
 
 const CustomDrawer = props => {
+
+  const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
+
+    pickImageHandler = () => {
+    ImagePicker.showImagePicker({title: "Escolha uma Foto", maxWidth: 800, maxHeight: 600}, res => {
+      if (res.didCancel) {
+        console.log("User cancelled!");
+      } else if (res.error) {
+        console.log("Error", res.error);
+      } else {
+        setImageSource( res.uri )
+        DATA[0].foto_usuario = res.uri
+
+
+      }
+    });
+  }
   
   return (
     <View style={{flex: 1}}>
@@ -141,9 +150,13 @@ const CustomDrawer = props => {
 
         <View style={{padding: 15, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
 
-          <Image 
-          style={{height: 90, width: 90, borderRadius: 45}}  
-          source={{ uri: escolhe_foto_usuario(DATA[0].foto_usuario) }} />
+          <TouchableOpacity onPress={pickImageHandler}>
+
+            <Image 
+            style={{height: 90, width: 90, borderRadius: 45}}  
+            source={{ uri: imageSource }} />
+
+          </TouchableOpacity>
         
           <Text style={{color: '#222222', fontSize: 21, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
             
