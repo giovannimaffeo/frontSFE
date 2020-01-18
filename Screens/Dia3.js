@@ -172,7 +172,7 @@ export default function Dia3({ navigation }){
 
             data = {DATA}
 
-            renderItem = { ({item}) =>  < Palestra horario = {item.horario} tema = {item.tema} palestrante = {item.palestrante} foto_palestrante = {item.foto_palestrante} navigation = {navigation} /> }
+            renderItem = { ({item}) =>  < Palestra data = { item } navigation = {navigation} /> }
 
             keyExtractor = { (item, index ) => index }
 
@@ -204,7 +204,7 @@ Dia3.navigationOptions = ({ navigation }) => ({
 
       <View style={{width: 30}}>
 
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -221,6 +221,7 @@ Dia3.navigationOptions = ({ navigation }) => ({
     
     
     </View>
+
   )
 })
 
