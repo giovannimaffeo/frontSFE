@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,6 +18,7 @@ import {
   AppRegistry,
   Image,
   FlatList,
+  Linking
 } from 'react-native';
 
 import {
@@ -40,15 +41,25 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 
 export default function Palestra(){
+
+  const [controler, setBool] = useState(true)
+
+  openHelpLink = () => Linking.openURL("https://www.helplink.com");
+
+  setTimeout(()=> {
+    openHelpLink();
+  }, 1);
+
   return(
-    
+
+  
     <View>
 
-        <Text>Screen2</Text>
-
-
-
+        
     </View>
+ 
+    
+    
 
   );
 }
