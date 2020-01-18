@@ -15,7 +15,8 @@ import {
   View,
   Text,
   StatusBar,
-  Image
+  Image,
+  Linking
 } from 'react-native';
 
 import {
@@ -174,6 +175,23 @@ const CustomDrawer = props => {
       
         <DrawerItems {...props} style={{Colors: "white"}} />
 
+        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
+
+          <View>
+
+            <Icon name="note-outline" size={25} color="#a6a6a6" style={styles.icone}/>
+
+
+          </View>
+
+          <View>
+            
+            <Text style = {styles.texto}>Inscrição Processo Seletivo</Text>
+
+          </View>
+
+        </TouchableOpacity>
+
       </View>
 
 
@@ -181,9 +199,26 @@ const CustomDrawer = props => {
   );
 };
 
+const styles = StyleSheet.create({
 
+  texto: {
+    color: '#F4893B',
+    fontSize: 18.2,
+    fontWeight: 'bold',
+    height: screenHeight*0.035,
+  },
 
+  itemcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: screenHeight*0.028
+  },
 
+ 
+ 
+
+})
 
 
 
@@ -209,16 +244,7 @@ const Drawer = createDrawerNavigator(
 
     },
   },
-  Screen2: {
-    screen: Screen2,
-    navigationOptions: {
-      drawerLabel: "Informações Gerais",
-      drawerIcon: () => (
-        <Icon name="note-outline" size={24} color="white" />
-      )
 
-    },
-  },
   Screen3: {
     screen: Screen3,
     navigationOptions: {
