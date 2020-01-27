@@ -63,11 +63,11 @@ const DATA =
 
     {
       horario: "10 até 12 horas",
-      tema: "A Evolução da Ciência",
-      palestrante: "Richard Rasmussen",
+      tema: "A História do Futebol",
+      palestrante: "Neymar Jr",
       descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
       descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
-      foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+      foto_palestrante: "https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg",
       dia: "27 de junho de 2020",
       sala: "Sala 201 do Bloco A do CT",
       favorito: "False"
