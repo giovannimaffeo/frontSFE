@@ -60,7 +60,7 @@ const DATA =
 
 export default function Informacoes({ navigation }){
 
-    const favorito = DATA[0].favorito
+    const favorito = navigation.state.params.data.favorito
 
     function escolhe_cor_inicial(favorito){
 
@@ -81,14 +81,16 @@ export default function Informacoes({ navigation }){
 
         if (color == "#FFF"){
             setColor('#F4893B')
-            DATA[0].favorito = "True"
+            navigation.state.params.data.favorito = "True"
         }
 
         else{
             setColor("#FFF")
-            DATA[0].favorito = "False"
+            navigation.state.params.data.favorito = "False"
         }
     }
+
+
     
 
 
@@ -102,7 +104,7 @@ export default function Informacoes({ navigation }){
                 <View style={styles.titulo}>
 
 
-                    <Text style={styles.textoTitulo}> {DATA[0].tema} </Text>
+                    <Text style={styles.textoTitulo}> { navigation.state.params.data.tema } </Text>
                     
 
                 </View>
@@ -114,7 +116,7 @@ export default function Informacoes({ navigation }){
 
 
                         <Image  style={styles.fotoPalestrante}
-                                source={{ uri: DATA[0].foto_palestrante}}/>
+                                source={{ uri: navigation.state.params.data.foto_palestrante }}/>
 
 
                     </View>
@@ -124,13 +126,13 @@ export default function Informacoes({ navigation }){
 
                         <Text> 
                             
-                            <Text style={styles.textoPrincipal}>Palestrante:</Text> <Text style={styles.texto}> {DATA[0].palestrante} </Text> 
+                            <Text style={styles.textoPrincipal}>Palestrante:</Text> <Text style={styles.texto}> { navigation.state.params.data.palestrante } </Text> 
 
                         </Text>
 
                         <Text>
 
-                            <Text style={styles.textoPrincipal}>Quem sou?</Text> <Text style={styles.texto}> {DATA[0].descricao_palestrante} </Text>
+                            <Text style={styles.textoPrincipal}>Quem sou?</Text> <Text style={styles.texto}> { navigation.state.params.data.descricao_palestrante } </Text>
 
                         </Text>
 
@@ -153,7 +155,7 @@ export default function Informacoes({ navigation }){
 
                     <View>
 
-                        <Text style={styles.texto}> {DATA[0].descricao_palestra}. </Text>
+                        <Text style={styles.texto}> { navigation.state.params.data.descricao_palestra }. </Text>
 
                     </View>
 
@@ -168,19 +170,19 @@ export default function Informacoes({ navigation }){
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> {DATA[0].dia} </Text>
+                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.dia } </Text>
 
                     </Text>
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> {DATA[0].horario} </Text>
+                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.horario } </Text>
 
                     </Text>
 
                     <Text>
 
-                        <Text style={styles.textoPrincipal}>Sala:</Text> <Text style={styles.texto}> {DATA[0].sala} </Text>
+                        <Text style={styles.textoPrincipal}>Sala:</Text> <Text style={styles.texto}> { navigation.state.params.data.sala } </Text>
 
                     </Text>
 

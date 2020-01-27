@@ -40,15 +40,18 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 
 export default function Palestra( props ){
+  
+  const data = props.data
+
   return(
 
-    <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes')} >
+    <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
         
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: props.foto_palestrante}}/>
+            source={{ uri: props.data.foto_palestrante}}/>
 
         </View>
 
@@ -60,7 +63,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.tema}</Text>
+                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.tema}</Text>
 
                     </Text>
 
@@ -71,7 +74,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.palestrante}</Text>
+                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.palestrante}</Text>
 
                     </Text>
 
@@ -79,7 +82,7 @@ export default function Palestra( props ){
 
                   <View style={{marginLeft: screenWidth*0.3}}>
 
-                    <Text style={styles.horario}>{props.horario}</Text>
+                    <Text style={styles.horario}>{props.data.horario}</Text>
 
                   </View>
                   
