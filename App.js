@@ -44,6 +44,8 @@ import Dia3 from './Screens/Dia3'
 import Dia4 from './Screens/Dia4'
 import Dia5 from './Screens/Dia5' 
 
+import SplashScreen from './Screens/SplashScreen'
+
 
 import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
@@ -285,6 +287,13 @@ export default function App(){
 
   const [ show_Main_App, set_show ] = useState(false);
 
+  const [ isloading, setload ] = useState(true)
+
+  setTimeout(
+    () => { setload(false) },
+    1100
+  )
+
   on_Done_all_slides = () => {
     set_show(true);
   };
@@ -292,33 +301,51 @@ export default function App(){
   on_Skip_slides = () => {
     set_show(true);
   };
-    
-  if (show_Main_App) {
+
+  if (isloading) {
 
     return(
 
-    <RouteNav />
-      
-    );
+      <>
+
+        <StatusBar hidden = {true} />
+
+        <SplashScreen/>
+
+      </>
+
+    )
   }
 
-  else { 
-
-    return ( 
+  else{
     
-    <>
+    if (show_Main_App) {
 
-      <StatusBar hidden={true} />
+      return(
 
-      <AppIntroSlider slides={slides} 
-      onDone={on_Done_all_slides} 
-      showSkipButton={true} 
-      onSkip={on_Skip_slides}/>
+      <RouteNav />
+        
+      );
+    }
 
-    </> 
+    else { 
 
-    ); 
-  } 
+      return ( 
+      
+      <>
+
+        <StatusBar hidden={true} />
+
+        <AppIntroSlider slides={slides} 
+        onDone={on_Done_all_slides} 
+        showSkipButton={true} 
+        onSkip={on_Skip_slides}/>
+
+      </> 
+
+      ); 
+    } 
+  }
 
 }
 
