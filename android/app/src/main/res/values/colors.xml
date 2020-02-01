@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+<!-- Podemos acessar essa cor em todo o App digitando @color/primary -->
+    <color name="primary">#FFFFFF</color>
+</resources>
+
