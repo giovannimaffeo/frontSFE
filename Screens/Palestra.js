@@ -103,9 +103,7 @@ const styles = StyleSheet.create({ //d9d9d9
   container:{
     flexDirection: 'row',
     borderColor: "#C0C0C0",
-    //backgroundColor: "white",
     height: screenHeight*0.137,
-    // /borderRadius: screenHeight*0.010,
     borderBottomWidth: screenHeight*0.003,
     
     

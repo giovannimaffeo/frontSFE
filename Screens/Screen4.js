@@ -43,24 +43,31 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DATA = [
   {
+    key: "k1",
     logo: 'https://s3.glbimg.com/v1/AUTH_b58693ed41d04a39826739159bf600a0/photos/logo_redes.png'
   },
   {
+    key: "k2",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k3",
     logo: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Logo_Ambev.png'
   },
   {
+    key: "k4",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k5",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k6",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k7",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
 ];
@@ -77,9 +84,9 @@ export default function TelaCreditos({navigation}){
 
       <View style={styles.header} >
 
-        <View style={{width: 30}}>
+        <View style={{width: screenWidth*0.075}}>
 
-          <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
+          <Icon name="bars" size={screenWidth*0.0625} color="white" onPress={() => navigation.openDrawer()}/>
 
         </View>
 
@@ -111,9 +118,7 @@ export default function TelaCreditos({navigation}){
         
             data = {DATA}
 
-            renderItem = { ({item}) =>  <View style={{marginTop: 20}}>< Image source={{ uri: item.logo}} style={{height: 80, width: 150, marginRight: 20}} /></View> }
-
-            keyExtractor = { (item, index ) => index }
+            renderItem = { ({item}) =>  <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: item.logo}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
 
             />
 
@@ -187,7 +192,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: screenHeight*0.01,
     borderBottomColor: "#C0C0C0",
     justifyContent: "space-between",
-    padding: 20
+    padding: screenWidth*0.05
 
     
 },
@@ -200,9 +205,9 @@ textoHeader:{
 },
 
 logofluxo:{
-  borderRadius:5,
-  width: 65,
-  height: 65,
+  borderRadius: screenWidth*0.0125,
+  width: screenWidth*0.1625,
+  height: screenWidth*0.1625,
 
 },
 
@@ -225,7 +230,7 @@ logofluxo:{
     maxWidth: Dimensions.get('window').width , // Width / 3 - (marginLeft and marginRight for the components)
     justifyContent: 'center',
     alignItems:'center',    
-    margin:5
+    margin: screenWidth*0.0125
   },
 
   faleConosco:{
