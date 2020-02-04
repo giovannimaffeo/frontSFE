@@ -48,6 +48,7 @@ const DATA =
 
     [
       {
+        key: "k1",
         horario: "10 até 12 horas",
         tema: "A Evolução da Ciência",
         palestrante: "Richard Rasmussen",
@@ -63,6 +64,7 @@ const DATA =
     
 
     {
+      key: "k2",
       horario: "10 até 12 horas",
       tema: "A Evolução da Ciência",
       palestrante: "Richard Rasmussen",
@@ -77,6 +79,7 @@ const DATA =
 
     
   {
+    key: "k3",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -90,6 +93,7 @@ const DATA =
   },
 
   {
+    key: "k4",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -103,6 +107,7 @@ const DATA =
   },
 
   {
+    key: "k5",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -146,7 +151,7 @@ export default function TelaFavorito({ navigation }){
             source={require('../Assets/coracao_laranja_maior')} 
             autoPlay 
             loop 
-            style={{height: 50}}/>
+            style={{height: screenHeight*0.0719}}/>
 
         </View>
 
@@ -159,8 +164,6 @@ export default function TelaFavorito({ navigation }){
         data = {DATA}
 
         renderItem = { ({item}) =>  < Palestra data = {item} navigation = {navigation} /> }
-
-        keyExtractor = { (item, index ) => index }
 
         />
 
@@ -185,9 +188,9 @@ TelaFavorito.navigationOptions = ({ navigation }) => ({
   header: (  
     <View style={styles.header} >
 
-      <View style={{width: 30}}>
+      <View style={{width: screenWidth*0.075}}>
 
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
+        <Icon name="bars" size={screenWidth*0.0625} color="white" onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -230,12 +233,13 @@ textoHeader:{
   
 },
 
-logofluxo:{
-  borderRadius:5,
-  width: 65,
-  height: 65,
 
-},
+  logofluxo:{
+    borderRadius: screenWidth*0.0125,
+    width: screenWidth*0.1625,
+    height: screenWidth*0.1625,
+
+  },
 
 
   container: {
@@ -256,7 +260,7 @@ logofluxo:{
   title:{
     color: '#F4893B',
     fontFamily: 'Gelasio-Bold',
-    fontSize: 30
+    fontSize: screenWidth*0.075
   },
 
   bodyContainer:{

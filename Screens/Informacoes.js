@@ -194,7 +194,7 @@ export default function Informacoes({ navigation }){
 
                     <TouchableOpacity onPress = {() => muda_cor(color) } >
 
-                        <Icon name="heart" size={20} color = {color} />
+                        <Icon name="heart" size={screenWidth*0.05} color = {color} />
 
                     </TouchableOpacity>
 
@@ -231,7 +231,7 @@ Informacoes.navigationOptions = ({ navigation }) => ({
 
         <TouchableOpacity style={{marginLeft: screenWidth*0.03}} onPress={() => navigation.goBack()}>
 
-            <Icon name="chevron-left" size={20} color = "white" />
+            <Icon name="chevron-left" size={screenWidth*0.05} color = "white" />
 
         </TouchableOpacity>
 
@@ -276,15 +276,15 @@ const styles = StyleSheet.create({
     },
 
     fotoPalestrante: {
-        borderRadius:60,
-        width: 120,
-        height: 120,
+        borderRadius: screenWidth*0.15,
+        width: screenWidth*0.3,
+        height: screenWidth*0.3,
 
     },
 
     texto:{
         color: "white",
-        fontSize: 16,
+        fontSize: screenWidth*0.04,
         fontFamily: "Gelasio-Regular",
         textAlign: "justify"
 
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
 
     textoPrincipal:{
         color: '#F4893B',
-        fontSize: 18,
+        fontSize: screenWidth*0.045,
         fontFamily: "Gelasio-Bold"
 
     },

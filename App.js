@@ -150,19 +150,19 @@ const CustomDrawer = props => {
   return (
     <View style={{flex: 1}}>
 
-      <View style={{height: 130, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: '#F4893B'}}>
+      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: '#F4893B'}}>
 
-        <View style={{padding: 15, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
 
           <TouchableOpacity onPress={pickImageHandler}>
 
             <Image 
-            style={{height: 90, width: 90, borderRadius: 45}}  
+            style={{height: screenHeight*0.13, width: screenHeight*0.13, borderRadius: screenWidth*0.1125}}  
             source={{ uri: imageSource }} />
 
           </TouchableOpacity>
         
-          <Text style={{color: '#222222', fontSize: 21, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
+          <Text style={{color: '#222222', fontSize: screenWidth*0.0525, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
             
             {DATA[0].nome_usuario}
             
@@ -182,7 +182,7 @@ const CustomDrawer = props => {
 
           <View>
 
-            <Icon name="note-outline" size={25} color="#a6a6a6" style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
 
 
           </View>
@@ -213,7 +213,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Programação",
       drawerIcon: () => (
-        <Icon name="popcorn" size={24} color="white" />
+        <Icon name="popcorn" size={screenWidth*0.06} color="white" />
       )
 
     },
@@ -223,7 +223,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (
-        <Icon name="heart" size={24} color="white" />
+        <Icon name="heart" size={screenWidth*0.06} color="white" />
       )
 
     },
@@ -234,7 +234,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
-        <Icon name="qrcode" size={24} color="white" />
+        <Icon name="qrcode" size={screenWidth*0.06} color="white" />
 
       )
     },
@@ -245,7 +245,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
-        <Icon name="help-circle-outline" size={24} color="white" />
+        <Icon name="help-circle-outline" size={screenWidth*0.06} color="white" />
 
       )
     },
@@ -260,8 +260,8 @@ const Drawer = createDrawerNavigator(
     contentOptions: {
       labelStyle: {
         color: '#F4893B',
-        fontSize: 18,
-        padding: 10,
+        fontSize: screenWidth*0.045,
+        padding: screenWidth*0.025,
         fontFamily: "Gelasio-Regular",
         textAlign: "justify"
 
@@ -297,7 +297,14 @@ export default function App(){
 
     return(
 
-    <RouteNav />
+      <>
+
+        <StatusBar backgroundColor="#F4893B" />
+        
+        <RouteNav />
+
+      </>
+      
       
     );
   }
