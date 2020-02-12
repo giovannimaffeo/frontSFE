@@ -39,6 +39,8 @@ import Palestra from './Palestra';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import colors from '../styles/colors'
+
 
 
 
@@ -126,7 +128,7 @@ const DATA =
 export default function Dia1({ navigation }){
   return(
 
-    <View style={{flex: 1, backgroundColor: '#222222'}}>
+    <View style={{flex: 1, backgroundColor: colors.primary }}>
         
         <View style={styles.title}>
 
@@ -206,15 +208,15 @@ Dia1.navigationOptions = ({ navigation }) => ({
   header: ( /* Your custom header */
     <View style={styles.header} >
 
-      <View style={{width: screenWidth*0.075}}>
+      <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.openDrawer()}>
 
-        <Icon name="bars" size={screenWidth*0.0625} color="white" onPress={() => navigation.openDrawer()} />
+        <Icon name="bars" size={screenWidth*0.0625} color = {colors.secondary} />
 
-      </View>
+      </TouchableOpacity>
 
 
-      <View style={{marginLeft: screenWidth*0.08}}>
-        
+      <View style={{alignSelf: 'center'}}>
+      
         <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
 
       </View>
@@ -235,18 +237,19 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       height: screenHeight*0.1,
-      backgroundColor: '#F4893B',
+      backgroundColor: colors.tertiary,
       borderBottomWidth: screenHeight*0.01,
-      borderBottomColor: "#C0C0C0",
+      borderBottomColor: colors.quaternary,
       justifyContent: "space-between",
-      padding: screenWidth*0.05
+      paddingRight: screenWidth*0.05
 
       
   },
 
   textoHeader:{
     fontSize: screenHeight*0.03,
-    fontFamily: "Gelasio-Bold"
+    fontFamily: "Gelasio-Bold",
+    color: colors.primary
 
     
   },
@@ -271,14 +274,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: screenWidth*0.05,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     height: screenHeight*0.06,
     width: screenWidth*0.1
 
   },
 
   textoBotao:{
-    color: 'white',
+    color: colors.secondary,
     fontFamily: "Gelasio-Bold"
   },
 
@@ -287,7 +290,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: screenWidth*0.93,
     height: screenHeight*0.684,
-    backgroundColor: 'white',
+    backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.02
     
   },
