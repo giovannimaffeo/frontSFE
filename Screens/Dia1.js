@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
 
   textoHeader:{
     fontSize: screenHeight*0.03,
-    fontFamily: "Gelasio-Bold",
+    fontFamily: 'Gelasio-Bold',
     color: colors.primary
 
     
