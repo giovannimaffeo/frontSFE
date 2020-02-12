@@ -39,6 +39,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
 const DATA = 
 
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
     textoTitulo: {
         fontSize: screenHeight*0.04,
         color: colors.secondary,
-        fontFamily: "Gelasio-Bold"
+        fontFamily: fonts.bold
         
     },
 
@@ -289,9 +290,9 @@ const styles = StyleSheet.create({
     },
 
     texto:{
-        color: "white",
+        color: 'white',
         fontSize: screenWidth*0.04,
-        fontFamily: "Gelasio-Regular",
+        fontFamily: fonts.regular,
         textAlign: "justify"
 
     },
@@ -299,7 +300,7 @@ const styles = StyleSheet.create({
     textoPrincipal:{
         color: colors.tertiary,
         fontSize: screenWidth*0.045,
-        fontFamily: "Gelasio-Bold"
+        fontFamily: fonts.bold
 
     },
 

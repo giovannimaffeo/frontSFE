@@ -59,7 +59,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { hidden } from "ansi-colors";
+
 import colors from "./styles/colors";
+import fonts from './styles/fonts';
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
@@ -163,7 +165,7 @@ const CustomDrawer = props => {
 
           </TouchableOpacity>
         
-          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
+          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: fonts.bold, textAlign: "justify"}}>
             
             {DATA[0].nome_usuario}
             
@@ -263,7 +265,7 @@ const Drawer = createDrawerNavigator(
         color: colors.tertiary,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
-        fontFamily: "Gelasio-Regular",
+        fontFamily: fonts.regular,
         textAlign: "justify"
 
       },

@@ -35,6 +35,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import colors from '../styles/colors'
+import fonts from '../styles/fonts';
+
 
 
 
@@ -66,7 +68,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.tema}</Text>
+                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: fonts.semi_bold}}>{props.data.tema}</Text>
 
                     </Text>
 
@@ -77,7 +79,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.palestrante}</Text>
+                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: fonts.semi_bold}}>{props.data.palestrante}</Text>
 
                     </Text>
 
@@ -137,13 +139,13 @@ const styles = StyleSheet.create({ //d9d9d9
 
   texto:{
     color: colors.tertiary,
-    fontFamily: "Gelasio-Bold",
+    fontFamily: fonts.bold,
     fontSize: screenHeight*0.023
   },
 
   horario:{
     color: colors.tertiary,
-    fontFamily: "Gelasio-Bold",
+    fontFamily: fonts.bold,
     fontSize: screenHeight*0.0215,
     
     
