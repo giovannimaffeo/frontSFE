@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
@@ -36,10 +35,13 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Palestra from './Palestra';
+import Header from './Header'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors'
+import fonts from '../styles/fonts';
+import { tsPropertySignature } from '@babel/types';
 
 
 
@@ -206,27 +208,8 @@ export default function Dia3({ navigation }){
 
 Dia3.navigationOptions = ({ navigation }) => ({
   header: ( /* Your custom header */
-    <View style={styles.header} >
-
-      <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.openDrawer()}>
-
-        <Icon name="bars" size={screenWidth*0.0625} color = {colors.secondary} />
-
-      </TouchableOpacity>
-
-
-      <View style={{alignSelf: 'center'}}>
-      
-        <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-      </View>
-
-      <Image style={styles.logofluxo}
-        source = {require('../Assets/FluxoSemFundo.png') } />
-
     
-    
-    </View>
+    <Header navigation = {navigation} />
 
   )
 })
@@ -248,7 +231,7 @@ const styles = StyleSheet.create({
 
   textoHeader:{
     fontSize: screenHeight*0.03,
-    fontFamily: "Gelasio-Bold",
+    fontFamily: fonts.bold,
     color: colors.primary
 
     
@@ -282,7 +265,7 @@ const styles = StyleSheet.create({
 
   textoBotao:{
     color: colors.secondary,
-    fontFamily: "Gelasio-Bold"
+    fontFamily: fonts.bold
   },
 
   tabela:{
