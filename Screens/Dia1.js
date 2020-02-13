@@ -37,6 +37,7 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 import Palestra from './Palestra';
 import Header from './Header'
 
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors'
