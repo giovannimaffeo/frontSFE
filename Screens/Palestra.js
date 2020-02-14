@@ -68,7 +68,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: fonts.semi_bold}}>{props.data.tema}</Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
 
                     </Text>
 
@@ -79,7 +79,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: fonts.semi_bold}}>{props.data.palestrante}</Text>
+                      <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
 
                     </Text>
 
@@ -137,10 +137,17 @@ const styles = StyleSheet.create({ //d9d9d9
 
   },
 
-  texto:{
+  texto_padrao:{
     color: colors.tertiary,
     fontFamily: fonts.bold,
     fontSize: screenHeight*0.023
+  },
+
+  texto_variavel:{
+    color: colors.primary,
+    fontFamily: fonts.semi_bold,
+    fontSize: screenWidth*0.034
+
   },
 
   horario:{
