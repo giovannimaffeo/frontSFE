@@ -34,6 +34,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
+import colors from '../styles/colors'
+
+
 
 
 
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({ //d9d9d9
 
   container:{
     flexDirection: 'row',
-    borderColor: "#C0C0C0",
+    borderColor: colors.quaternary,
     height: screenHeight*0.137,
     borderBottomWidth: screenHeight*0.003,
     
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({ //d9d9d9
     width: screenWidth*0.25,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: "#222222"
+    borderColor: colors.primary
 
   },
 
@@ -133,13 +136,13 @@ const styles = StyleSheet.create({ //d9d9d9
   },
 
   texto:{
-    color: '#F4893B',
+    color: colors.tertiary,
     fontFamily: "Gelasio-Bold",
     fontSize: screenHeight*0.023
   },
 
   horario:{
-    color: '#F4893B',
+    color: colors.tertiary,
     fontFamily: "Gelasio-Bold",
     fontSize: screenHeight*0.0215,
     

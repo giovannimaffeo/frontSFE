@@ -59,6 +59,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { hidden } from "ansi-colors";
+import colors from "./styles/colors";
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
@@ -150,7 +151,7 @@ const CustomDrawer = props => {
   return (
     <View style={{flex: 1}}>
 
-      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: '#F4893B'}}>
+      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
 
         <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
 
@@ -162,7 +163,7 @@ const CustomDrawer = props => {
 
           </TouchableOpacity>
         
-          <Text style={{color: '#222222', fontSize: screenWidth*0.0525, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
+          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
             
             {DATA[0].nome_usuario}
             
@@ -173,10 +174,10 @@ const CustomDrawer = props => {
       </View>
 
       
-      <View style={{backgroundColor: '#222222', flex: 1}}>
+      <View style={{backgroundColor: colors.primary, flex: 1}}>
       
       
-        <DrawerItems {...props} style={{Colors: "white"}} />
+        <DrawerItems {...props} style={{Colors: colors.secondary}} />
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
 
@@ -213,7 +214,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Programação",
       drawerIcon: () => (
-        <Icon name="popcorn" size={screenWidth*0.06} color="white" />
+        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary} />
       )
 
     },
@@ -223,7 +224,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (
-        <Icon name="heart" size={screenWidth*0.06} color="white" />
+        <Icon name="heart" size={screenWidth*0.06} color={colors.secondary} />
       )
 
     },
@@ -234,7 +235,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
-        <Icon name="qrcode" size={screenWidth*0.06} color="white" />
+        <Icon name="qrcode" size={screenWidth*0.06} color={colors.secondary} />
 
       )
     },
@@ -245,7 +246,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
-        <Icon name="help-circle-outline" size={screenWidth*0.06} color="white" />
+        <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
 
       )
     },
@@ -259,7 +260,7 @@ const Drawer = createDrawerNavigator(
     
     contentOptions: {
       labelStyle: {
-        color: '#F4893B',
+        color: colors.tertiary,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
         fontFamily: "Gelasio-Regular",
@@ -299,7 +300,7 @@ export default function App(){
 
       <>
 
-        <StatusBar backgroundColor="#F4893B" />
+        <StatusBar backgroundColor={colors.tertiary} />
         
         <RouteNav />
 
@@ -340,13 +341,13 @@ const styles = StyleSheet.create({
   }, 
   title: { 
    fontSize: screenHeight*0.03737, 
-   color: '#fff', 
+   color: '#FFFFFF', 
    fontWeight: 'bold', 
    textAlign: 'center', 
    marginTop: screenHeight*0.02875, 
   }, 
   text: { 
-   color: '#fff', 
+   color: '#FFFFFF', 
    fontSize: screenHeight*0.02875, 
   }, 
   image: { 
@@ -355,7 +356,7 @@ const styles = StyleSheet.create({
    resizeMode: 'contain' 
   },
   texto: {
-    color: '#F4893B',
+    color: colors.tertiary,
     fontSize: screenHeight*0.02616,
     fontWeight: 'bold',
     height: screenHeight*0.035,

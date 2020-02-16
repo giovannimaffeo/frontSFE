@@ -40,6 +40,9 @@ import Hyperlink from 'react-native-hyperlink';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import colors from '../styles/colors';
+
+
 
 const DATA = [
   {
@@ -80,13 +83,13 @@ const DATA = [
 
 export default function TelaCreditos({navigation}){
   return(
-    <ScrollView style={{backgroundColor: '#222222'}}>
+    <ScrollView style={{backgroundColor: colors.primary}}>
 
       <View style={styles.header} >
 
         <View style={{width: screenWidth*0.075}}>
 
-          <Icon name="bars" size={screenWidth*0.0625} color="white" onPress={() => navigation.openDrawer()}/>
+          <Icon name="bars" size={screenWidth*0.0625} color={colors.secondary} onPress={() => navigation.openDrawer()}/>
 
         </View>
 
@@ -114,6 +117,7 @@ export default function TelaCreditos({navigation}){
 
             <FlatList
 
+
             horizontal = {true}
         
             data = {DATA}
@@ -130,7 +134,7 @@ export default function TelaCreditos({navigation}){
 
           <Text style={styles.title}>Fale Conosco</Text>
 
-          <Text style={styles.subtitle}>Acompanhe nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
+          <Text style={styles.subtitle}>Clique para acompanhar nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
 
         </View>
 
@@ -142,7 +146,7 @@ export default function TelaCreditos({navigation}){
               source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/instagram.png'}} 
               style = {styles.icone}/>
 
-              <Text style={styles.subtitle}>Instagram</Text>
+              <Text style={styles.texto_icone}>Instagram</Text>
 
           </TouchableOpacity>
 
@@ -153,7 +157,7 @@ export default function TelaCreditos({navigation}){
             source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/facebook-logo.png'}} 
             style = {styles.icone}/>
 
-            <Text style={styles.subtitle}>Facebook</Text>
+            <Text style={styles.texto_icone}>Facebook</Text>
 
           </TouchableOpacity>
 
@@ -164,7 +168,7 @@ export default function TelaCreditos({navigation}){
             source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/01/speech-bubble.png'}} 
             style = {styles.icone}/>
 
-            <Text style={styles.subtitle}>Nosso site</Text>
+            <Text style={styles.texto_icone}>Nosso site</Text>
 
           </TouchableOpacity>
 
@@ -188,9 +192,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: screenHeight*0.1,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: "#C0C0C0",
+    borderBottomColor: colors.quaternary,
     justifyContent: "space-between",
     padding: screenWidth*0.05
 
@@ -213,12 +217,12 @@ logofluxo:{
 
   container: {
     
-    backgroundColor: '#222222',
+    backgroundColor: colors.primary,
     padding: screenWidth*0.02
   }, 
 
   title: {
-    color: '#F4893B',
+    color: colors.tertiary,
     fontSize: screenHeight*0.04,
     fontFamily: 'Gelasio-Bold',
     alignSelf: 'center'
@@ -238,7 +242,7 @@ logofluxo:{
   },
 
   subtitle: {
-    color: '#F4893B',
+    color: colors.secondary,
     fontSize: screenHeight*0.02,
     fontFamily: 'Gelasio-Bold',
     alignSelf: 'center',
@@ -264,6 +268,15 @@ logofluxo:{
   icone:{
     width: screenHeight*0.0864,
     height: screenHeight*0.0864
+  },
+
+  texto_icone:{
+    color: colors.tertiary,
+    fontSize: screenHeight*0.02,
+    fontFamily: 'Gelasio-Bold',
+    alignSelf: 'center',
+    textAlign: 'center'
+
   }
 
 
