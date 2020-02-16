@@ -41,6 +41,8 @@ import Hyperlink from 'react-native-hyperlink';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
 
 
 
@@ -203,7 +205,8 @@ const styles = StyleSheet.create({
 
 textoHeader:{
   fontSize: screenHeight*0.03,
-  fontFamily: "Gelasio-Bold"
+  fontFamily: fonts.bold,
+  color: colors.primary
 
   
 },
@@ -224,7 +227,7 @@ logofluxo:{
   title: {
     color: colors.tertiary,
     fontSize: screenHeight*0.04,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     alignSelf: 'center'
   },
 
@@ -244,7 +247,7 @@ logofluxo:{
   subtitle: {
     color: colors.secondary,
     fontSize: screenHeight*0.02,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     alignSelf: 'center',
     textAlign: 'center'
 
@@ -273,7 +276,7 @@ logofluxo:{
   texto_icone:{
     color: colors.tertiary,
     fontSize: screenHeight*0.02,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     alignSelf: 'center',
     textAlign: 'center'
 

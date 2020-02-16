@@ -37,9 +37,11 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Palestra from './Palestra';
 
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors'
+import fonts from '../styles/fonts';
 
 
 
@@ -248,7 +250,7 @@ const styles = StyleSheet.create({
 
   textoHeader:{
     fontSize: screenHeight*0.03,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     color: colors.primary
 
     
@@ -282,7 +284,7 @@ const styles = StyleSheet.create({
 
   textoBotao:{
     color: colors.secondary,
-    fontFamily: "Gelasio-Bold"
+    fontFamily: fonts.bold
   },
 
   tabela:{

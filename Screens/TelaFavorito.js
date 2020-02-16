@@ -44,6 +44,9 @@ import LottieView from 'lottie-react-native';
 
 import Palestra from '../Screens/Palestra'
 
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
 const DATA = 
 
     [
@@ -190,7 +193,7 @@ TelaFavorito.navigationOptions = ({ navigation }) => ({
 
       <View style={{width: screenWidth*0.075}}>
 
-        <Icon name="bars" size={screenWidth*0.0625} color="white" onPress={() => navigation.openDrawer()} />
+        <Icon name="bars" size={screenWidth*0.0625} color={colors.secondary} onPress={() => navigation.openDrawer()} />
 
       </View>
 
@@ -217,9 +220,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: screenHeight*0.1,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: "#C0C0C0",
+    borderBottomColor: colors.quaternary,
     justifyContent: "space-between",
     padding: 20
 
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
 
 textoHeader:{
   fontSize: screenHeight*0.03,
-  fontFamily: "Gelasio-Bold"
+  fontFamily: fonts.bold
 
   
 },
@@ -243,7 +246,7 @@ textoHeader:{
 
 
   container: {
-    backgroundColor: '#222222',
+    backgroundColor: colors.primary,
     flex: 1,
   
     
@@ -258,16 +261,16 @@ textoHeader:{
 
   },
   title:{
-    color: '#F4893B',
-    fontFamily: 'Gelasio-Bold',
+    color: colors.tertiary,
+    fontFamily: fonts.bold,
     fontSize: screenWidth*0.075
   },
 
   bodyContainer:{
     marginTop: screenHeight*0.018,
     borderTopWidth: screenHeight*0.003,
-    borderBottomColor: '#C0C0C0',
-    backgroundColor: 'white',
+    borderBottomColor: colors.quaternary,
+    backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.015
   }
 
