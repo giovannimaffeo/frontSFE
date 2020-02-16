@@ -44,6 +44,8 @@ import Dia3 from './Screens/Dia3'
 import Dia4 from './Screens/Dia4'
 import Dia5 from './Screens/Dia5' 
 
+import Programacao from './Screens/Programacao'
+
 
 import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
@@ -81,7 +83,7 @@ const DATA =
 
 
 
-const Stack = createStackNavigator (
+/*const Stack = createStackNavigator (
   {
     Dia1: {
       screen: Dia1
@@ -104,6 +106,21 @@ const Stack = createStackNavigator (
   },
   {
     initialRouteName: 'Dia1'
+  },
+
+);*/
+
+const Stack = createStackNavigator (
+  {
+    Programacao: {
+      screen: Programacao
+    },
+    Informacoes: {
+      screen: Informacoes
+    }
+  },
+  {
+    initialRouteName: 'Programacao'
   },
 
 );

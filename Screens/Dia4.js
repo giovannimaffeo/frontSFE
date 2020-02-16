@@ -266,13 +266,15 @@ const styles = StyleSheet.create({
 
   textoBotao:{
     color: colors.secondary,
-    fontFamily: fonts.bold
+    fontFamily: fonts.bold,
+    fontSize: screenWidth*0.039
   },
 
   tabela:{
     marginTop: screenHeight*0.04,
     alignSelf: 'center',
-    width: screenWidth*0.93,
+    //width: screenWidth*0.93,
+    width: screenWidth,
     height: screenHeight*0.684,
     backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.02
