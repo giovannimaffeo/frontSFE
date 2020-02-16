@@ -38,6 +38,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
 const DATA = 
 
     [
@@ -65,11 +68,11 @@ export default function Informacoes({ navigation }){
     function escolhe_cor_inicial(favorito){
 
         if(favorito == "False"){
-            return "#FFF"
+            return colors.secondary
         }
 
         else{
-            return "#F4893B"
+            return colors.tertiary
         }
 
     }
@@ -79,13 +82,13 @@ export default function Informacoes({ navigation }){
     
     function muda_cor(color){
 
-        if (color == "#FFF"){
-            setColor('#F4893B')
+        if (color == colors.secondary){
+            setColor(colors.tertiary)
             navigation.state.params.data.favorito = "True"
         }
 
         else{
-            setColor("#FFF")
+            setColor(colors.secondary)
             navigation.state.params.data.favorito = "False"
         }
     }
@@ -96,7 +99,7 @@ export default function Informacoes({ navigation }){
 
     return(
         
-        <ScrollView style={{backgroundColor: '#222222', flex: 1}}>
+        <ScrollView style={{backgroundColor: colors.primary, flex: 1}}>
 
             <View style={{padding: screenWidth*0.05}}>
 
@@ -192,14 +195,18 @@ export default function Informacoes({ navigation }){
 
                 <View style={{marginTop: screenHeight*0.06, flexDirection: "row", alignItems: "center"}}>
 
-                    <TouchableOpacity onPress = {() => muda_cor(color) } >
+                    <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => muda_cor(color) } >
 
-                        <Icon name="heart" size={20} color = {color} />
+                        <Icon name="heart" size={screenWidth*0.05} color = {color} />
 
                     </TouchableOpacity>
 
-                    <Text style={styles.texto}>   Adicionar aos Favoritos </Text>
+                    <View>
+
+                        <Text style={styles.texto}>Adicionar aos Favoritos </Text>
                         
+                    </View>    
+
                 </View>
 
 
@@ -229,9 +236,9 @@ Informacoes.navigationOptions = ({ navigation }) => ({
 
       <View style={styles.header} >
 
-        <TouchableOpacity style={{marginLeft: screenWidth*0.03}} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
 
-            <Icon name="chevron-left" size={20} color = "white" />
+            <Icon name="chevron-left" size={screenWidth*0.05} color = {colors.secondary} />
 
         </TouchableOpacity>
 
@@ -248,7 +255,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: screenHeight*0.07,
-        backgroundColor: '#F4893B',
+        backgroundColor: colors.tertiary,
         
   
         
@@ -261,8 +268,8 @@ const styles = StyleSheet.create({
 
     textoTitulo: {
         fontSize: screenHeight*0.04,
-        color: 'white',
-        fontFamily: "Gelasio-Bold"
+        color: colors.secondary,
+        fontFamily: fonts.bold
         
     },
 
@@ -276,24 +283,24 @@ const styles = StyleSheet.create({
     },
 
     fotoPalestrante: {
-        borderRadius:60,
-        width: 120,
-        height: 120,
+        borderRadius: screenWidth*0.15,
+        width: screenWidth*0.3,
+        height: screenWidth*0.3,
 
     },
 
     texto:{
-        color: "white",
-        fontSize: 16,
-        fontFamily: "Gelasio-Regular",
+        color: 'white',
+        fontSize: screenWidth*0.04,
+        fontFamily: fonts.regular,
         textAlign: "justify"
 
     },
 
     textoPrincipal:{
-        color: '#F4893B',
-        fontSize: 18,
-        fontFamily: "Gelasio-Bold"
+        color: colors.tertiary,
+        fontSize: screenWidth*0.045,
+        fontFamily: fonts.bold
 
     },
 

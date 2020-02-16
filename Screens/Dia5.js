@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
@@ -36,8 +35,14 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Palestra from './Palestra';
+import Header from './Header'
+
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import colors from '../styles/colors'
+import fonts from '../styles/fonts';
+import { tsPropertySignature } from '@babel/types';
 
 
 
@@ -47,6 +52,7 @@ const DATA =
 
     [
       {
+        key: "k1",
         horario: "10 até 12 horas",
         tema: "A Evolução da Ciência",
         palestrante: "Richard Rasmussen",
@@ -62,12 +68,13 @@ const DATA =
     
 
     {
+      key: "k2",
       horario: "10 até 12 horas",
-      tema: "A Evolução da Ciência",
-      palestrante: "Richard Rasmussen",
+      tema: "A História do Futebol",
+      palestrante: "Neymar Jr",
       descricao_palestra: "Apresenta um panorama da Ciência da Informação em três momentos. Inicialmente, seu surgimento e consolidação na década de 1960, como confluência de vários fatos: a distinção em relação à Arquivologia, à Biblioteconomia e à Museologia; a relação com a Documentação; a ocupação do espaço institucional da Biblioteconomia; as atividades dos primeiros cientistas da informação; as tecnologias da informação; e o uso da Teoria Matemática. Com o objetivo de Analisar a ampliação vivida nas décadas seguintes com o desenvolvimento de subáreas, das caracterizações do campo e da evolução do conceito de informação",
       descricao_palestrante: "Richard Rasmussen foi um cientista, físico, biólogo, astrônomo, astrofísico, cosmólogo, escritor, divulgador científico e ativista norte-americano",
-      foto_palestrante: "https://abrilsuperinteressante.files.wordpress.com/2018/10/carlsagan.png",
+      foto_palestrante: "https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg",
       dia: "27 de junho de 2020",
       sala: "Sala 201 do Bloco A do CT",
       favorito: "False"
@@ -76,6 +83,7 @@ const DATA =
 
     
   {
+    key: "k3",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -89,6 +97,7 @@ const DATA =
   },
 
   {
+    key: "k4",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -102,6 +111,7 @@ const DATA =
   },
 
   {
+    key: "k5",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -121,7 +131,7 @@ const DATA =
 export default function Dia5({ navigation }){
   return(
 
-    <View style={{flex: 1, backgroundColor: '#222222'}}>
+    <View style={{flex: 1, backgroundColor: colors.primary }}>
         
         <View style={styles.title}>
 
@@ -174,9 +184,8 @@ export default function Dia5({ navigation }){
 
             renderItem = { ({item}) =>  < Palestra data = { item } navigation = {navigation} /> }
 
-            keyExtractor = { (item, index ) => index }
 
-            />
+          />
 
 
         </View>
@@ -200,42 +209,11 @@ export default function Dia5({ navigation }){
 
 Dia5.navigationOptions = ({ navigation }) => ({
   header: ( /* Your custom header */
-    <View style={styles.header} >
-
-      <View style={{width: 30}}>
-
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
-
-      </View>
-
-
-      <View style={{marginLeft: screenWidth*0.08}}>
-        
-        <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-      </View>
-
-      <Image style={styles.logofluxo}
-        source = {require('../Assets/FluxoSemFundo.png') } />
-
     
-    
-    </View>
+    <Header navigation = {navigation} />
 
   )
 })
-
-/*const AppDrawerNavigator = createDrawerNavigator({
-  Home: HomeScreen,
-  Settings: SettingsScreen
-})*/
-
-
-/*const MainDrawer = createDrawerNavigator({
-  MainTabs: MainTabs,
-  Settings: SettingsStack,
-});*/
-
 
 const styles = StyleSheet.create({
 
@@ -243,26 +221,27 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       height: screenHeight*0.1,
-      backgroundColor: '#F4893B',
+      backgroundColor: colors.tertiary,
       borderBottomWidth: screenHeight*0.01,
-      borderBottomColor: "#C0C0C0",
+      borderBottomColor: colors.quaternary,
       justifyContent: "space-between",
-      padding: 20
+      paddingRight: screenWidth*0.05
 
       
   },
 
   textoHeader:{
     fontSize: screenHeight*0.03,
-    fontFamily: "Gelasio-Bold"
+    fontFamily: fonts.bold,
+    color: colors.primary
 
     
   },
 
   logofluxo:{
-    borderRadius:5,
-    width: 65,
-    height: 65,
+    borderRadius: screenWidth*0.0125,
+    width: screenWidth*0.1625,
+    height: screenWidth*0.1625,
 
   },
 
@@ -279,76 +258,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: screenWidth*0.05,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     height: screenHeight*0.06,
     width: screenWidth*0.1
 
   },
 
   textoBotao:{
-    color: 'white',
-    fontFamily: "Gelasio-Bold"
+    color: colors.secondary,
+    fontFamily: fonts.bold,
+    fontSize: screenWidth*0.039
   },
 
   tabela:{
     marginTop: screenHeight*0.04,
     alignSelf: 'center',
-    width: screenWidth*0.93,
+    //width: screenWidth*0.93,
+    width: screenWidth,
     height: screenHeight*0.684,
-    backgroundColor: 'white',
+    backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.02
     
-    //borderRadius: screenWidth*0.03,
-    //borderWidth: screenWidth*0.002,
-    //borderColor: "#C0C0C0",
-    
-    
-    
-    
-
-
-
   },
-
-  horarios:{
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    borderRightWidth: screenWidth*0.002,
-    borderRightColor: "white", 
-    marginRight: screenWidth*0.58,
-
-  },
-
-  horario:{
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    height: screenHeight*0.08, 
-    borderBottomWidth: screenWidth*0.002, 
-    borderBottomColor: 'white'
-    
-
-  },
-
-  textoHorario:{
-    color: 'white',
-
-
-
-  },
-
-
-
-
-  footer:{
-    height: screenHeight*0.1,
-    backgroundColor: 'white'
-  },
-
-  container:{
-    
-  }
-
 }
-
 );

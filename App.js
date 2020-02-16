@@ -44,6 +44,8 @@ import Dia3 from './Screens/Dia3'
 import Dia4 from './Screens/Dia4'
 import Dia5 from './Screens/Dia5' 
 
+import Programacao from './Screens/Programacao'
+
 
 import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
@@ -56,6 +58,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TelaFavorito from './Screens/TelaFavorito';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import AppIntroSlider from 'react-native-app-intro-slider';
+import { hidden } from "ansi-colors";
+
+import colors from "./styles/colors";
+import fonts from './styles/fonts';
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
@@ -75,7 +83,7 @@ const DATA =
 
 
 
-const Stack = createStackNavigator (
+/*const Stack = createStackNavigator (
   {
     Dia1: {
       screen: Dia1
@@ -98,6 +106,21 @@ const Stack = createStackNavigator (
   },
   {
     initialRouteName: 'Dia1'
+  },
+
+);*/
+
+const Stack = createStackNavigator (
+  {
+    Programacao: {
+      screen: Programacao
+    },
+    Informacoes: {
+      screen: Informacoes
+    }
+  },
+  {
+    initialRouteName: 'Programacao'
   },
 
 );
@@ -147,19 +170,19 @@ const CustomDrawer = props => {
   return (
     <View style={{flex: 1}}>
 
-      <View style={{height: 130, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: '#F4893B'}}>
+      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
 
-        <View style={{padding: 15, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
 
           <TouchableOpacity onPress={pickImageHandler}>
 
             <Image 
-            style={{height: 90, width: 90, borderRadius: 45}}  
+            style={{height: screenHeight*0.13, width: screenHeight*0.13, borderRadius: screenWidth*0.1125}}  
             source={{ uri: imageSource }} />
 
           </TouchableOpacity>
         
-          <Text style={{color: '#222222', fontSize: 21, fontFamily: "Gelasio-Bold", textAlign: "justify"}}>
+          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: fonts.bold, textAlign: "justify"}}>
             
             {DATA[0].nome_usuario}
             
@@ -170,16 +193,16 @@ const CustomDrawer = props => {
       </View>
 
       
-      <View style={{backgroundColor: '#222222', flex: 1}}>
+      <View style={{backgroundColor: colors.primary, flex: 1}}>
       
       
-        <DrawerItems {...props} style={{Colors: "white"}} />
+        <DrawerItems {...props} style={{Colors: colors.secondary}} />
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
 
           <View>
 
-            <Icon name="note-outline" size={25} color="#a6a6a6" style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
 
 
           </View>
@@ -199,26 +222,7 @@ const CustomDrawer = props => {
   );
 };
 
-const styles = StyleSheet.create({
 
-  texto: {
-    color: '#F4893B',
-    fontSize: 18.2,
-    fontWeight: 'bold',
-    height: screenHeight*0.035,
-  },
-
-  itemcontainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    marginTop: screenHeight*0.028
-  },
-
- 
- 
-
-})
 
 
 
@@ -229,7 +233,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Programação",
       drawerIcon: () => (
-        <Icon name="popcorn" size={24} color="white" />
+        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary} />
       )
 
     },
@@ -239,7 +243,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (
-        <Icon name="heart" size={24} color="white" />
+        <Icon name="heart" size={screenWidth*0.06} color={colors.secondary} />
       )
 
     },
@@ -250,7 +254,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
-        <Icon name="qrcode" size={24} color="white" />
+        <Icon name="qrcode" size={screenWidth*0.06} color={colors.secondary} />
 
       )
     },
@@ -261,7 +265,7 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
-        <Icon name="help-circle-outline" size={24} color="white" />
+        <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
 
       )
     },
@@ -275,10 +279,10 @@ const Drawer = createDrawerNavigator(
     
     contentOptions: {
       labelStyle: {
-        color: '#F4893B',
-        fontSize: 18,
-        padding: 10,
-        fontFamily: "Gelasio-Regular",
+        color: colors.tertiary,
+        fontSize: screenWidth*0.045,
+        padding: screenWidth*0.025,
+        fontFamily: fonts.regular,
         textAlign: "justify"
 
       },
@@ -295,16 +299,152 @@ const RouteNav = createAppContainer(Drawer)
 
 
 
+
+
 export default function App(){
-  return(
 
+  const [ show_Main_App, set_show ] = useState(false);
 
-    <RouteNav />
+  on_Done_all_slides = () => {
+    set_show(true);
+  };
+  
+  on_Skip_slides = () => {
+    set_show(true);
+  };
     
+  if (show_Main_App) {
+
+    return(
+
+      <>
+
+        <StatusBar backgroundColor={colors.tertiary} />
+        
+        <RouteNav />
+
+      </>
+      
+      
+    );
+  }
+
+  else { 
+
+    return ( 
     
+    <>
 
+      <StatusBar hidden={true} />
 
+      <AppIntroSlider slides={slides} 
+      onDone={on_Done_all_slides} 
+      showSkipButton={true} 
+      onSkip={on_Skip_slides}/>
 
-  );
+    </> 
+
+    ); 
+  } 
+
 }
+
+const styles = StyleSheet.create({
+
+  MainContainer: { 
+   flex: 1, 
+   paddingTop: screenHeight*0.02875, 
+   alignItems: 'center', 
+   justifyContent: 'center', 
+   padding: screenHeight*0.02875,
+  }, 
+  title: { 
+   fontSize: screenHeight*0.03737, 
+   color: '#FFFFFF', 
+   fontWeight: 'bold', 
+   textAlign: 'center', 
+   marginTop: screenHeight*0.02875, 
+  }, 
+  text: { 
+   color: '#FFFFFF', 
+   fontSize: screenHeight*0.02875, 
+  }, 
+  image: { 
+   width: screenHeight*0.2875, 
+   height: screenHeight*0.2875, 
+   resizeMode: 'contain' 
+  },
+  texto: {
+    color: colors.tertiary,
+    fontSize: screenHeight*0.02616,
+    fontWeight: 'bold',
+    height: screenHeight*0.035,
+  },
+
+  itemcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: screenHeight*0.028
+  },
+
+});
+
+const slides = [
+  {
+    key: 'k1',
+    title: 'Nesse App ',
+    text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
+    image: require('./Assets/smart-phone.png'),
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    imageStyle: styles.image,
+    backgroundColor: '#F7BB64',
+  },
+  {
+    key: 'k2',
+    title: 'Conferir a Programação ',
+    text: ' Essa é a Tela Inicial do nosso App! Nela, estão organizadas todas as palestras de acordo com os dias da semana... E ainda tem mais! Aperte em qualquer uma delas e abrirá uma nova tela pra você conferir mais detalhes sobre cada uma delas',
+    image: require('./Assets/popcorn.png'),
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    imageStyle: styles.image,
+    backgroundColor: '#F4B1BA',
+  },
+  {
+    key: 'k3',
+    title: 'Favoritos ',
+    text: ' É claro que nesse App você também poderá adicionar palestras aos seus favoritos! Simplesmente clicando no coração quando estiver acessando mais informações de uma das palestras...',
+    image: require('./Assets/heart.png'),
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    imageStyle: styles.image,
+    backgroundColor: '#4093D2',
+  },
+  {
+    key: 'k4',
+    title: 'Confirmar presença ',
+    text: ' Esse App também vai ter QR Code? Claro! Serve para você confirmar sua presença na palestra lendo um código que será exibido durante a palestra! E pra quem é estudante, isso é maravilhoso porque garante nossas horas complementares...',
+    image: require('./Assets/qr-code.png'),
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    imageStyle: styles.image,
+    backgroundColor: '#644EE2',
+  },
+  {
+    key: 'k5',
+    title: 'Considerações ',
+    text: ' Esse App também vai ter um espaço para os nossos parceiros que tornaram tudo isso possível! Além das nossas redes sociais para que vocês possam nos encontrar! Isso é tudo pessoal, curtam muito essa semana e tentem aproveitar tudo!!',
+    image: require('./Assets/document.png'),
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    imageStyle: styles.image,
+    backgroundColor: '#FF1744',
+  },
+
+];
+
+
+
+
     

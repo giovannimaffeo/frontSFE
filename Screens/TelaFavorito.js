@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
@@ -35,6 +34,7 @@ import { createStackNavigator, Assets } from 'react-navigation-stack';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import palestra from './Palestra'
+import Header from './Header'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -44,10 +44,14 @@ import LottieView from 'lottie-react-native';
 
 import Palestra from '../Screens/Palestra'
 
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
 const DATA = 
 
     [
       {
+        key: "k1",
         horario: "10 até 12 horas",
         tema: "A Evolução da Ciência",
         palestrante: "Richard Rasmussen",
@@ -63,6 +67,7 @@ const DATA =
     
 
     {
+      key: "k2",
       horario: "10 até 12 horas",
       tema: "A Evolução da Ciência",
       palestrante: "Richard Rasmussen",
@@ -77,6 +82,7 @@ const DATA =
 
     
   {
+    key: "k3",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -90,6 +96,7 @@ const DATA =
   },
 
   {
+    key: "k4",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -103,6 +110,7 @@ const DATA =
   },
 
   {
+    key: "k5",
     horario: "10 até 12 horas",
     tema: "A Evolução da Ciência",
     palestrante: "Richard Rasmussen",
@@ -146,7 +154,7 @@ export default function TelaFavorito({ navigation }){
             source={require('../Assets/coracao_laranja_maior')} 
             autoPlay 
             loop 
-            style={{height: 50}}/>
+            style={{height: screenHeight*0.0719}}/>
 
         </View>
 
@@ -159,8 +167,6 @@ export default function TelaFavorito({ navigation }){
         data = {DATA}
 
         renderItem = { ({item}) =>  < Palestra data = {item} navigation = {navigation} /> }
-
-        keyExtractor = { (item, index ) => index }
 
         />
 
@@ -183,27 +189,8 @@ export default function TelaFavorito({ navigation }){
 
 TelaFavorito.navigationOptions = ({ navigation }) => ({
   header: (  
-    <View style={styles.header} >
-
-      <View style={{width: 30}}>
-
-        <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()} />
-
-      </View>
-
-
-      <View style={{marginLeft: screenWidth*0.08}}>
-        
-        <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-      </View>
-
-      <Image style={styles.logofluxo}
-        source = {require('../Assets/FluxoSemFundo.png') } />
-
     
-    
-    </View>
+    <Header navigation = {navigation} />
 
   )
 }) 
@@ -214,9 +201,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: screenHeight*0.1,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: "#C0C0C0",
+    borderBottomColor: colors.quaternary,
     justifyContent: "space-between",
     padding: 20
 
@@ -225,21 +212,22 @@ const styles = StyleSheet.create({
 
 textoHeader:{
   fontSize: screenHeight*0.03,
-  fontFamily: "Gelasio-Bold"
+  fontFamily: fonts.bold
 
   
 },
 
-logofluxo:{
-  borderRadius:5,
-  width: 65,
-  height: 65,
 
-},
+  logofluxo:{
+    borderRadius: screenWidth*0.0125,
+    width: screenWidth*0.1625,
+    height: screenWidth*0.1625,
+
+  },
 
 
   container: {
-    backgroundColor: '#222222',
+    backgroundColor: colors.primary,
     flex: 1,
   
     
@@ -254,16 +242,16 @@ logofluxo:{
 
   },
   title:{
-    color: '#F4893B',
-    fontFamily: 'Gelasio-Bold',
-    fontSize: 30
+    color: colors.tertiary,
+    fontFamily: fonts.bold,
+    fontSize: screenWidth*0.075
   },
 
   bodyContainer:{
     marginTop: screenHeight*0.018,
     borderTopWidth: screenHeight*0.003,
-    borderBottomColor: '#C0C0C0',
-    backgroundColor: 'white',
+    borderBottomColor: colors.quaternary,
+    backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.015
   }
 

@@ -23,7 +23,6 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
@@ -40,27 +39,41 @@ import Hyperlink from 'react-native-hyperlink';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
+import Header from './Header'
+
+
+
 
 const DATA = [
   {
+    key: "k1",
     logo: 'https://s3.glbimg.com/v1/AUTH_b58693ed41d04a39826739159bf600a0/photos/logo_redes.png'
   },
   {
+    key: "k2",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k3",
     logo: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Logo_Ambev.png'
   },
   {
+    key: "k4",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k5",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k6",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
   {
+    key: "k7",
     logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
   },
 ];
@@ -73,30 +86,10 @@ const DATA = [
 
 export default function TelaCreditos({navigation}){
   return(
-    <ScrollView style={{backgroundColor: '#222222'}}>
+    <ScrollView style={{backgroundColor: colors.primary}}>
 
-      <View style={styles.header} >
-
-        <View style={{width: 30}}>
-
-          <Icon name="bars" size={25} color="white" onPress={() => navigation.openDrawer()}/>
-
-        </View>
-
-
-        <View style={{marginLeft: screenWidth*0.08}}>
-          
-          <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-        </View>
-
-        <Image style={styles.logofluxo}
-          source = {require('../Assets/FluxoSemFundo.png') } />
-
-
-
-      </View>
-
+      <Header navigation = {navigation} />
+      
       <View style={styles.container}>
 
         <View>
@@ -107,13 +100,12 @@ export default function TelaCreditos({navigation}){
 
             <FlatList
 
+
             horizontal = {true}
         
             data = {DATA}
 
-            renderItem = { ({item}) =>  <View style={{marginTop: 20}}>< Image source={{ uri: item.logo}} style={{height: 80, width: 150, marginRight: 20}} /></View> }
-
-            keyExtractor = { (item, index ) => index }
+            renderItem = { ({item}) =>  <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: item.logo}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
 
             />
 
@@ -125,7 +117,7 @@ export default function TelaCreditos({navigation}){
 
           <Text style={styles.title}>Fale Conosco</Text>
 
-          <Text style={styles.subtitle}>Acompanhe nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
+          <Text style={styles.subtitle}>Clique para acompanhar nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
 
         </View>
 
@@ -137,7 +129,7 @@ export default function TelaCreditos({navigation}){
               source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/instagram.png'}} 
               style = {styles.icone}/>
 
-              <Text style={styles.subtitle}>Instagram</Text>
+              <Text style={styles.texto_icone}>Instagram</Text>
 
           </TouchableOpacity>
 
@@ -148,7 +140,7 @@ export default function TelaCreditos({navigation}){
             source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/facebook-logo.png'}} 
             style = {styles.icone}/>
 
-            <Text style={styles.subtitle}>Facebook</Text>
+            <Text style={styles.texto_icone}>Facebook</Text>
 
           </TouchableOpacity>
 
@@ -159,7 +151,7 @@ export default function TelaCreditos({navigation}){
             source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/01/speech-bubble.png'}} 
             style = {styles.icone}/>
 
-            <Text style={styles.subtitle}>Nosso site</Text>
+            <Text style={styles.texto_icone}>Nosso site</Text>
 
           </TouchableOpacity>
 
@@ -183,39 +175,40 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: screenHeight*0.1,
-    backgroundColor: '#F4893B',
+    backgroundColor: colors.tertiary,
     borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: "#C0C0C0",
+    borderBottomColor: colors.quaternary,
     justifyContent: "space-between",
-    padding: 20
+    padding: screenWidth*0.05
 
     
 },
 
 textoHeader:{
   fontSize: screenHeight*0.03,
-  fontFamily: "Gelasio-Bold"
+  fontFamily: fonts.bold,
+  color: colors.primary
 
   
 },
 
 logofluxo:{
-  borderRadius:5,
-  width: 65,
-  height: 65,
+  borderRadius: screenWidth*0.0125,
+  width: screenWidth*0.1625,
+  height: screenWidth*0.1625,
 
 },
 
   container: {
     
-    backgroundColor: '#222222',
+    backgroundColor: colors.primary,
     padding: screenWidth*0.02
   }, 
 
   title: {
-    color: '#F4893B',
+    color: colors.tertiary,
     fontSize: screenHeight*0.04,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     alignSelf: 'center'
   },
 
@@ -225,7 +218,7 @@ logofluxo:{
     maxWidth: Dimensions.get('window').width , // Width / 3 - (marginLeft and marginRight for the components)
     justifyContent: 'center',
     alignItems:'center',    
-    margin:5
+    margin: screenWidth*0.0125
   },
 
   faleConosco:{
@@ -233,9 +226,9 @@ logofluxo:{
   },
 
   subtitle: {
-    color: '#F4893B',
+    color: colors.secondary,
     fontSize: screenHeight*0.02,
-    fontFamily: 'Gelasio-Bold',
+    fontFamily: fonts.bold,
     alignSelf: 'center',
     textAlign: 'center'
 
@@ -259,6 +252,15 @@ logofluxo:{
   icone:{
     width: screenHeight*0.0864,
     height: screenHeight*0.0864
+  },
+
+  texto_icone:{
+    color: colors.tertiary,
+    fontSize: screenHeight*0.02,
+    fontFamily: fonts.bold,
+    alignSelf: 'center',
+    textAlign: 'center'
+
   }
 
 

@@ -34,6 +34,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
+import colors from '../styles/colors'
+import fonts from '../styles/fonts';
+
+
+
 
 
 
@@ -63,7 +68,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Tema:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.tema}</Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
 
                     </Text>
 
@@ -74,7 +79,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto}>Palestrante:</Text> <Text style={{fontFamily: "Gelasio-SemiBold"}}>{props.data.palestrante}</Text>
+                      <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
 
                     </Text>
 
@@ -102,10 +107,8 @@ const styles = StyleSheet.create({ //d9d9d9
 
   container:{
     flexDirection: 'row',
-    borderColor: "#C0C0C0",
-    //backgroundColor: "white",
+    borderColor: colors.quaternary,
     height: screenHeight*0.137,
-    // /borderRadius: screenHeight*0.010,
     borderBottomWidth: screenHeight*0.003,
     
     
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({ //d9d9d9
     width: screenWidth*0.25,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: "#222222"
+    borderColor: colors.primary
 
   },
 
@@ -134,15 +137,22 @@ const styles = StyleSheet.create({ //d9d9d9
 
   },
 
-  texto:{
-    color: '#F4893B',
-    fontFamily: "Gelasio-Bold",
+  texto_padrao:{
+    color: colors.tertiary,
+    fontFamily: fonts.bold,
     fontSize: screenHeight*0.023
   },
 
+  texto_variavel:{
+    color: colors.primary,
+    fontFamily: fonts.semi_bold,
+    fontSize: screenWidth*0.034
+
+  },
+
   horario:{
-    color: '#F4893B',
-    fontFamily: "Gelasio-Bold",
+    color: colors.tertiary,
+    fontFamily: fonts.bold,
     fontSize: screenHeight*0.0215,
     
     
