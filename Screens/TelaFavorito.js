@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
@@ -35,6 +34,7 @@ import { createStackNavigator, Assets } from 'react-navigation-stack';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import palestra from './Palestra'
+import Header from './Header'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -189,27 +189,8 @@ export default function TelaFavorito({ navigation }){
 
 TelaFavorito.navigationOptions = ({ navigation }) => ({
   header: (  
-    <View style={styles.header} >
-
-      <View style={{width: screenWidth*0.075}}>
-
-        <Icon name="bars" size={screenWidth*0.0625} color={colors.secondary} onPress={() => navigation.openDrawer()} />
-
-      </View>
-
-
-      <View style={{marginLeft: screenWidth*0.08}}>
-        
-        <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-      </View>
-
-      <Image style={styles.logofluxo}
-        source = {require('../Assets/FluxoSemFundo.png') } />
-
     
-    
-    </View>
+    <Header navigation = {navigation} />
 
   )
 }) 

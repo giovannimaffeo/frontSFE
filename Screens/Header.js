@@ -39,36 +39,36 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../styles/colors'
 import fonts from '../styles/fonts';
 
-export default function Header( {navigation} ){
+export default function Header( props ){
     return(
 
-        <View style={styles.container} >
+        <View style={styles.header}>
 
-            <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => props.navigation.openDrawer()}>
 
-                <Icon name="bars" size={screenWidth*0.0625} color = {colors.secondary} />
+            <Icon name="bars" size={screenWidth*0.0625} color = {colors.secondary} />
 
-            </TouchableOpacity>
+        </TouchableOpacity>
 
 
-            <View style={{alignSelf: 'center'}}>
-            
-                <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
-
-            </View>
-
-            <Image style={styles.logofluxo}
-                source = {require('../Assets/FluxoSemFundo.png') } />
+        <View style={{alignSelf: 'center'}}>
+        
+            <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
 
         </View>
 
+        <Image style={styles.logofluxo}
+            source = {require('../Assets/FluxoSemFundo.png') } />
 
-    );
+        
+    
+    </View>
+    )
 }
 
 const styles = StyleSheet.create({
 
-    container:{
+    header:{
         flexDirection: 'row',
         alignItems: 'center',
         height: screenHeight*0.1,
