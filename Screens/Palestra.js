@@ -48,9 +48,15 @@ export default function Palestra( props ){
   
   const data = props.data
 
-  return(
+  const index = props.index
 
-    <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+  const lastindex = props.lastindex
+
+  if (index == 0){
+
+    return(
+
+      <TouchableOpacity style={styles.container_index_0} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
         
         <View style={styles.containerImagem}>
@@ -79,7 +85,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+                    <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
 
                     </Text>
 
@@ -99,20 +105,153 @@ export default function Palestra( props ){
         </View>
 
     </TouchableOpacity >
-
-  );
+  )
 }
 
+  
+  if(index == lastindex){
+
+    return(
+
+      <TouchableOpacity style={styles.container_index_menos1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+
+          
+          <View style={styles.containerImagem}>
+
+              <Image  style={styles.fotoPalestrante}
+              source={{ uri: props.data.foto_palestrante}}/>
+
+          </View>
+
+          <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+
+                  <View>
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+
+                      </Text>
+
+                    </View>
+
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+
+                      </Text>
+
+                    </View>
+
+                    <View style={{marginLeft: screenWidth*0.3}}>
+
+                      <Text style={styles.horario}>{props.data.horario}</Text>
+
+                    </View>
+                    
+
+                  
+                  </View>
+
+
+          </View>
+
+      </TouchableOpacity >
+
+    );
+  }
+
+  else{
+
+    return(
+
+      <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+
+          
+          <View style={styles.containerImagem}>
+
+              <Image  style={styles.fotoPalestrante}
+              source={{ uri: props.data.foto_palestrante}}/>
+
+          </View>
+
+          <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+
+                  <View>
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+
+                      </Text>
+
+                    </View>
+
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+
+                      </Text>
+
+                    </View>
+
+                    <View style={{marginLeft: screenWidth*0.3}}>
+
+                      <Text style={styles.horario}>{props.data.horario}</Text>
+
+                    </View>
+                    
+
+                  
+                  </View>
+
+
+          </View>
+
+      </TouchableOpacity >
+
+    );
+  }
+}
 const styles = StyleSheet.create({ //d9d9d9
+
+  container_index_0:{
+    flexDirection: 'row',
+    borderColor: colors.quaternary,
+    height: screenHeight*0.137,
+    borderBottomWidth: screenHeight*0.003,
+    borderTopStartRadius: screenWidth*0.05,
+    borderTopEndRadius: screenWidth*0.05,
+    backgroundColor: colors.secondary
+
+  },
+
+  container_index_menos1:{
+    flexDirection: 'row',
+    borderColor: colors.quaternary,
+    height: screenHeight*0.137,
+    borderBottomStartRadius: screenWidth*0.05,
+    borderBottomEndRadius: screenWidth*0.05,
+    backgroundColor: colors.secondary
+  },
 
   container:{
     flexDirection: 'row',
     borderColor: colors.quaternary,
     height: screenHeight*0.137,
     borderBottomWidth: screenHeight*0.003,
+    backgroundColor: colors.secondary
     
-    
-
   },
 
   containerImagem:{

@@ -499,7 +499,7 @@ export default function Programacao({ navigation }){
 
                 data = {data_parcial}
 
-                renderItem = { ({item}) =>  < Palestra data = { item } navigation = {navigation} /> }
+                renderItem = { ({item}) =>  < Palestra index = {data_parcial.indexOf(item)} lastindex = {data_parcial.length - 1} data = { item } navigation = {navigation} /> }
 
 
             />
@@ -592,8 +592,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: screenWidth,//*0.93,
     height: screenHeight*0.684,
-    backgroundColor: colors.secondary,
+    //backgroundColor: colors.secondary,
     //borderRadius: screenHeight*0.02
+
     
   },
 }
