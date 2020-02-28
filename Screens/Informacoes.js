@@ -173,13 +173,13 @@ export default function Informacoes({ navigation }){
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.dia } </Text>
+                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.data } </Text>
 
                     </Text>
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.horario } </Text>
+                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.horario.slice(0,5) } </Text>
 
                     </Text>
 

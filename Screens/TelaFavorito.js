@@ -123,6 +123,8 @@ const DATA =
 
   },
 
+  
+
 
 ];
 
@@ -166,7 +168,7 @@ export default function TelaFavorito({ navigation }){
 
         data = {DATA}
 
-        renderItem = { ({item}) =>  < Palestra data = {item} navigation = {navigation} /> }
+        renderItem = { ({item}) =>  < Palestra data = {item} length={DATA.length} index = {DATA.indexOf(item)} lastindex = {DATA.length - 1} navigation = {navigation}  /> }
 
         />
 

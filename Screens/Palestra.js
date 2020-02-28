@@ -52,6 +52,65 @@ export default function Palestra( props ){
 
   const lastindex = props.lastindex
 
+  const length = props.length
+
+  if(length == 1){
+
+    return(
+
+      <TouchableOpacity style={styles.container_length_igual_1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+
+          
+          <View style={styles.containerImagem}>
+
+              <Image  style={styles.fotoPalestrante}
+              source={{ uri: props.data.foto_palestrante}}/>
+
+          </View>
+
+          <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+
+                  <View>
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+
+                      </Text>
+
+                    </View>
+
+
+                    <View>
+
+                      <Text>
+
+                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+
+                      </Text>
+
+                    </View>
+
+                    <View style={{marginLeft: screenWidth*0.3}}>
+
+                      <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
+
+                    </View>
+                    
+
+                  
+                  </View>
+
+
+          </View>
+
+      </TouchableOpacity >
+
+    );
+  }
+
   if (index == 0){
 
     return(
@@ -93,7 +152,7 @@ export default function Palestra( props ){
 
                   <View style={{marginLeft: screenWidth*0.3}}>
 
-                    <Text style={styles.horario}>{props.data.horario}</Text>
+                    <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
 
                   </View>
                   
@@ -109,119 +168,119 @@ export default function Palestra( props ){
 }
 
   
-  if(index == lastindex){
+if(index == lastindex){
 
-    return(
+  return(
 
-      <TouchableOpacity style={styles.container_index_menos1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+    <TouchableOpacity style={styles.container_index_menos1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
-          
-          <View style={styles.containerImagem}>
+        
+        <View style={styles.containerImagem}>
 
-              <Image  style={styles.fotoPalestrante}
-              source={{ uri: props.data.foto_palestrante}}/>
+            <Image  style={styles.fotoPalestrante}
+            source={{ uri: props.data.foto_palestrante}}/>
 
-          </View>
+        </View>
 
-          <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+        <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
 
-                  <View>
-
-                    <View>
-
-                      <Text>
-
-                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
-
-                      </Text>
-
-                    </View>
-
-
-                    <View>
-
-                      <Text>
-
-                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
-
-                      </Text>
-
-                    </View>
-
-                    <View style={{marginLeft: screenWidth*0.3}}>
-
-                      <Text style={styles.horario}>{props.data.horario}</Text>
-
-                    </View>
-                    
-
-                  
-                  </View>
-
-
-          </View>
-
-      </TouchableOpacity >
-
-    );
-  }
-
-  else{
-
-    return(
-
-      <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
-
-          
-          <View style={styles.containerImagem}>
-
-              <Image  style={styles.fotoPalestrante}
-              source={{ uri: props.data.foto_palestrante}}/>
-
-          </View>
-
-          <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+                <View>
 
                   <View>
 
-                    <View>
+                    <Text>
 
-                      <Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
 
-                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+                    </Text>
 
-                      </Text>
-
-                    </View>
-
-
-                    <View>
-
-                      <Text>
-
-                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
-
-                      </Text>
-
-                    </View>
-
-                    <View style={{marginLeft: screenWidth*0.3}}>
-
-                      <Text style={styles.horario}>{props.data.horario}</Text>
-
-                    </View>
-                    
-
-                  
                   </View>
 
 
-          </View>
+                  <View>
 
-      </TouchableOpacity >
+                    <Text>
 
-    );
-  }
+                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+
+                    </Text>
+
+                  </View>
+
+                  <View style={{marginLeft: screenWidth*0.3}}>
+
+                    <Text style={styles.horario}> horário: {props.data.horario.slice(0,5)}</Text>
+
+                  </View>
+                  
+
+                
+                </View>
+
+
+        </View>
+
+    </TouchableOpacity >
+
+  );
+}
+
+else{
+
+  return(
+
+    <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+
+        
+        <View style={styles.containerImagem}>
+
+            <Image  style={styles.fotoPalestrante}
+            source={{ uri: props.data.foto_palestrante}}/>
+
+        </View>
+
+        <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
+
+                <View>
+
+                  <View>
+
+                    <Text>
+
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+
+                    </Text>
+
+                  </View>
+
+
+                  <View>
+
+                    <Text>
+
+                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+
+                    </Text>
+
+                  </View>
+
+                  <View style={{marginLeft: screenWidth*0.3}}>
+
+                    <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
+
+                  </View>
+                  
+
+                
+                </View>
+
+
+        </View>
+
+    </TouchableOpacity >
+
+  );
+}
 }
 const styles = StyleSheet.create({ //d9d9d9
 
@@ -242,6 +301,14 @@ const styles = StyleSheet.create({ //d9d9d9
     height: screenHeight*0.137,
     borderBottomStartRadius: screenWidth*0.05,
     borderBottomEndRadius: screenWidth*0.05,
+    backgroundColor: colors.secondary
+  },
+
+  container_length_igual_1:{
+    flexDirection: 'row',
+    borderColor: colors.quaternary,
+    height: screenHeight*0.137,
+    borderRadius: screenWidth*0.05,
     backgroundColor: colors.secondary
   },
 
