@@ -28,14 +28,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { createAppContainer, } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { useState, useEffect } from 'react';
 
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
-import colors from '../styles/colors'
-import fonts from '../styles/fonts';
+
 
 
 
@@ -45,13 +43,23 @@ import fonts from '../styles/fonts';
 
 
 export default function Error( props ){
-  
+
+    const [errorMessage, seterror] = useState(props.errorMessage);
+
+
+    useEffect( () => {
+
+        setTimeout(() => {
+            seterror('Sem conexão a internet');
+            }, 3000);
+        
+      }, [])
 
     return(
 
         <View style={styles.conatiner}>
 
-            <Text style={styles.errorMessage}>{props.errorMessage}</Text>
+         <Text style={styles.errorMessage}>{errorMessage}</Text>
 
         </View>          
 
@@ -62,10 +70,10 @@ const styles = StyleSheet.create({
 
     conatiner:{
         backgroundColor: 'red',
-        flex: 1,
+        height: screenHeight*0.05,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: screenWidth*0.004
+        borderRadius: screenWidth*0.006
     },
 
     errorMessage:{

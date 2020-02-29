@@ -47,7 +47,13 @@ import Palestra from '../Screens/Palestra'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-const DATA = 
+//novo
+import api from '../services/api'
+import { useState, useEffect } from 'react';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Error from './Error'
+
+/*const DATA = 
 
     [
       {
@@ -126,7 +132,7 @@ const DATA =
   
 
 
-];
+];*/
 
 
 
@@ -138,9 +144,53 @@ const DATA =
 
 
 export default function TelaFavorito({ navigation }){
+
+  //puxando do back comecando aqui
+
+  const [lista_favoritos, set_lista_favoritos] = useState(null);
+
+  const [errorMessage, seterror] = useState(null);
+
+  const [loading, setloading] = useState(true)
+
+  async function DefineListaFavoritos() {
+
+    try {
+
+      const response = await api.get('/verfavoritos/');
+
+      const favoritos = response.data
+
+      set_lista_favoritos(favoritos)
+
+      setloading(false)
+    
+    } catch(err) {
+
+      seterror( 'Não foi possível carregar os favoritos' );
+
+      setloading(false)
+
+    }
+
+  };
+
+  useEffect( () => {
+
+    DefineListaFavoritos()
+    
+  }, [])
+
+
+
+
   return(
     
     <View style={styles.container}>
+
+      <Spinner visible={loading}/>
+
+      { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
       <View style={styles.titleContainer}>
 
@@ -166,9 +216,11 @@ export default function TelaFavorito({ navigation }){
 
         <FlatList 
 
-        data = {DATA}
+        data = {lista_favoritos}
 
-        renderItem = { ({item}) =>  < Palestra data = {item} length={DATA.length} index = {DATA.indexOf(item)} lastindex = {DATA.length - 1} navigation = {navigation}  /> }
+        renderItem = { ({item}) =>  < Palestra data = {item} length={lista_favoritos.length} index = {lista_favoritos.indexOf(item)} lastindex = {lista_favoritos.length - 1} navigation = {navigation}  /> }
+
+        keyExtractor={ (item) => item.id.toString() }
 
         />
 
@@ -239,7 +291,7 @@ textoHeader:{
     height: screenHeight*0.1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'center'
+    alignItems: 'center',
 
 
   },
@@ -254,7 +306,7 @@ textoHeader:{
     borderTopWidth: screenHeight*0.003,
     borderBottomColor: colors.quaternary,
     backgroundColor: colors.secondary,
-    borderRadius: screenHeight*0.015
+    borderRadius: screenHeight*0.015,
   }
 
 
