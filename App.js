@@ -16,7 +16,9 @@ import {
   Text,
   StatusBar,
   Image,
-  Linking
+  Linking,
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -57,15 +59,18 @@ import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TelaFavorito from './Screens/TelaFavorito';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { hidden } from "ansi-colors";
 
 import colors from "./styles/colors";
 import fonts from './styles/fonts';
+import { set } from "react-native-reanimated";
+import { RawButton } from "react-native-gesture-handler";
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
+
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DATA = 
 
@@ -150,6 +155,12 @@ const AppContainerFavorito = createAppContainer(StackFavorito);
 
 const CustomDrawer = props => {
 
+  const [ contador, set_contador ] = useState(20)
+
+  const [ esta_mudando, set_esta_mudando ] = useState(false)
+
+  const [ username, set_username ] = useState(null)
+
   const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
 
     pickImageHandler = () => {
@@ -159,15 +170,108 @@ const CustomDrawer = props => {
       } else if (res.error) {
         console.log("Error", res.error);
       } else {
+        
         setImageSource( res.uri )
         DATA[0].foto_usuario = res.uri
+        
+        armazena_foto_perfil( res.uri )
 
 
       }
     });
   }
+
+  const texto_inicial = <Text style={styles.texto_inicial}>Clique para colocar seu nome!</Text>
+  const texto_username = <Text style={styles.texto_username}>{username}</Text>
+
+  const texto_mudando =
+
+    <View>
+
+      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly'}}>
+
+        <TextInput 
+        placeholder="Coloque seu nome aqui"
+        onChangeText={(text) => { text != null ? set_contador(20 - text.length) : set_contador(20) ; set_username(text); } }
+        value={username}
+        maxLength = {20}
+        autoCorrect = {false}
+        textContentType = "name"
+        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold'}} 
+        />
+
+        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{contador}</Text>
+
+      </View>
+
+      <View style={{alignItems: 'flex-end'}}>  
+
+        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_contador(contador)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
+
+          <Text style={{fontSize: screenWidth*0.033}}>Confirmar</Text>
+
+        </TouchableOpacity>
+
+      </View>
+
+    </View>
+
+  const texto_nao_mudando = 
+
+    <TouchableOpacity style={styles.botao_username} onPress={() => set_esta_mudando(true)}>
+
+      { username == null || username == '' ? texto_inicial : texto_username }
+
+    </TouchableOpacity>
+
   
+
+  async function armazena_username(username){
+
+    await AsyncStorage.setItem('@AppSFE:username', username)
+
+  }
+
+  async function armazena_foto_perfil(foto_perfil){
+
+    await AsyncStorage.setItem('@AppSFE:foto_perfil', foto_perfil)
+
+  }
+
+  async function armazena_contador(contador){
+
+    await AsyncStorage.setItem('@AppSFE:contador', String(contador))
+
+    
+
+  }
+
+
+  async function reset_dados(){
+
+    var username_armazenado = await AsyncStorage.getItem('@AppSFE:username')
+
+    var foto_perfil_armazenada = await AsyncStorage.getItem('@AppSFE:foto_perfil')
+
+    var contador_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+
+
+    set_username(username_armazenado)
+    setImageSource(foto_perfil_armazenada)
+    set_contador(contador_armazenado)
+
+  }
+
+   
+  useEffect( () => {
+ 
+    reset_dados()
+    
+  }, [])
+
+
   return (
+
     <View style={{flex: 1}}>
 
       <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
@@ -181,12 +285,8 @@ const CustomDrawer = props => {
             source={{ uri: imageSource }} />
 
           </TouchableOpacity>
-        
-          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: fonts.bold, textAlign: "justify"}}>
-            
-            {DATA[0].nome_usuario}
-            
-          </Text>
+
+          { esta_mudando ? texto_mudando : texto_nao_mudando }
 
         </View>
 
@@ -388,7 +488,37 @@ const styles = StyleSheet.create({
     marginTop: screenHeight*0.028
   },
 
-});
+  texto_inicial: {
+    color: colors.primary, 
+    fontSize: screenWidth*0.031, 
+    fontFamily: fonts.bold, 
+    textAlign: "justify"
+
+  },
+
+  texto_username: {
+    color: colors.primary, 
+    fontSize: screenWidth*0.045, 
+    fontFamily: fonts.bold, 
+    textAlign: "justify",
+    textAlign: 'justify'
+
+  },
+
+  botao_username: {
+    height:screenHeight*0.08,
+    width: screenWidth*0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  placeholder:{
+    fontSize: screenWidth*0.03,
+    fontFamily: fonts.primary
+  }
+
+
+})
 
 const slides = [
   {
