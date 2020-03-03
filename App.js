@@ -31,7 +31,7 @@ import {
 
 import ImagePicker from 'react-native-image-picker';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
@@ -71,6 +71,8 @@ import { RawButton } from "react-native-gesture-handler";
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
 import AsyncStorage from '@react-native-community/async-storage';
+
+import Login from './Screens/Login'
 
 const DATA = 
 
@@ -398,56 +400,67 @@ const Drawer = createDrawerNavigator(
 const RouteNav = createAppContainer(Drawer)
 
 
+  async function token_armazenado(){
 
+  logout()
 
-
-export default function App(){
-
-  const [ show_Main_App, set_show ] = useState(false);
-
-  on_Done_all_slides = () => {
-    set_show(true);
-  };
+  const token =  await AsyncStorage.getItem('@storage_Key');
   
-  on_Skip_slides = () => {
-    set_show(true);
-  };
-    
-  if (show_Main_App) {
-
-    return(
-
-      <>
-
-        <StatusBar backgroundColor={colors.tertiary} />
-        
-        <RouteNav />
-
-      </>
-      
-      
-    );
+  console.log("token", token)
+  if (token !== null){
+    return true;
   }
+  else{
+    return false; 
+   }
+  
+}
 
-  else { 
 
-    return ( 
-    
-    <>
 
-      <StatusBar hidden={true} />
+const SwitchNav = ({logado, navigation}) =>{
+  return createSwitchNavigator(
+  {
+    RouteNav:{
+      screen: RouteNav
+    },
+    Login: {
+      screen: Login
+    }
+  },
+  {
+    initialRouteName: logado ? 'RouteNav' : 'Login'
+  }
+)
+}
 
-      <AppIntroSlider slides={slides} 
-      onDone={on_Done_all_slides} 
-      showSkipButton={true} 
-      onSkip={on_Skip_slides}/>
+//const AppSwitchNav = createAppContainer(SwitchNav);
 
-    </> 
+async function logout(){
 
-    ); 
-  } 
+  await AsyncStorage.removeItem('@storage_Key')
+  console.log('executou')
+}
+
+
+
+
+export default function App(navigation){
+
+  const [SignedIn, setSignedIn] = useState(true)
+
+  
+  const Tela = SwitchNav({SignedIn, navigation});
+
+  console.log("funcao do token", token_armazenado())
+  return(
+    <Tela
+     />
+  );
+
 
 }
+  
 
 const styles = StyleSheet.create({
 

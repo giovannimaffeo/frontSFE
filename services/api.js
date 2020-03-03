@@ -5,14 +5,14 @@ const api = create({
     baseURL: 'http://appsfe.herokuapp.com'
 });
 
-api.addAsyncRequestTransform(request => async() => {
+/*api.addAsyncRequestTransform(request => async() => {
 
     const token = await AsyncStorage.getItem('@storage_Key');
 
     if (token)
         request.headers['Authorization'] = `Token ${token}`;
 
-});
+});*/
 
 api.addResponseTransform(response => {
     if (!response.ok) throw response;
