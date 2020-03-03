@@ -95,7 +95,7 @@ export default function Palestra( props ){
 
                     <View style={{marginLeft: screenWidth*0.3}}>
 
-                      <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
+                      <Text style={styles.horario}>{props.data.inicio.slice(0,5)} até {props.data.termino.slice(0,5)}</Text>
 
                     </View>
                     
@@ -152,7 +152,7 @@ export default function Palestra( props ){
 
                   <View style={{marginLeft: screenWidth*0.3}}>
 
-                    <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
+                    <Text style={styles.horario}>{props.data.inicio.slice(0,5)} até {props.data.termino.slice(0,5)}</Text>
 
                   </View>
                   
@@ -209,7 +209,7 @@ if(index == lastindex){
 
                   <View style={{marginLeft: screenWidth*0.3}}>
 
-                    <Text style={styles.horario}> horário: {props.data.horario.slice(0,5)}</Text>
+                    <Text style={styles.horario}>{props.data.inicio.slice(0,5)} até {props.data.termino.slice(0,5)}</Text>
 
                   </View>
                   
@@ -266,7 +266,7 @@ else{
 
                   <View style={{marginLeft: screenWidth*0.3}}>
 
-                    <Text style={styles.horario}>horário: {props.data.horario.slice(0,5)}</Text>
+                    <Text style={styles.horario}>{props.data.inicio.slice(0,5)} até {props.data.termino.slice(0,5)}</Text>
 
                   </View>
                   

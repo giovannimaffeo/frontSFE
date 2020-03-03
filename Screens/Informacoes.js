@@ -29,7 +29,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { createAppContainer, } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -40,6 +40,13 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
+
+//novo
+import api from '../services/api'
+import Error from './Error'
+import { stringify } from 'querystring';
+
+
 
 const DATA = 
 
@@ -63,36 +70,78 @@ const DATA =
 
 export default function Informacoes({ navigation }){
 
-    const favorito = navigation.state.params.data.favorito
-
-    function escolhe_cor_inicial(favorito){
-
-        if(favorito == "False"){
-            return colors.secondary
-        }
-
-        else{
-            return colors.tertiary
-        }
-
-    }
-
-    const [color, setColor] = useState(escolhe_cor_inicial(favorito));
-
     
-    function muda_cor(color){
 
-        if (color == colors.secondary){
-            setColor(colors.tertiary)
-            navigation.state.params.data.favorito = "True"
+
+    //novo
+
+    const [errorMessage, seterror] = useState(null);
+
+    const [color, set_color ] = useState(null);
+
+    const [favorito, set_favorito] = useState(null);
+
+
+    async function verifica_se_e_favorita(palestra){
+
+        const response = await api.get('/verfavoritos/');
+
+        const lista_favoritos = response.data
+
+
+        if((lista_favoritos.some(({id}) => id === palestra.id))){
+
+            set_color(colors.tertiary)
+
+            set_favorito(true)
+
         }
 
         else{
-            setColor(colors.secondary)
-            navigation.state.params.data.favorito = "False"
+            
+            set_color('#ffffff')
+
+            set_favorito(false)
+
         }
+    };
+
+    async function favoritar_palestra(id){
+
+        try {
+    
+            const response = await api.get(`/favoritar/${id}`);
+
+            await console.log(response.data.message)
+
+            if(favorito){
+
+                set_color('#ffffff')
+                set_favorito(false)
+
+            }
+
+            else{
+
+                set_color(colors.tertiary)
+                set_favorito(true)
+
+            }
+      
+
+        } catch(err) {
+      
+            seterror( 'Não foi possível favoritar a palestra' );
+     
+        }
+      
     }
 
+        useEffect( () => {
+
+            verifica_se_e_favorita(navigation.state.params.data)
+            
+          }, [])
 
     
 
@@ -100,6 +149,9 @@ export default function Informacoes({ navigation }){
     return(
         
         <ScrollView style={{backgroundColor: colors.primary, flex: 1}}>
+
+            { !!errorMessage && <Error errorMessage={errorMessage}/> }
+
 
             <View style={{padding: screenWidth*0.05}}>
 
@@ -173,13 +225,13 @@ export default function Informacoes({ navigation }){
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.data } </Text>
+                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.dia } </Text>
 
                     </Text>
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.horario.slice(0,5) } </Text>
+                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.inicio.slice(0,5) } às { navigation.state.params.data.termino.slice(0,5) } </Text>
 
                     </Text>
 
@@ -195,7 +247,7 @@ export default function Informacoes({ navigation }){
 
                 <View style={{marginTop: screenHeight*0.06, flexDirection: "row", alignItems: "center"}}>
 
-                    <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => muda_cor(color) } >
+                    <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
                         <Icon name="heart" size={screenWidth*0.05} color = {color} />
 

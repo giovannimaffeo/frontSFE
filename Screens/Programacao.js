@@ -490,7 +490,6 @@ export default function Programacao({ navigation }){
 
         const { token } = response.data;
 
-
         await AsyncStorage.setItem('@storage_Key', token)
 
         /*SEMPRE QUE MEXERMOS COM O ASCYNCSTORAGE TEMOS QUE USAR AWAIT*/
