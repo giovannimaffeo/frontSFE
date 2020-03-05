@@ -9,7 +9,6 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -155,7 +154,7 @@ const AppContainerFavorito = createAppContainer(StackFavorito);
 
 
 
-const CustomDrawer = props => {
+const CustomDrawer = (props) => {
 
   const [ contador, set_contador ] = useState(20)
 
@@ -302,7 +301,7 @@ const CustomDrawer = props => {
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
 
-          <View>
+          <View style={{marginRight: screenWidth*0.1}}>
 
             <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
 
@@ -312,6 +311,23 @@ const CustomDrawer = props => {
           <View>
             
             <Text style = {styles.texto}>Inscrição Processo Seletivo</Text>
+
+          </View>
+
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('Login'))}  >
+
+          <View >
+
+            <Icon name="logout" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
+
+          </View>
+
+          <View style={{marginLeft: screenWidth*0.02}}>
+
+            <Text style={{color: 'white', fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
+
 
           </View>
 
@@ -397,10 +413,10 @@ const Drawer = createDrawerNavigator(
 
 )
 
-const RouteNav = createAppContainer(Drawer)
+export const RouteNav = createAppContainer(Drawer)
 
 
-  async function token_armazenado(){
+  /*const isSignedIn = () => {
 
   logout()
 
@@ -412,54 +428,193 @@ const RouteNav = createAppContainer(Drawer)
   }
   else{
     return false; 
-   }
+   }*/
+
+   /*const isSignedIn = () => {
+
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem('@storage_Key')
+        .then(res => {
+          if (res !== null) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch(err => reject(err));
+    });
+  };
   
-}
+*/
+
+/*function CreateRootNavigator({logado, createSwitchNavigator, RouteNav, Login}){
+
+  return(
+
+    createSwitchNavigator(
+      {
+        RouteNav: {
+          screen: RouteNav
+        },
+        Login: {
+          screen: Login
+        }
+      },
+      {
+        initialRouteName: logado ? "RouteNav" : "Login"
+      }
+    )
+  )
+}*/
+
+  /*const CreateRootNavigator = createSwitchNavigator(
+      {
+        RouteNav: {
+          screen: RouteNav
+        },
+        Login: {
+          screen: Login
+        }
+      },
+      {
+        initialRouteName: isSignedIn ? "RouteNav" : "Login"
+      }
+    )
+*/
 
 
+/*async function logout(){
 
-const SwitchNav = ({logado, navigation}) =>{
-  return createSwitchNavigator(
-  {
-    RouteNav:{
-      screen: RouteNav
-    },
-    Login: {
-      screen: Login
-    }
+  await AsyncStorage.removeItem('@storage_Key')
+  console.log('está deslogado')
+}*/
+
+/*export const SignedOutRoutes = createSwitchNavigator({
+  Login: {
+    screen: Login,
+  },
+});
+
+export const SignedInRoutes = createSwitchNavigator({
+  RouteNav: {
+    screen: RouteNav,
+  },
+});*/
+
+export const createRootNavigator = (signedIn = null) => {
+  return createSwitchNavigator({
+    SignedIn: { screen: RouteNav },
+    SignedOut: { screen: Login }
   },
   {
-    initialRouteName: logado ? 'RouteNav' : 'Login'
-  }
-)
-}
-
-//const AppSwitchNav = createAppContainer(SwitchNav);
+    initialRouteName: signedIn ? "SignedIn" : "SignedOut",
+    /*headerMode: "none",
+    mode: "modal",
+    navigationOptions: {
+      gesturesEnabled: false
+    }*/
+  });
+};
 
 async function logout(){
 
   await AsyncStorage.removeItem('@storage_Key')
-  console.log('executou')
+
+
+  console.log('está deslogado')
 }
 
 
 
 
-export default function App(navigation){
+export default function App(){
 
-  const [SignedIn, setSignedIn] = useState(true)
+  /*const [ logado, setlogado ] = useState(null)
+
+  const isSignedIn = () => {
+
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem('@storage_Key')
+        .then(res => {
+          if (res !== null) {
+            resolve(true);
+            setlogado(true)
+          } else {
+            resolve(false);
+            setlogado(false)
+          }
+        })
+        .catch(err => reject(err));
+    });
+  };*/
+
+  /*useEffect(() => {
+
+    isSignedIn()
+    
+  }, [])*/
+
 
   
-  const Tela = SwitchNav({SignedIn, navigation});
+  const isSignedIn = async () => {
+    const token = await AsyncStorage.getItem('@storage_Key');
 
-  console.log("funcao do token", token_armazenado())
-  return(
-    <Tela
-     />
-  );
+    console.log(token)
+  
+    return (token !== null) ? (setSigned(true), setSignLoaded(true)) : (setSigned(false), setSignLoaded(true));
+
+  };
+
+  /*isSignedIn()
+      .then(res => useState({ signed: res, signLoaded: true }));*/
+
+  /*const [signed, signLoaded] = useState({
+    signed: isSignedIn().then((res) => res),
+    signLoaded: true,
+  });*/
+
+  const [ signed, setSigned ] = useState(null);
+  const [ signLoaded, setSignLoaded ] = useState(null)
+
+  //const RotaPrincipal = LoginRoute();
+
+  //const RotaPrincipalNav = createAppContainer(RotaPrincipal)
+
+  useEffect(() => {
+
+    isSignedIn()
+ 
+
+    /*return function cleanup(){
+      AbortController.abort
+    }*/
+  }, [])
 
 
-}
+    if (!signLoaded) {
+      return null;
+  }
+
+  const Layout = createRootNavigator(signed);
+  const RotaPrincipal = createAppContainer(Layout)
+    return (
+
+    <>
+    
+    <StatusBar
+        backgroundColor={colors.tertiary}
+        barStyle="white-content"
+                />
+
+      <RotaPrincipal />
+
+    </>
+    
+    );
+  }
+
+    //<RotaPrincipalNav />
+
   
 
 const styles = StyleSheet.create({
@@ -489,7 +644,7 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: colors.tertiary,
-    fontSize: screenHeight*0.02616,
+    fontSize: screenHeight*0.027,
     fontWeight: 'bold',
     height: screenHeight*0.035,
   },
@@ -497,7 +652,8 @@ const styles = StyleSheet.create({
   itemcontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    //justifyContent: 'space-around',
+    marginLeft: screenWidth*0.043,
     marginTop: screenHeight*0.028
   },
 

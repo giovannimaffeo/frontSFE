@@ -1,5 +1,4 @@
 import {
-    SafeAreaView,
     StyleSheet,
     ScrollView,
     View,
@@ -20,6 +19,10 @@ import fonts from '../styles/fonts';
 
 import React, { useState, useEffect } from "react";
 
+import api from '../services/api'
+import AsyncStorage from '@react-native-community/async-storage';
+
+
 
 
 
@@ -36,44 +39,71 @@ export default function Login(){
   on_Skip_slides = () => {
     set_show(true);
   };
+
+  async function fazendo_login(){
+
+
+    
+      const response = await api.post('/login/',
+      {
+        "email": "joaopvolpi@gmail.com",
+        "password": "abelha",
+      },
+      
+      )
+
+
+      const { token } = response.data;
+
+      await AsyncStorage.setItem('@storage_Key', token)
+
+      /*SEMPRE QUE MEXERMOS COM O ASCYNCSTORAGE TEMOS QUE USAR AWAIT*/
+
+      //console.log(await AsyncStorage.getItem('@storage_Key'))
+
+};
+//CONFERIR STATUS BAR
+
+//<StatusBar backgroundColor={colors.tertiary} />
+//<StatusBar hidden={true} />
     
   if (show_Main_App) {
 
     return(
-
-      <>
-
-        <StatusBar backgroundColor={colors.tertiary} />
         
-        <View>
-            <Text>Login</Text>
-        </View>
+      <View>
+          <Text>Login</Text>
 
-      </>
+          <TouchableOpacity onPress={() => fazendo_login()}>
+            <Text>Faca Login</Text>
+          </TouchableOpacity>
+      </View>
+
       
       
     );
   }
 
-  else { 
+  else {  
 
     return ( 
-    
-    <>
 
-      <StatusBar hidden={true} />
+      <>
 
-      <AppIntroSlider slides={slides} 
-      onDone={on_Done_all_slides} 
-      showSkipButton={true} 
-      onSkip={on_Skip_slides}/>
+        <StatusBar hidden={true} /> 
 
-    </> 
+        <AppIntroSlider slides={slides} 
+        onDone={on_Done_all_slides} 
+        showSkipButton={true} 
+        onSkip={on_Skip_slides}/>
+
+      </>
+
 
     ); 
   } 
-
 }
+
 
 const styles = StyleSheet.create({
 
