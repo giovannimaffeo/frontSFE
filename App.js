@@ -64,6 +64,8 @@ import { hidden } from "ansi-colors";
 
 import colors from "./styles/colors";
 import fonts from './styles/fonts';
+import { _OnSignedIn } from "./Assets/Auth";
+import TelaLogin from './Screens/TelaLogin';
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
@@ -302,7 +304,7 @@ const RouteNav = createAppContainer(Drawer)
 
 
 export default function App(){
-
+ 
   const [ show_Main_App, set_show ] = useState(false);
 
   on_Done_all_slides = () => {
@@ -312,8 +314,15 @@ export default function App(){
   on_Skip_slides = () => {
     set_show(true);
   };
-    
-  if (show_Main_App) {
+ 
+ 
+  if (_OnSignedIn("token")) {
+    return(
+      <Screen3/>
+      );
+  }
+
+  else if (show_Main_App) {
 
     return(
 
@@ -393,7 +402,7 @@ const styles = StyleSheet.create({
 const slides = [
   {
     key: 'k1',
-    title: 'Nesse App ',
+    title: 'Nesse App',
     text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
     image: require('./Assets/smart-phone.png'),
     titleStyle: styles.title,
