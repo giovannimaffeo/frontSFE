@@ -9,14 +9,15 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
   StatusBar,
   Image,
-  Linking
+  Linking,
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -29,7 +30,7 @@ import {
 
 import ImagePicker from 'react-native-image-picker';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
@@ -57,15 +58,20 @@ import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TelaFavorito from './Screens/TelaFavorito';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { hidden } from "ansi-colors";
 
 import colors from "./styles/colors";
 import fonts from './styles/fonts';
+import { set } from "react-native-reanimated";
+import { RawButton } from "react-native-gesture-handler";
 
 //foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
+
+import AsyncStorage from '@react-native-community/async-storage';
+
+import Login from './Screens/Login'
 
 const DATA = 
 
@@ -148,7 +154,13 @@ const AppContainerFavorito = createAppContainer(StackFavorito);
 
 
 
-const CustomDrawer = props => {
+const CustomDrawer = (props) => {
+
+  const [ contador, set_contador ] = useState(20)
+
+  const [ esta_mudando, set_esta_mudando ] = useState(false)
+
+  const [ username, set_username ] = useState(null)
 
   const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
 
@@ -159,15 +171,108 @@ const CustomDrawer = props => {
       } else if (res.error) {
         console.log("Error", res.error);
       } else {
+        
         setImageSource( res.uri )
         DATA[0].foto_usuario = res.uri
+        
+        armazena_foto_perfil( res.uri )
 
 
       }
     });
   }
+
+  const texto_inicial = <Text style={styles.texto_inicial}>Clique para colocar seu nome!</Text>
+  const texto_username = <Text style={styles.texto_username}>{username}</Text>
+
+  const texto_mudando =
+
+    <View>
+
+      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly'}}>
+
+        <TextInput 
+        placeholder="Coloque seu nome aqui"
+        onChangeText={(text) => { text != null ? set_contador(20 - text.length) : set_contador(20) ; set_username(text); } }
+        value={username}
+        maxLength = {20}
+        autoCorrect = {false}
+        textContentType = "name"
+        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold'}} 
+        />
+
+        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{contador}</Text>
+
+      </View>
+
+      <View style={{alignItems: 'flex-end'}}>  
+
+        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_contador(contador)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
+
+          <Text style={{fontSize: screenWidth*0.033}}>Confirmar</Text>
+
+        </TouchableOpacity>
+
+      </View>
+
+    </View>
+
+  const texto_nao_mudando = 
+
+    <TouchableOpacity style={styles.botao_username} onPress={() => set_esta_mudando(true)}>
+
+      { username == null || username == '' ? texto_inicial : texto_username }
+
+    </TouchableOpacity>
+
   
+
+  async function armazena_username(username){
+
+    await AsyncStorage.setItem('@AppSFE:username', username)
+
+  }
+
+  async function armazena_foto_perfil(foto_perfil){
+
+    await AsyncStorage.setItem('@AppSFE:foto_perfil', foto_perfil)
+
+  }
+
+  async function armazena_contador(contador){
+
+    await AsyncStorage.setItem('@AppSFE:contador', String(contador))
+
+    
+
+  }
+
+
+  async function reset_dados(){
+
+    var username_armazenado = await AsyncStorage.getItem('@AppSFE:username')
+
+    var foto_perfil_armazenada = await AsyncStorage.getItem('@AppSFE:foto_perfil')
+
+    var contador_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+
+
+    set_username(username_armazenado)
+    setImageSource(foto_perfil_armazenada)
+    set_contador(contador_armazenado)
+
+  }
+
+   
+  useEffect( () => {
+ 
+    reset_dados()
+    
+  }, [])
+
+
   return (
+
     <View style={{flex: 1}}>
 
       <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
@@ -181,12 +286,8 @@ const CustomDrawer = props => {
             source={{ uri: imageSource }} />
 
           </TouchableOpacity>
-        
-          <Text style={{color: colors.pr, fontSize: screenWidth*0.0525, fontFamily: fonts.bold, textAlign: "justify"}}>
-            
-            {DATA[0].nome_usuario}
-            
-          </Text>
+
+          { esta_mudando ? texto_mudando : texto_nao_mudando }
 
         </View>
 
@@ -200,7 +301,7 @@ const CustomDrawer = props => {
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
 
-          <View>
+          <View style={{marginRight: screenWidth*0.1}}>
 
             <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
 
@@ -210,6 +311,23 @@ const CustomDrawer = props => {
           <View>
             
             <Text style = {styles.texto}>Inscrição Processo Seletivo</Text>
+
+          </View>
+
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('Login'))}  >
+
+          <View >
+
+            <Icon name="logout" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
+
+          </View>
+
+          <View style={{marginLeft: screenWidth*0.02}}>
+
+            <Text style={{color: 'white', fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
+
 
           </View>
 
@@ -295,59 +413,209 @@ const Drawer = createDrawerNavigator(
 
 )
 
-const RouteNav = createAppContainer(Drawer)
+export const RouteNav = createAppContainer(Drawer)
 
+
+  /*const isSignedIn = () => {
+
+  logout()
+
+  const token =  await AsyncStorage.getItem('@storage_Key');
+  
+  console.log("token", token)
+  if (token !== null){
+    return true;
+  }
+  else{
+    return false; 
+   }*/
+
+   /*const isSignedIn = () => {
+
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem('@storage_Key')
+        .then(res => {
+          if (res !== null) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch(err => reject(err));
+    });
+  };
+  
+*/
+
+/*function CreateRootNavigator({logado, createSwitchNavigator, RouteNav, Login}){
+
+  return(
+
+    createSwitchNavigator(
+      {
+        RouteNav: {
+          screen: RouteNav
+        },
+        Login: {
+          screen: Login
+        }
+      },
+      {
+        initialRouteName: logado ? "RouteNav" : "Login"
+      }
+    )
+  )
+}*/
+
+  /*const CreateRootNavigator = createSwitchNavigator(
+      {
+        RouteNav: {
+          screen: RouteNav
+        },
+        Login: {
+          screen: Login
+        }
+      },
+      {
+        initialRouteName: isSignedIn ? "RouteNav" : "Login"
+      }
+    )
+*/
+
+
+/*async function logout(){
+
+  await AsyncStorage.removeItem('@storage_Key')
+  console.log('está deslogado')
+}*/
+
+/*export const SignedOutRoutes = createSwitchNavigator({
+  Login: {
+    screen: Login,
+  },
+});
+
+export const SignedInRoutes = createSwitchNavigator({
+  RouteNav: {
+    screen: RouteNav,
+  },
+});*/
+
+export const createRootNavigator = (signedIn = null) => {
+  return createSwitchNavigator({
+    SignedIn: { screen: RouteNav },
+    SignedOut: { screen: Login }
+  },
+  {
+    initialRouteName: signedIn ? "SignedIn" : "SignedOut",
+    /*headerMode: "none",
+    mode: "modal",
+    navigationOptions: {
+      gesturesEnabled: false
+    }*/
+  });
+};
+
+async function logout(){
+
+  await AsyncStorage.removeItem('@storage_Key')
+
+
+  console.log('está deslogado')
+}
 
 
 
 
 export default function App(){
 
-  const [ show_Main_App, set_show ] = useState(false);
+  /*const [ logado, setlogado ] = useState(null)
 
-  on_Done_all_slides = () => {
-    set_show(true);
-  };
-  
-  on_Skip_slides = () => {
-    set_show(true);
-  };
+  const isSignedIn = () => {
+
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem('@storage_Key')
+        .then(res => {
+          if (res !== null) {
+            resolve(true);
+            setlogado(true)
+          } else {
+            resolve(false);
+            setlogado(false)
+          }
+        })
+        .catch(err => reject(err));
+    });
+  };*/
+
+  /*useEffect(() => {
+
+    isSignedIn()
     
-  if (show_Main_App) {
+  }, [])*/
 
-    return(
 
-      <>
+  
+  const isSignedIn = async () => {
+    const token = await AsyncStorage.getItem('@storage_Key');
 
-        <StatusBar backgroundColor={colors.tertiary} />
-        
-        <RouteNav />
+    console.log(token)
+  
+    return (token !== null) ? (setSigned(true), setSignLoaded(true)) : (setSigned(false), setSignLoaded(true));
 
-      </>
-      
-      
+  };
+
+  /*isSignedIn()
+      .then(res => useState({ signed: res, signLoaded: true }));*/
+
+  /*const [signed, signLoaded] = useState({
+    signed: isSignedIn().then((res) => res),
+    signLoaded: true,
+  });*/
+
+  const [ signed, setSigned ] = useState(null);
+  const [ signLoaded, setSignLoaded ] = useState(null)
+
+  //const RotaPrincipal = LoginRoute();
+
+  //const RotaPrincipalNav = createAppContainer(RotaPrincipal)
+
+  useEffect(() => {
+
+    isSignedIn()
+ 
+
+    /*return function cleanup(){
+      AbortController.abort
+    }*/
+  }, [])
+
+
+    if (!signLoaded) {
+      return null;
+  }
+
+  const Layout = createRootNavigator(signed);
+  const RotaPrincipal = createAppContainer(Layout)
+    return (
+
+    <>
+    
+    <StatusBar
+        backgroundColor={colors.tertiary}
+        barStyle="white-content"
+                />
+
+      <RotaPrincipal />
+
+    </>
+    
     );
   }
 
-  else { 
+    //<RotaPrincipalNav />
 
-    return ( 
-    
-    <>
-
-      <StatusBar hidden={true} />
-
-      <AppIntroSlider slides={slides} 
-      onDone={on_Done_all_slides} 
-      showSkipButton={true} 
-      onSkip={on_Skip_slides}/>
-
-    </> 
-
-    ); 
-  } 
-
-}
+  
 
 const styles = StyleSheet.create({
 
@@ -376,7 +644,7 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: colors.tertiary,
-    fontSize: screenHeight*0.02616,
+    fontSize: screenHeight*0.027,
     fontWeight: 'bold',
     height: screenHeight*0.035,
   },
@@ -384,11 +652,42 @@ const styles = StyleSheet.create({
   itemcontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    //justifyContent: 'space-around',
+    marginLeft: screenWidth*0.043,
     marginTop: screenHeight*0.028
   },
 
-});
+  texto_inicial: {
+    color: colors.primary, 
+    fontSize: screenWidth*0.031, 
+    fontFamily: fonts.bold, 
+    textAlign: "justify"
+
+  },
+
+  texto_username: {
+    color: colors.primary, 
+    fontSize: screenWidth*0.045, 
+    fontFamily: fonts.bold, 
+    textAlign: "justify",
+    textAlign: 'justify'
+
+  },
+
+  botao_username: {
+    height:screenHeight*0.08,
+    width: screenWidth*0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  placeholder:{
+    fontSize: screenWidth*0.03,
+    fontFamily: fonts.primary
+  }
+
+
+})
 
 const slides = [
   {
