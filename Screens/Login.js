@@ -74,7 +74,7 @@ export default function Login(){
       <View>
           <Text>Login</Text>
 
-          <TouchableOpacity onPress={() => fazendo_login()}>
+          <TouchableOpacity onPress={() => (fazendo_login())}>
             <Text>Faca Login</Text>
           </TouchableOpacity>
       </View>
