@@ -94,7 +94,7 @@ export default function Login({navigation}){
       <View style={styles.sectionContainer}>
           
         <View style={styles.imageView}>
-          <Image style={styles.image} source={require("../Assets/logo_fluxo_escuro.png")} />
+          <Image style={styles.imagefluxo} source={require("../Assets/logo_fluxo_escuro.png")} />
         </View>
 
           <View >
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     imageView: {
       alignItems: "center",
     },
-    image: {
+    imagefluxo: {
       width: screenWidth * 0.65, 
       height: screenHeight * 0.3,
       },
