@@ -27,13 +27,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-export default function Login(){
+export default function Login({navigation}){
 
   const [ show_Main_App, set_show ] = useState(false);
 
   const [userEmail, setEmail] = useState('');
   const [userPassword, setPassword] = useState('');
   const [error,setError] = useState('');
+
+  const [ login_feito, set_login_feito ] = useState(false)
 
 
   on_Done_all_slides = () => {
@@ -55,6 +57,8 @@ export default function Login(){
       )
       const { token } = response.data;
       await AsyncStorage.setItem('@storage_Key', token)
+
+      set_login_feito(true)
     }
 
       catch(e){
@@ -71,6 +75,16 @@ export default function Login(){
 
 //<StatusBar backgroundColor={colors.tertiary} />
 //<StatusBar hidden={true} />
+
+  function navegar_para_o_App(){
+
+    (login_feito) ? navigation.navigate('SignedIn') : null
+
+  }
+
+  useEffect( () =>
+    navegar_para_o_App()
+  )
     
   if (show_Main_App) {
 
