@@ -27,10 +27,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-
 export default function Login(){
 
   const [ show_Main_App, set_show ] = useState(false);
+
+  const [userEmail, setEmail] = useState('');
+  const [userPassword, setPassword] = useState('');
+  const [error,setError] = useState('');
+
 
   on_Done_all_slides = () => {
     set_show(true);
@@ -42,20 +46,21 @@ export default function Login(){
 
   async function fazendo_login(){
 
-
-    
+      try{
       const response = await api.post('/login/',
       {
-        "email": "joaopvolpi@gmail.com",
-        "password": "abelha",
+        "email": userEmail,
+        "password": userPassword,
       },
-      
       )
-
-
       const { token } = response.data;
-
       await AsyncStorage.setItem('@storage_Key', token)
+    }
+
+      catch(e){
+        setError(e.data.error)
+
+      }
 
       /*SEMPRE QUE MEXERMOS COM O ASCYNCSTORAGE TEMOS QUE USAR AWAIT*/
 
@@ -70,17 +75,55 @@ export default function Login(){
   if (show_Main_App) {
 
     return(
-        
-      <View>
-          <Text>Login</Text>
 
-          <TouchableOpacity onPress={() => (fazendo_login())}>
-            <Text>Faca Login</Text>
+      <View style={styles.container}>
+      <View style={styles.sectionContainer}>
+          
+        <View style={styles.imageView}>
+          <Image style={styles.image} source={require("../Assets/logo_fluxo_escuro.png")} />
+        </View>
+
+          <View >
+            <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
+          </View>
+
+          <View style={styles.orangeBorder}>
+          <View style={styles.loginBox} >
+            <TextInput
+            style={styles.textLogin}
+            placeholder='Email'
+            placeholderTextColor= 'white' 
+            textContentType= 'emailAddress'
+            onChangeText= {(value) => setEmail(value) }
+            />
+          </View>
+          </View>          
+          
+          
+          <View style={styles.orangeBorder}>
+          <View style={styles.loginBox} >
+            <TextInput
+            style={styles.textLogin}
+            placeholder='Senha'
+            placeholderTextColor= 'white' 
+            textContentType= 'password'
+            secureTextEntry= {true}
+            onChangeText= {(value) => setPassword(value) }
+            />
+          </View>
+          </View>
+
+         <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+
+          <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
+            <Text style={styles.textButton}>FAZER LOGIN</Text>
           </TouchableOpacity>
+
+
+        </View>
       </View>
 
-      
-      
+
     );
   }
 
@@ -136,6 +179,65 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       height: screenHeight*0.035,
     },
+
+    container: {
+      flex: 1,
+      backgroundColor: "black",
+      paddingHorizontal: screenWidth * 0.05,
+      paddingVertical: screenHeight * 0.1
+    },
+    sectionContainer: {
+    },
+    imageView: {
+      alignItems: "center",
+    },
+    image: {
+      width: screenWidth * 0.65, 
+      height: screenHeight * 0.3,
+      },
+    loginBox: {
+      backgroundColor: "black",
+      borderRadius: 15,
+    },
+    orangeBorder: {
+      backgroundColor: "#F4893B",
+      borderRadius: 15,
+      padding: 1,
+      marginTop: screenHeight * 0.05,
+    },
+    textIntro: {
+      color: "white",
+      textShadowColor: "white",
+      fontSize: 22,
+      alignSelf: "center",
+      marginTop: screenHeight * 0.05,
+      },
+      textSenha: {
+        color: "#F4893B",
+        fontSize: 15,
+        textDecorationLine:"underline",
+        textAlign: "right",
+        marginBottom: 5,
+      },
+      textButton: {
+        flex: 1,
+        fontSize: 20,
+        color: "white",
+        textAlign:'center',
+        textAlignVertical:'center'
+        
+      },
+      textLogin: {
+        color: "white",
+      },
+      button:{
+        backgroundColor: "#F4893B",
+        marginTop: screenHeight *0.08,
+        height:screenHeight * 0.06,
+        borderRadius:10
+
+
+      }
 })
 
 
