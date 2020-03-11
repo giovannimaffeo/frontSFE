@@ -316,7 +316,7 @@ const CustomDrawer = (props) => {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout())}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -392,7 +392,7 @@ const Drawer = createDrawerNavigator(
   },
   {
     initialRouteName: 'AppContainer',
-    contentComponent: CustomDrawer,
+    contentComponent: props => < CustomDrawer {...props} />,
     drawerWidth: screenWidth*0.8,
     
     contentOptions: {
