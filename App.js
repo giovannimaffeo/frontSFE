@@ -299,7 +299,7 @@ const CustomDrawer = (props) => {
       
         <DrawerItems {...props} style={{Colors: colors.secondary}} />
 
-        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
+        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
           <View style={{marginRight: screenWidth*0.1}}>
 
