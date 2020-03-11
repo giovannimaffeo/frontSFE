@@ -7,7 +7,10 @@ import {
     Image,
     Linking,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard
   } from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -89,24 +92,21 @@ export default function Login({navigation}){
   if (show_Main_App) {
 
     return(
-
+      <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
       <View style={styles.container}>
-      <View style={styles.sectionContainer}>
-          
         <View style={styles.imageView}>
-          <Image style={styles.imagefluxo} source={require("../Assets/logo_fluxo_escuro.png")} />
+          <Image style={styles.imagefluxo} source={require("../Assets/logotipo.gif")} />
         </View>
 
           <View >
             <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
           </View>
-
           <View style={styles.orangeBorder}>
           <View style={styles.loginBox} >
             <TextInput
             style={styles.textLogin}
             placeholder='Email'
-            placeholderTextColor= 'white' 
+            placeholderTextColor= '#319aff' 
             textContentType= 'emailAddress'
             onChangeText= {(value) => setEmail(value) }
             />
@@ -119,14 +119,13 @@ export default function Login({navigation}){
             <TextInput
             style={styles.textLogin}
             placeholder='Senha'
-            placeholderTextColor= 'white' 
+            placeholderTextColor= '#319aff' 
             textContentType= 'password'
             secureTextEntry= {true}
             onChangeText= {(value) => setPassword(value) }
             />
           </View>
           </View>
-
          <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
 
           <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
@@ -134,9 +133,8 @@ export default function Login({navigation}){
           </TouchableOpacity>
 
 
-        </View>
       </View>
-
+      </TouchableWithoutFeedback>
 
     );
   }
@@ -196,12 +194,12 @@ const styles = StyleSheet.create({
 
     container: {
       flex: 1,
-      backgroundColor: "black",
+      justifyContent:'flex-end',
+      backgroundColor: "white",
       paddingHorizontal: screenWidth * 0.05,
       paddingVertical: screenHeight * 0.1
     },
-    sectionContainer: {
-    },
+
     imageView: {
       alignItems: "center",
     },
@@ -210,24 +208,25 @@ const styles = StyleSheet.create({
       height: screenHeight * 0.3,
       },
     loginBox: {
-      backgroundColor: "black",
+      backgroundColor: "white",
       borderRadius: 15,
     },
     orangeBorder: {
-      backgroundColor: "#F4893B",
+      backgroundColor: "#F24ef5",
       borderRadius: 15,
       padding: 1,
       marginTop: screenHeight * 0.05,
     },
     textIntro: {
-      color: "white",
-      textShadowColor: "white",
+      color: "#319aff",
+      //textShadowColor: "#F4893B",
       fontSize: 22,
+      fontWeight:'bold',
       alignSelf: "center",
       marginTop: screenHeight * 0.05,
       },
       textSenha: {
-        color: "#F4893B",
+        color: "#319aff",
         fontSize: 15,
         textDecorationLine:"underline",
         textAlign: "right",
@@ -242,10 +241,10 @@ const styles = StyleSheet.create({
         
       },
       textLogin: {
-        color: "white",
+        color: "#319aff",
       },
       button:{
-        backgroundColor: "#F4893B",
+        backgroundColor: "#F24ef5",
         marginTop: screenHeight *0.08,
         height:screenHeight * 0.06,
         borderRadius:10

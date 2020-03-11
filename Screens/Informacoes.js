@@ -169,9 +169,8 @@ export default function Informacoes({ navigation }){
 
                     <View style={{justifyContent: "center"}}>
 
-
                         <Image  style={styles.fotoPalestrante}
-                                source={{ uri: navigation.state.params.data.foto_palestrante }}/>
+                                source={{ uri: `http://appsfe.herokuapp.com${navigation.state.params.data.foto_palestrante}` }}/>
 
 
                     </View>
