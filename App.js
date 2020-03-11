@@ -303,7 +303,7 @@ const CustomDrawer = (props) => {
 
           <View style={{marginRight: screenWidth*0.1}}>
 
-            <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
 
 
           </View>
@@ -351,7 +351,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Programação",
       drawerIcon: () => (
-        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary} />
+        <View style = {{width:screenWidth*0.07}}>
+        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary}  resizeMode = 'contain'/>
+        </View>
       )
 
     },
@@ -361,7 +363,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (
+        <View style = {{width:screenWidth*0.07}}>
         <Icon name="heart" size={screenWidth*0.06} color={colors.secondary} />
+        </View>
       )
 
     },
@@ -372,8 +376,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
+        <View style = {{width:screenWidth*0.07}}>
         <Icon name="qrcode" size={screenWidth*0.06} color={colors.secondary} />
-
+        </View>
       )
     },
   },
@@ -383,8 +388,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
+        <View style = {{width:screenWidth*0.07}}>
         <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
-
+        </View>
       )
     },
   },
