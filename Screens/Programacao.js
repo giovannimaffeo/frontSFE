@@ -122,10 +122,10 @@ export default function Programacao({ navigation }){
     
 
     const data_primeiro_dia = await DefinePalestraList('30-03-2020')
-    const data_segundo_dia = await DefinePalestraList('01-04-2020')
-    const data_terceiro_dia = await DefinePalestraList('02-04-2020')
-    const data_quarto_dia = await DefinePalestraList('31-03-2020')
-    const data_quinto_dia = await DefinePalestraList('23-03-2020')
+    const data_segundo_dia = await DefinePalestraList('31-03-2020')
+    const data_terceiro_dia = await DefinePalestraList('01-04-2020')
+    const data_quarto_dia = await DefinePalestraList('02-04-2020')
+    const data_quinto_dia = await DefinePalestraList('03-04-2020')
 
     await setdata(data_primeiro_dia)
 
@@ -163,7 +163,7 @@ export default function Programacao({ navigation }){
 
             <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[0])} >
                 
-                <Text style={styles.textoBotao}>23</Text>
+                <Text style={styles.textoBotao}>30</Text>
 
             </TouchableOpacity>
 
@@ -171,7 +171,7 @@ export default function Programacao({ navigation }){
 
             <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[1])} >
                 
-                <Text style={styles.textoBotao}>24</Text>
+                <Text style={styles.textoBotao}>31</Text>
 
             </TouchableOpacity>
 
@@ -179,7 +179,7 @@ export default function Programacao({ navigation }){
 
             <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[2])} >
                 
-                <Text style={styles.textoBotao}>25</Text>
+                <Text style={styles.textoBotao}>01</Text>
 
             </TouchableOpacity>
 
@@ -187,7 +187,7 @@ export default function Programacao({ navigation }){
 
             <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[3])} >
                 
-                <Text style={styles.textoBotao}>26</Text>
+                <Text style={styles.textoBotao}>02</Text>
 
             </TouchableOpacity>
 
@@ -195,7 +195,7 @@ export default function Programacao({ navigation }){
 
             <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[4])} >
                 
-                <Text style={styles.textoBotao}>27</Text>
+                <Text style={styles.textoBotao}>03</Text>
 
             </TouchableOpacity>
 
@@ -218,17 +218,6 @@ export default function Programacao({ navigation }){
             </View>
 
         </View>
-
-
-
-
-
-
-
-  
-        
-    
-      
 
 
   );

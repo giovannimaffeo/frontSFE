@@ -38,6 +38,10 @@ target 'AplicativoSFC2' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
   target 'AplicativoSFC2Tests' do
     inherit! :search_paths
     # Pods for testing
