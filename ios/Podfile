@@ -1,6 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+use_frameworks!
+
 target 'AplicativoSFC2' do
   # Pods for AplicativoSFC2
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
@@ -37,6 +39,10 @@ target 'AplicativoSFC2' do
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
   target 'AplicativoSFC2Tests' do
     inherit! :search_paths

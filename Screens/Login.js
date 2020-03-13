@@ -21,6 +21,7 @@ import React, { useState, useEffect } from "react";
 
 import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage';
+import { SafeAreaView } from 'react-navigation';
 
 
 

@@ -188,6 +188,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-reanimated')
+    implementation project(':react-native-vector-icons')
     implementation project(':react-native-image-picker')
     implementation project(':lottie-react-native')
     implementation fileTree(dir: "libs", include: ["*.jar"])

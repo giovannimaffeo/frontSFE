@@ -30,7 +30,7 @@ import {
 
 import ImagePicker from 'react-native-image-picker';
 
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
@@ -600,13 +600,15 @@ export default function App(){
     return (
 
     <>
-    
-    <StatusBar
-        backgroundColor={colors.tertiary}
-        barStyle="white-content"
-                />
 
-      <RotaPrincipal />
+    
+      <StatusBar
+          backgroundColor={colors.tertiary}
+          barStyle="light-content"
+                  />
+
+        <RotaPrincipal />
+
 
     </>
     
