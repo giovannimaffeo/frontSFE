@@ -150,9 +150,20 @@ const StackFavorito = createStackNavigator (
   }
 );
 
+const StackQR = createStackNavigator(
+  {
+    QRcode:{
+      screen:Screen3
+    }
+  },
+  {
+    initialRouteName:'QRcode'
+  }
+)
+
 const AppContainerFavorito = createAppContainer(StackFavorito);
 
-
+const QRContainer = createAppContainer(StackQR);
 
 const CustomDrawer = (props) => {
 
@@ -297,26 +308,26 @@ const CustomDrawer = (props) => {
       <View style={{backgroundColor: colors.primary, flex: 1}}>
       
       
-        <DrawerItems {...props} style={{Colors: colors.secondary}} />
+        <DrawerItems {...props} style={{Colors: colors.secondary}}  />
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
           <View style={{marginRight: screenWidth*0.1}}>
 
-            <Icon name="note-outline" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color='#a6a6a6' style={styles.icone}/>
 
 
           </View>
 
           <View>
             
-            <Text style = {styles.texto}>Inscrição Processo Seletivo</Text>
+            <Text style = {styles.texto}>Processo Seletivo</Text>
 
           </View>
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', position:'absolute', bottom:"2%",top:'90%', left:'70%', height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -372,7 +383,7 @@ const Drawer = createDrawerNavigator(
   },
 
   Screen3: {
-    screen: Screen3,
+    screen: QRContainer,
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
@@ -388,9 +399,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
-        <View style = {{width:screenWidth*0.07}}>
+        <TouchableOpacity style = {{width:screenWidth*0.07}} >
         <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
-        </View>
+        </TouchableOpacity>
       )
     },
   },

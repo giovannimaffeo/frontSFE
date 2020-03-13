@@ -220,17 +220,6 @@ export default function Programacao({ navigation }){
         </View>
 
 
-
-
-
-
-
-  
-        
-    
-      
-
-
   );
 }
 

@@ -6,49 +6,46 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
-  TouchableOpacity,
-  AppRegistry,
-  Image,
-  FlatList,
+  Linking,
+  SafeAreaView
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import { createAppContainer, } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-
-
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import Header from './Header'
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
+export default function Screen3({navigation}){
+
+  const [qrRespose, setQr] = useState();
 
 
-
-
-
-export default function Palestra(){
+  const onSuccess = (response) =>{
+      setQr(response.data);
+     // Linking.openURL(response.data);
+  }
   return(
+
     
-    <View>
+    <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
+        
+        <QRCodeScanner  cameraStyle={{height:screenHeight}} onRead = {(e) => onSuccess(e)} reactivate = {true}/>
+        <View >
+  <Text>{qrRespose}</Text>
+        </View>
+    </SafeAreaView>
 
-        <Text>Screen3</Text>
-
-
-
-    </View>
 
   );
 }
+
+Screen3.navigationOptions = ({ navigation }) => ({
+  header: ( /* Your custom header */
+    
+    <Header navigation = {navigation} />
+
+  )
+})

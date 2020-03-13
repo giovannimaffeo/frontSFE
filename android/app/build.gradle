@@ -129,6 +129,7 @@ android {
 
     defaultConfig {
         applicationId "com.aplicativosfc2"
+        missingDimensionStrategy 'react-native-camera', 'general'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -188,6 +189,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-permissions')
+    implementation project(':react-native-camera')
      implementation 'com.facebook.fresco:fresco:2.0.0'
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.0.0'
