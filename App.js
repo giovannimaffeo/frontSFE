@@ -1,16 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+
 
 import React, { useState, useEffect } from "react";
 
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
@@ -20,13 +13,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import ImagePicker from 'react-native-image-picker';
 
@@ -35,20 +21,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
 
-//import 'react-native-gesture-handler'
-
-//import Dimensoes, { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
-
-import Dia1 from './Screens/Dia1'
-import Dia2 from './Screens/Dia2'
-import Dia3 from './Screens/Dia3'
-import Dia4 from './Screens/Dia4'
-import Dia5 from './Screens/Dia5' 
 
 import Programacao from './Screens/Programacao'
 
 
-import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
 import Screen4 from './Screens/Screen4'
 
@@ -59,15 +35,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TelaFavorito from './Screens/TelaFavorito';
 
-import AppIntroSlider from 'react-native-app-intro-slider';
-import { hidden } from "ansi-colors";
 
 import colors from "./styles/colors";
 import fonts from './styles/fonts';
-import { set } from "react-native-reanimated";
-import { RawButton } from "react-native-gesture-handler";
 
-//foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -87,34 +58,6 @@ const DATA =
 
 
 
-
-
-/*const Stack = createStackNavigator (
-  {
-    Dia1: {
-      screen: Dia1
-    },
-    Dia2: {
-      screen: Dia2
-    },
-    Dia3: {
-      screen: Dia3
-    },
-    Dia4: {
-      screen: Dia4
-    },
-    Dia5: {
-      screen: Dia5
-    },
-    Informacoes: {
-      screen: Informacoes
-    },
-  },
-  {
-    initialRouteName: 'Dia1'
-  },
-
-);*/
 
 const Stack = createStackNavigator (
   {
@@ -433,90 +376,7 @@ const Drawer = createDrawerNavigator(
 export const RouteNav = createAppContainer(Drawer)
 
 
-  /*const isSignedIn = () => {
 
-  logout()
-
-  const token =  await AsyncStorage.getItem('@storage_Key');
-  
-  console.log("token", token)
-  if (token !== null){
-    return true;
-  }
-  else{
-    return false; 
-   }*/
-
-   /*const isSignedIn = () => {
-
-    return new Promise((resolve, reject) => {
-      AsyncStorage.getItem('@storage_Key')
-        .then(res => {
-          if (res !== null) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
-        })
-        .catch(err => reject(err));
-    });
-  };
-  
-*/
-
-/*function CreateRootNavigator({logado, createSwitchNavigator, RouteNav, Login}){
-
-  return(
-
-    createSwitchNavigator(
-      {
-        RouteNav: {
-          screen: RouteNav
-        },
-        Login: {
-          screen: Login
-        }
-      },
-      {
-        initialRouteName: logado ? "RouteNav" : "Login"
-      }
-    )
-  )
-}*/
-
-  /*const CreateRootNavigator = createSwitchNavigator(
-      {
-        RouteNav: {
-          screen: RouteNav
-        },
-        Login: {
-          screen: Login
-        }
-      },
-      {
-        initialRouteName: isSignedIn ? "RouteNav" : "Login"
-      }
-    )
-*/
-
-
-/*async function logout(){
-
-  await AsyncStorage.removeItem('@storage_Key')
-  console.log('está deslogado')
-}*/
-
-/*export const SignedOutRoutes = createSwitchNavigator({
-  Login: {
-    screen: Login,
-  },
-});
-
-export const SignedInRoutes = createSwitchNavigator({
-  RouteNav: {
-    screen: RouteNav,
-  },
-});*/
 
 export const createRootNavigator = (signedIn = null) => {
   return createSwitchNavigator({
@@ -546,30 +406,7 @@ async function logout(){
 
 export default function App(){
 
-  /*const [ logado, setlogado ] = useState(null)
-
-  const isSignedIn = () => {
-
-    return new Promise((resolve, reject) => {
-      AsyncStorage.getItem('@storage_Key')
-        .then(res => {
-          if (res !== null) {
-            resolve(true);
-            setlogado(true)
-          } else {
-            resolve(false);
-            setlogado(false)
-          }
-        })
-        .catch(err => reject(err));
-    });
-  };*/
-
-  /*useEffect(() => {
-
-    isSignedIn()
-    
-  }, [])*/
+ 
 
 
   
@@ -582,29 +419,19 @@ export default function App(){
 
   };
 
-  /*isSignedIn()
-      .then(res => useState({ signed: res, signLoaded: true }));*/
-
-  /*const [signed, signLoaded] = useState({
-    signed: isSignedIn().then((res) => res),
-    signLoaded: true,
-  });*/
+ 
 
   const [ signed, setSigned ] = useState(null);
   const [ signLoaded, setSignLoaded ] = useState(null)
 
-  //const RotaPrincipal = LoginRoute();
 
-  //const RotaPrincipalNav = createAppContainer(RotaPrincipal)
 
   useEffect(() => {
 
     isSignedIn()
  
 
-    /*return function cleanup(){
-      AbortController.abort
-    }*/
+
   }, [])
 
 
@@ -630,9 +457,6 @@ export default function App(){
     );
   }
 
-    //<RotaPrincipalNav />
-
-  
 
 const styles = StyleSheet.create({
 
@@ -706,59 +530,6 @@ const styles = StyleSheet.create({
 
 })
 
-const slides = [
-  {
-    key: 'k1',
-    title: 'Nesse App ',
-    text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
-    image: require('./Assets/smart-phone.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#F7BB64',
-  },
-  {
-    key: 'k2',
-    title: 'Conferir a Programação ',
-    text: ' Essa é a Tela Inicial do nosso App! Nela, estão organizadas todas as palestras de acordo com os dias da semana... E ainda tem mais! Aperte em qualquer uma delas e abrirá uma nova tela pra você conferir mais detalhes sobre cada uma delas',
-    image: require('./Assets/popcorn.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#F4B1BA',
-  },
-  {
-    key: 'k3',
-    title: 'Favoritos ',
-    text: ' É claro que nesse App você também poderá adicionar palestras aos seus favoritos! Simplesmente clicando no coração quando estiver acessando mais informações de uma das palestras...',
-    image: require('./Assets/heart.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#4093D2',
-  },
-  {
-    key: 'k4',
-    title: 'Confirmar presença ',
-    text: ' Esse App também vai ter QR Code? Claro! Serve para você confirmar sua presença na palestra lendo um código que será exibido durante a palestra! E pra quem é estudante, isso é maravilhoso porque garante nossas horas complementares...',
-    image: require('./Assets/qr-code.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#644EE2',
-  },
-  {
-    key: 'k5',
-    title: 'Considerações ',
-    text: ' Esse App também vai ter um espaço para os nossos parceiros que tornaram tudo isso possível! Além das nossas redes sociais para que vocês possam nos encontrar! Isso é tudo pessoal, curtam muito essa semana e tentem aproveitar tudo!!',
-    image: require('./Assets/document.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#FF1744',
-  },
-
-];
 
 
 

@@ -9,16 +9,10 @@
 import React from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   TouchableOpacity,
-  AppRegistry,
-  Image,
-  FlatList,
-  Alert
-} from 'react-native';
+  FlatList} from 'react-native';
 
 //novo:
 import { useState, useEffect } from 'react';
@@ -27,39 +21,26 @@ import Error from './Error'
 
 
 
-import {
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import { createAppContainer, } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
 
 
-import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
+
+import { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Palestra from './Palestra';
 import Header from './Header'
 
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors'
 import fonts from '../styles/fonts';
-import { tsPropertySignature } from '@babel/types';
 
 //novo:
 import api from '../services/api'
-import AsyncStorage from '@react-native-community/async-storage';
 
 
 
 const date = new Date();
 
-const dia = date.getDay();
 
 
 
