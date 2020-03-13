@@ -64,7 +64,7 @@ export default function Palestra( props ){
           <View style={styles.containerImagem}>
 
               <Image  style={styles.fotoPalestrante}
-              source={{ uri: 'http://appsfe.herokuapp.com/media/fotos/the_great_wave_off_kanagawa-xix.jpg'}}/>
+              source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
 
           </View>
 
@@ -121,7 +121,7 @@ export default function Palestra( props ){
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://appsfe.herokuapp.com${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
 
         </View>
 
@@ -178,7 +178,7 @@ if(index == lastindex){
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://appsfe.herokuapp.com${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
 
         </View>
 
@@ -235,7 +235,7 @@ else{
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://appsfe.herokuapp.com${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
 
         </View>
 
