@@ -203,7 +203,7 @@ export default function TelaFavorito({ navigation }){
         <View>
 
           <LottieView 
-            source={require('../Assets/coracao_laranja_maior')} 
+            source={require('../assets/coracao_laranja_maior')} 
             autoPlay 
             loop 
             style={{height: screenHeight*0.0719}}/>

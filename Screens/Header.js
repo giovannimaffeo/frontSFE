@@ -59,7 +59,7 @@ export default function Header( props ){
         </View>
 
         <Image style={styles.logofluxo}
-            source = {require('../Assets/FluxoSemFundo.png') } />
+            source = {require('../assets/FluxoSemFundo.png') } />
 
         
     

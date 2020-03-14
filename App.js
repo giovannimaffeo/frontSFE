@@ -402,7 +402,7 @@ const Drawer = createDrawerNavigator(
         color: colors.tertiary,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
-        fontFamily: fonts.regular,
+        //fontFamily: fonts.regular,
         textAlign: "justify"
 
       },
@@ -648,14 +648,23 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: colors.tertiary,
-    fontSize: screenHeight*0.027,
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontSize: screenHeight*0.0198,
+        marginTop: screenHeight*0.0045
+      },
+      android: {
+        fontSize: screenHeight*0.027,
+      },
+    }),
+    fontWeight: "bold",
+    //fontFamily: fonts.bold,
     height: screenHeight*0.035,
   },
 
   itemcontainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    //alignItems: 'center',
     //justifyContent: 'space-around',
     marginLeft: screenWidth*0.043,
     marginTop: screenHeight*0.028
