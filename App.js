@@ -20,7 +20,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
-
+import FlashMessage from 'react-native-flash-message';
 
 import Programacao from './Screens/Programacao'
 
@@ -451,7 +451,7 @@ export default function App(){
                 />
 
       <RotaPrincipal />
-
+      <FlashMessage position="top"/>
     </>
     
     );

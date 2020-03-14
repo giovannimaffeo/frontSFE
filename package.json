@@ -19,6 +19,7 @@
     "react-native": "0.61.4",
     "react-native-app-intro-slider": "^3.0.0",
     "react-native-camera": "^3.19.1",
+    "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "^1.5.0",
     "react-native-hyperlink": "0.0.18",
     "react-native-image-picker": "^2.0.0",
