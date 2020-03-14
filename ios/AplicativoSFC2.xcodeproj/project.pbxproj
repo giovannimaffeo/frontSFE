@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AplicativoSFC2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AplicativoSFC2Tests.m */; };
 		0B9CDF7BEE301117E2EDA181 /* Pods_AplicativoSFC2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3770B4F74D4A2BBBAF74050F /* Pods_AplicativoSFC2.framework */; };

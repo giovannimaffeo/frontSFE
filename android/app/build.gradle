@@ -188,8 +188,18 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation project(':react-native-reanimated')
     implementation project(':react-native-vector-icons')
+=======
+     implementation 'com.facebook.fresco:fresco:2.0.0'
+    // For animated GIF support
+    implementation 'com.facebook.fresco:animated-gif:2.0.0'
+    // For WebP support, including animated WebP
+    implementation 'com.facebook.fresco:animated-webp:2.0.0'
+    implementation 'com.facebook.fresco:webpsupport:2.0.0'
+    
+>>>>>>> 6cb51f0c4592153f48735b358877dc57a3bd141f
     implementation project(':react-native-image-picker')
     implementation project(':lottie-react-native')
     implementation fileTree(dir: "libs", include: ["*.jar"])

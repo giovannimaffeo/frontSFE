@@ -56,6 +56,8 @@ import Informacoes from './Screens/Informacoes'
 import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
+
 
 import TelaFavorito from './Screens/TelaFavorito';
 
@@ -299,7 +301,7 @@ const CustomDrawer = (props) => {
       
         <DrawerItems {...props} style={{Colors: colors.secondary}} />
 
-        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
+        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
           <View style={{marginRight: screenWidth*0.1}}>
 
@@ -316,7 +318,7 @@ const CustomDrawer = (props) => {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout())}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -392,7 +394,7 @@ const Drawer = createDrawerNavigator(
   },
   {
     initialRouteName: 'AppContainer',
-    contentComponent: CustomDrawer,
+    contentComponent: props => < CustomDrawer {...props} />,
     drawerWidth: screenWidth*0.8,
     
     contentOptions: {
