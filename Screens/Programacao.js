@@ -155,7 +155,7 @@ export default function Programacao({ navigation }){
 
         <View style={{flex: 1, backgroundColor: colors.primary }}>
 
-            { !!errorMessage && <Error errorMessage={errorMessage}/> }
+            {/*{ !!errorMessage && <Error errorMessage={errorMessage}/> }*/}
 
             <Spinner visible={loading}/> 
             
@@ -284,10 +284,20 @@ const styles = StyleSheet.create({
   botao:{
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: screenWidth*0.05,
+    backgroundColor: colors.tertiary, ...Platform.select({
+      ios: {
+        borderRadius: screenHeight*0.025,   
+        height: screenHeight*0.05,
+        width: screenWidth*0.11
+      },
+      android: {
+        borderRadius: screenWidth*0.05, 
+        height: screenHeight*0.06,
+        width: screenWidth*0.1
+
+      }     
+    }),
     backgroundColor: colors.tertiary,
-    height: screenHeight*0.06,
-    width: screenWidth*0.1
 
   },
 
