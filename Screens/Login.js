@@ -96,7 +96,7 @@ export default function Login({navigation}){
       <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.imageView}>
-          <Image style={styles.imagefluxo} source={require("../Assets/logotipo.gif")} />
+          <Image style={styles.imagefluxo} source={require("../assets/logotipo.gif")} />
         </View>
 
           <View >
@@ -261,7 +261,7 @@ const slides = [
       key: 'k1',
       title: 'Nesse App ',
       text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
-      image: require('../Assets/smart-phone.png'),
+      image: require('../assets/smart-phone.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -271,7 +271,7 @@ const slides = [
       key: 'k2',
       title: 'Conferir a Programação ',
       text: ' Essa é a Tela Inicial do nosso App! Nela, estão organizadas todas as palestras de acordo com os dias da semana... E ainda tem mais! Aperte em qualquer uma delas e abrirá uma nova tela pra você conferir mais detalhes sobre cada uma delas',
-      image: require('../Assets/popcorn.png'),
+      image: require('../assets/popcorn.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -281,7 +281,7 @@ const slides = [
       key: 'k3',
       title: 'Favoritos ',
       text: ' É claro que nesse App você também poderá adicionar palestras aos seus favoritos! Simplesmente clicando no coração quando estiver acessando mais informações de uma das palestras...',
-      image: require('../Assets/heart.png'),
+      image: require('../assets/heart.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -291,7 +291,7 @@ const slides = [
       key: 'k4',
       title: 'Confirmar presença ',
       text: ' Esse App também vai ter QR Code? Claro! Serve para você confirmar sua presença na palestra lendo um código que será exibido durante a palestra! E pra quem é estudante, isso é maravilhoso porque garante nossas horas complementares...',
-      image: require('../Assets/qr-code.png'),
+      image: require('../assets/qr-code.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -301,7 +301,7 @@ const slides = [
       key: 'k5',
       title: 'Considerações ',
       text: ' Esse App também vai ter um espaço para os nossos parceiros que tornaram tudo isso possível! Além das nossas redes sociais para que vocês possam nos encontrar! Isso é tudo pessoal, curtam muito essa semana e tentem aproveitar tudo!!',
-      image: require('../Assets/document.png'),
+      image: require('../assets/document.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
