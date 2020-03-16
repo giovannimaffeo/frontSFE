@@ -155,7 +155,7 @@ export default function Programacao({ navigation }){
 
         <View style={{flex: 1, backgroundColor: colors.primary }}>
 
-            {/*{ !!errorMessage && <Error errorMessage={errorMessage}/> }*/}
+            { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
             <Spinner visible={loading}/> 
             
