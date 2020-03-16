@@ -41,9 +41,15 @@ target 'AplicativoSFC2' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+<<<<<<< HEAD
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+=======
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+>>>>>>> 5681b6c08674cab5bcaa86114a790facefd4c111
 
   target 'AplicativoSFC2Tests' do
     inherit! :search_paths
