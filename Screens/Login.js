@@ -14,7 +14,7 @@ import {
   } from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
-
+import LottieView from 'lottie-react-native';
 import { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import colors from "../styles/colors";
@@ -60,7 +60,9 @@ export default function Login({navigation}){
       },
       )
       const { token } = response.data;
+      console.log(token)
       await AsyncStorage.setItem('@storage_Key', token)
+      
 
       set_login_feito(true)
     }
@@ -96,27 +98,28 @@ export default function Login({navigation}){
       <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.imageView}>
-          <Image style={styles.imagefluxo} source={require("../assets/logotipo.gif")} />
+          <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
         </View>
 
           <View >
             <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
           </View>
-          <View style={styles.orangeBorder}>
+          {/*<View style={styles.orangeBorder}>*/}
           <View style={styles.loginBox} >
             <TextInput
             style={styles.textLogin}
+            keyboardType='email-address'
             placeholder='Email'
             placeholderTextColor= '#319aff' 
             textContentType= 'emailAddress'
             onChangeText= {(value) => setEmail(value) }
             />
           </View>
-          </View>          
+         {/* </View>          */}
           
           
-          <View style={styles.orangeBorder}>
-          <View style={styles.loginBox} >
+          {/*<View style={styles.orangeBorder}>*/}
+          <View style={styles.loginBox}  >
             <TextInput
             style={styles.textLogin}
             placeholder='Senha'
@@ -126,11 +129,11 @@ export default function Login({navigation}){
             onChangeText= {(value) => setPassword(value) }
             />
           </View>
-          </View>
+          {/*</View>*/}
          <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
 
           <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
-            <Text style={styles.textButton}>FAZER LOGIN</Text>
+            <Text style={styles.textButton}>LOGIN</Text>
           </TouchableOpacity>
 
 
@@ -209,8 +212,12 @@ const styles = StyleSheet.create({
       height: screenHeight * 0.3,
       },
     loginBox: {
-      backgroundColor: "white",
-      borderRadius: 15,
+      marginTop:screenHeight*0.04,
+      backgroundColor: "#F8F8F8",
+      borderTopColor:'orange',
+      borderBottomWidth:2,
+      borderBottomColor:"#F24ef5",
+      borderRadius: 4,
     },
     orangeBorder: {
       backgroundColor: "#F24ef5",
@@ -245,10 +252,12 @@ const styles = StyleSheet.create({
         color: "#319aff",
       },
       button:{
-        backgroundColor: "#F24ef5",
+        alignSelf:'center',
+        backgroundColor: "#319aff",
         marginTop: screenHeight *0.08,
         height:screenHeight * 0.06,
-        borderRadius:10
+        width:screenWidth*0.4,
+        borderRadius:15
 
 
       }
