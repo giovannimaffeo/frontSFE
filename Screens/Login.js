@@ -20,7 +20,7 @@ import { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 import colors from "../styles/colors";
 import fonts from '../styles/fonts';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -40,6 +40,8 @@ const [userPassword, setPassword] = useState('');
 const [error,setError] = useState('');
 
 const [ login_feito, set_login_feito ] = useState(false)
+
+const inputSenha = useRef(null);
 
 
 on_Done_all_slides = () => {
@@ -117,8 +119,9 @@ if (show_Main_App) {
           autoCorrect={false}
           autoCapitalize='none'
           placeholder='Email'
-          returnKeyType='done'
-          placeholderTextColor= '#319aff' 
+          returnKeyType='next'
+          placeholderTextColor= '#319aff'
+          onSubmitEditing={() => inputSenha.current.focus()}
           onChangeText= {(value) => setEmail(value) }
           />
         </View>
@@ -133,7 +136,9 @@ if (show_Main_App) {
           autoCapitalize='none'
           placeholderTextColor= '#319aff' 
           keyboardType='default'
+          returnKeyType='done'
           secureTextEntry= {true}
+          ref={inputSenha}
           onChangeText= {(value) => setPassword(value) }
           />
         </View>
@@ -252,17 +257,16 @@ const styles = StyleSheet.create({
       marginBottom: 5,
     },
     textButton: {
-      flex: 1,
       fontSize: 20,
       color: "white",
       textAlign:'center',
-      textAlignVertical:'center'
       
     },
     textLogin: {
       color: "#319aff",
     },
     button:{
+      justifyContent: 'center',
       alignSelf:'center',
       backgroundColor: "#319aff",
       marginTop: screenHeight *0.08,
