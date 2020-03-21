@@ -260,7 +260,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: "white",
       textAlign:'center',
-      
     },
     textLogin: {
       color: "#319aff",
