@@ -12,7 +12,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList} from 'react-native';
+  FlatList,
+  Keyboard} from 'react-native';
 
 //novo:
 import { useState, useEffect } from 'react';
@@ -124,14 +125,13 @@ export default function Programacao({ navigation }){
   useEffect( () => {
 
    // signIn()
-
     DefineDatas()
     
   }, [])
 
   //acaba aqui
-
     return(
+
 
         <View style={{flex: 1, backgroundColor: colors.primary }}>
 

@@ -12,6 +12,7 @@ import {
   View,
   Text,
   FlatList,
+  Keyboard,
 } from 'react-native';
 
 
