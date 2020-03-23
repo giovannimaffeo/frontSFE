@@ -30,7 +30,7 @@ import {
 
 import ImagePicker from 'react-native-image-picker';
 
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
@@ -56,6 +56,8 @@ import Informacoes from './Screens/Informacoes'
 import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
+
 
 import TelaFavorito from './Screens/TelaFavorito';
 
@@ -299,7 +301,7 @@ const CustomDrawer = (props) => {
       
         <DrawerItems {...props} style={{Colors: colors.secondary}} />
 
-        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg')}>
+        <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
           <View style={{marginRight: screenWidth*0.1}}>
 
@@ -316,7 +318,7 @@ const CustomDrawer = (props) => {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('Login'))}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -392,7 +394,7 @@ const Drawer = createDrawerNavigator(
   },
   {
     initialRouteName: 'AppContainer',
-    contentComponent: CustomDrawer,
+    contentComponent: props => < CustomDrawer {...props} />,
     drawerWidth: screenWidth*0.8,
     
     contentOptions: {
@@ -400,7 +402,7 @@ const Drawer = createDrawerNavigator(
         color: colors.tertiary,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
-        fontFamily: fonts.regular,
+        //fontFamily: fonts.regular,
         textAlign: "justify"
 
       },
@@ -600,13 +602,15 @@ export default function App(){
     return (
 
     <>
-    
-    <StatusBar
-        backgroundColor={colors.tertiary}
-        barStyle="white-content"
-                />
 
-      <RotaPrincipal />
+    
+      <StatusBar
+          backgroundColor={colors.tertiary}
+          barStyle="light-content"
+                  />
+
+        <RotaPrincipal />
+
 
     </>
     
@@ -644,14 +648,23 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: colors.tertiary,
-    fontSize: screenHeight*0.027,
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontSize: screenHeight*0.0198,
+        marginTop: screenHeight*0.0045
+      },
+      android: {
+        fontSize: screenHeight*0.027,
+      },
+    }),
+    fontWeight: "bold",
+    //fontFamily: fonts.bold,
     height: screenHeight*0.035,
   },
 
   itemcontainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    //alignItems: 'center',
     //justifyContent: 'space-around',
     marginLeft: screenWidth*0.043,
     marginTop: screenHeight*0.028
@@ -689,61 +702,3 @@ const styles = StyleSheet.create({
 
 })
 
-const slides = [
-  {
-    key: 'k1',
-    title: 'Nesse App ',
-    text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
-    image: require('./Assets/smart-phone.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#F7BB64',
-  },
-  {
-    key: 'k2',
-    title: 'Conferir a Programação ',
-    text: ' Essa é a Tela Inicial do nosso App! Nela, estão organizadas todas as palestras de acordo com os dias da semana... E ainda tem mais! Aperte em qualquer uma delas e abrirá uma nova tela pra você conferir mais detalhes sobre cada uma delas',
-    image: require('./Assets/popcorn.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#F4B1BA',
-  },
-  {
-    key: 'k3',
-    title: 'Favoritos ',
-    text: ' É claro que nesse App você também poderá adicionar palestras aos seus favoritos! Simplesmente clicando no coração quando estiver acessando mais informações de uma das palestras...',
-    image: require('./Assets/heart.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#4093D2',
-  },
-  {
-    key: 'k4',
-    title: 'Confirmar presença ',
-    text: ' Esse App também vai ter QR Code? Claro! Serve para você confirmar sua presença na palestra lendo um código que será exibido durante a palestra! E pra quem é estudante, isso é maravilhoso porque garante nossas horas complementares...',
-    image: require('./Assets/qr-code.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#644EE2',
-  },
-  {
-    key: 'k5',
-    title: 'Considerações ',
-    text: ' Esse App também vai ter um espaço para os nossos parceiros que tornaram tudo isso possível! Além das nossas redes sociais para que vocês possam nos encontrar! Isso é tudo pessoal, curtam muito essa semana e tentem aproveitar tudo!!',
-    image: require('./Assets/document.png'),
-    titleStyle: styles.title,
-    textStyle: styles.text,
-    imageStyle: styles.image,
-    backgroundColor: '#FF1744',
-  },
-
-];
-
-
-
-
-    

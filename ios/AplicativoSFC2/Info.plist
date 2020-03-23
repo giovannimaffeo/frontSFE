@@ -71,6 +71,14 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Gelasio-Bold.ttf</string>
+		<string>Gelasio-BoldItalic.ttf</string>
+		<string>Gelasio-Italic.ttf</string>
+		<string>Gelasio-Medium.ttf</string>
+		<string>Gelasio-MediumItalic.ttf</string>
+		<string>Gelasio-Regular.ttf</string>
+		<string>Gelasio-SemiBold.ttf</string>
+		<string>Gelasio-SemiBoldItalic.ttf</string>
 	</array>
 </dict>
 </plist>

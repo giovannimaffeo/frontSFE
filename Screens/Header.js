@@ -35,6 +35,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
 
 import colors from '../styles/colors'
 import fonts from '../styles/fonts';
@@ -58,7 +59,7 @@ export default function Header( props ){
         </View>
 
         <Image style={styles.logofluxo}
-            source = {require('../Assets/FluxoSemFundo.png') } />
+            source = {require('../assets/FluxoSemFundo.png') } />
 
         
     

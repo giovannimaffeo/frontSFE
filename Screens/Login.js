@@ -7,7 +7,10 @@ import {
     Image,
     Linking,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard
   } from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -21,16 +24,23 @@ import React, { useState, useEffect } from "react";
 
 import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage';
+import { SafeAreaView } from 'react-navigation';
 
 
 
 
 
 
-
-export default function Login(){
+export default function Login({navigation}){
 
   const [ show_Main_App, set_show ] = useState(false);
+
+  const [userEmail, setEmail] = useState('');
+  const [userPassword, setPassword] = useState('');
+  const [error,setError] = useState('');
+
+  const [ login_feito, set_login_feito ] = useState(false)
+
 
   on_Done_all_slides = () => {
     set_show(true);
@@ -42,20 +52,23 @@ export default function Login(){
 
   async function fazendo_login(){
 
-
-    
+      try{
       const response = await api.post('/login/',
       {
-        "email": "joaopvolpi@gmail.com",
-        "password": "abelha",
+        "email": userEmail,
+        "password": userPassword,
       },
-      
       )
-
-
       const { token } = response.data;
-
       await AsyncStorage.setItem('@storage_Key', token)
+
+      set_login_feito(true)
+    }
+
+      catch(e){
+        setError(e.data.error)
+
+      }
 
       /*SEMPRE QUE MEXERMOS COM O ASCYNCSTORAGE TEMOS QUE USAR AWAIT*/
 
@@ -66,21 +79,64 @@ export default function Login(){
 
 //<StatusBar backgroundColor={colors.tertiary} />
 //<StatusBar hidden={true} />
+
+  function navegar_para_o_App(){
+
+    (login_feito) ? navigation.navigate('SignedIn') : null
+
+  }
+
+  useEffect( () =>
+    navegar_para_o_App()
+  )
     
   if (show_Main_App) {
 
     return(
-        
-      <View>
-          <Text>Login</Text>
+      <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.imageView}>
+          <Image style={styles.imagefluxo} source={require("../assets/logotipo.gif")} />
+        </View>
 
-          <TouchableOpacity onPress={() => fazendo_login()}>
-            <Text>Faca Login</Text>
+          <View >
+            <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
+          </View>
+          <View style={styles.orangeBorder}>
+          <View style={styles.loginBox} >
+            <TextInput
+            style={styles.textLogin}
+            placeholder='Email'
+            placeholderTextColor= '#319aff' 
+            textContentType= 'emailAddress'
+            onChangeText= {(value) => setEmail(value) }
+            />
+          </View>
+          </View>          
+          
+          
+          <View style={styles.orangeBorder}>
+          <View style={styles.loginBox} >
+            <TextInput
+            style={styles.textLogin}
+            placeholder='Senha'
+            placeholderTextColor= '#319aff' 
+            textContentType= 'password'
+            secureTextEntry= {true}
+            onChangeText= {(value) => setPassword(value) }
+            />
+          </View>
+          </View>
+         <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+
+          <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
+            <Text style={styles.textButton}>FAZER LOGIN</Text>
           </TouchableOpacity>
-      </View>
 
-      
-      
+
+      </View>
+      </TouchableWithoutFeedback>
+
     );
   }
 
@@ -136,6 +192,66 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       height: screenHeight*0.035,
     },
+
+    container: {
+      flex: 1,
+      justifyContent:'flex-end',
+      backgroundColor: "white",
+      paddingHorizontal: screenWidth * 0.05,
+      paddingVertical: screenHeight * 0.1
+    },
+
+    imageView: {
+      alignItems: "center",
+    },
+    imagefluxo: {
+      width: screenWidth * 0.65, 
+      height: screenHeight * 0.3,
+      },
+    loginBox: {
+      backgroundColor: "white",
+      borderRadius: 15,
+    },
+    orangeBorder: {
+      backgroundColor: "#F24ef5",
+      borderRadius: 15,
+      padding: 1,
+      marginTop: screenHeight * 0.05,
+    },
+    textIntro: {
+      color: "#319aff",
+      //textShadowColor: "#F4893B",
+      fontSize: 22,
+      fontWeight:'bold',
+      alignSelf: "center",
+      marginTop: screenHeight * 0.05,
+      },
+      textSenha: {
+        color: "#319aff",
+        fontSize: 15,
+        textDecorationLine:"underline",
+        textAlign: "right",
+        marginBottom: 5,
+      },
+      textButton: {
+        flex: 1,
+        fontSize: 20,
+        color: "white",
+        textAlign:'center',
+        textAlignVertical:'center'
+        
+      },
+      textLogin: {
+        color: "#319aff",
+      },
+      button:{
+        backgroundColor: "#F24ef5",
+        marginTop: screenHeight *0.08,
+        height:screenHeight * 0.06,
+        borderRadius:10
+
+
+      }
 })
 
 
@@ -145,7 +261,7 @@ const slides = [
       key: 'k1',
       title: 'Nesse App ',
       text: ' Olá, seja bem vindo a Semana da Fluxo! Esse App será como um grande guia pra você durante a semana que vai rolar do dia 23 até o dia 27! Aqui, você poderá conferir toda a programação, entender mais sobre cada palestra, confirmar sua presença e muito mais!',
-      image: require('../Assets/smart-phone.png'),
+      image: require('../assets/smart-phone.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -155,7 +271,7 @@ const slides = [
       key: 'k2',
       title: 'Conferir a Programação ',
       text: ' Essa é a Tela Inicial do nosso App! Nela, estão organizadas todas as palestras de acordo com os dias da semana... E ainda tem mais! Aperte em qualquer uma delas e abrirá uma nova tela pra você conferir mais detalhes sobre cada uma delas',
-      image: require('../Assets/popcorn.png'),
+      image: require('../assets/popcorn.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -165,7 +281,7 @@ const slides = [
       key: 'k3',
       title: 'Favoritos ',
       text: ' É claro que nesse App você também poderá adicionar palestras aos seus favoritos! Simplesmente clicando no coração quando estiver acessando mais informações de uma das palestras...',
-      image: require('../Assets/heart.png'),
+      image: require('../assets/heart.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -175,7 +291,7 @@ const slides = [
       key: 'k4',
       title: 'Confirmar presença ',
       text: ' Esse App também vai ter QR Code? Claro! Serve para você confirmar sua presença na palestra lendo um código que será exibido durante a palestra! E pra quem é estudante, isso é maravilhoso porque garante nossas horas complementares...',
-      image: require('../Assets/qr-code.png'),
+      image: require('../assets/qr-code.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
@@ -185,7 +301,7 @@ const slides = [
       key: 'k5',
       title: 'Considerações ',
       text: ' Esse App também vai ter um espaço para os nossos parceiros que tornaram tudo isso possível! Além das nossas redes sociais para que vocês possam nos encontrar! Isso é tudo pessoal, curtam muito essa semana e tentem aproveitar tudo!!',
-      image: require('../Assets/document.png'),
+      image: require('../assets/document.png'),
       titleStyle: styles.title,
       textStyle: styles.text,
       imageStyle: styles.image,
