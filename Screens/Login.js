@@ -43,6 +43,9 @@ const [ login_feito, set_login_feito ] = useState(false)
 
 const inputSenha = useRef(null);
 
+const [ ja_logou, set_ja_logou ] = useState(null)
+const [ confere_ja_logou, set_confere_ja_logou ] = useState(false)
+
 
 on_Done_all_slides = () => {
   set_show(true);
@@ -64,6 +67,8 @@ async function fazendo_login(){
     const { token } = response.data;
     console.log(token)
     await AsyncStorage.setItem('@storage_Key', token)
+    AsyncStorage.setItem('@AppSFE:ja_logou', 'ja_logou')
+
     
 
     set_login_feito(true)
@@ -90,95 +95,185 @@ function navegar_para_o_App(){
 
 }
 
+async function confere_se_ja_logou(){
+
+  const ja_logou = await AsyncStorage.getItem('@AppSFE:ja_logou');
+
+    if (ja_logou){
+      set_ja_logou(true)
+      set_confere_ja_logou(true)
+    }
+
+    else{
+      set_confere_ja_logou(true)
+      set_ja_logou(false)
+    }
+        
+}
+
 useEffect( () =>
-  navegar_para_o_App()
+  (confere_se_ja_logou(),
+  navegar_para_o_App())
 )
-  
-if (show_Main_App) {
+
+if (!confere_ja_logou){
+  return null
+}
+
+if (ja_logou){
 
   return(
+
     <KeyboardAvoidingView 
-      behavior={Platform.select({
-      ios: 'padding',
-      android: null,})} 
-      style={{flex: 1}} >
-    <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-    <View style={styles.container}>
-      <View style={styles.imageView}>
-        <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
-      </View>
-
-        <View >
-          <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
-        </View>
-        {/*<View style={styles.orangeBorder}>*/}
-        <View style={styles.loginBox} >
-          <TextInput
-          style={styles.textLogin}
-          keyboardType='email-address'
-          autoCorrect={false}
-          autoCapitalize='none'
-          placeholder='Email'
-          returnKeyType='next'
-          placeholderTextColor= '#319aff'
-          onSubmitEditing={() => inputSenha.current.focus()}
-          onChangeText= {(value) => setEmail(value) }
-          />
-        </View>
-       {/* </View>          */}
-        
-        {/*<View style={styles.orangeBorder}>*/}
-        <View style={styles.loginBox}>
-          <TextInput
-          style={styles.textLogin}
-          placeholder='Senha'
-          autoCorrect={false}
-          autoCapitalize='none'
-          placeholderTextColor= '#319aff' 
-          keyboardType='default'
-          returnKeyType='done'
-          secureTextEntry= {true}
-          ref={inputSenha}
-          onChangeText= {(value) => setPassword(value) }
-          />
-        </View>
-        {/*</View>*/}
-        <View>
-       <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
-       </View>
-
-        <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
-          <Text style={styles.textButton}>LOGIN</Text>
-        </TouchableOpacity>
-
-
+    behavior={Platform.select({
+    ios: 'padding',
+    android: null,})} 
+    style={{flex: 1}} >
+  <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+  <View style={styles.container}>
+    <View style={styles.imageView}>
+      <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
     </View>
-    </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+
+      <View >
+        <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
+      </View>
+      {/*<View style={styles.orangeBorder}>*/}
+      <View style={styles.loginBox} >
+        <TextInput
+        style={styles.textLogin}
+        keyboardType='email-address'
+        autoCorrect={false}
+        autoCapitalize='none'
+        placeholder='Email'
+        returnKeyType='next'
+        placeholderTextColor= '#319aff'
+        onSubmitEditing={() => inputSenha.current.focus()}
+        onChangeText= {(value) => setEmail(value) }
+        />
+      </View>
+     {/* </View>          */}
+      
+      {/*<View style={styles.orangeBorder}>*/}
+      <View style={styles.loginBox}>
+        <TextInput
+        style={styles.textLogin}
+        placeholder='Senha'
+        autoCorrect={false}
+        autoCapitalize='none'
+        placeholderTextColor= '#319aff' 
+        keyboardType='default'
+        returnKeyType='done'
+        secureTextEntry= {true}
+        ref={inputSenha}
+        onChangeText= {(value) => setPassword(value) }
+        />
+      </View>
+      {/*</View>*/}
+      <View>
+     <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+     </View>
+
+      <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
+        <Text style={styles.textButton}>LOGIN</Text>
+      </TouchableOpacity>
+
+
+  </View>
+  </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
+
 
   );
 }
 
-else {  
+else{
+  
+  if (show_Main_App) {
 
-  return ( 
+    return(
+      <KeyboardAvoidingView 
+        behavior={Platform.select({
+        ios: 'padding',
+        android: null,})} 
+        style={{flex: 1}} >
+      <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.imageView}>
+          <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
+        </View>
 
-    <>
+          <View >
+            <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
+          </View>
+          {/*<View style={styles.orangeBorder}>*/}
+          <View style={styles.loginBox} >
+            <TextInput
+            style={styles.textLogin}
+            keyboardType='email-address'
+            autoCorrect={false}
+            autoCapitalize='none'
+            placeholder='Email'
+            returnKeyType='next'
+            placeholderTextColor= '#319aff'
+            onSubmitEditing={() => inputSenha.current.focus()}
+            onChangeText= {(value) => setEmail(value) }
+            />
+          </View>
+        {/* </View>          */}
+          
+          {/*<View style={styles.orangeBorder}>*/}
+          <View style={styles.loginBox}>
+            <TextInput
+            style={styles.textLogin}
+            placeholder='Senha'
+            autoCorrect={false}
+            autoCapitalize='none'
+            placeholderTextColor= '#319aff' 
+            keyboardType='default'
+            returnKeyType='done'
+            secureTextEntry= {true}
+            ref={inputSenha}
+            onChangeText= {(value) => setPassword(value) }
+            />
+          </View>
+          {/*</View>*/}
+          <View>
+        <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+        </View>
 
-      <StatusBar hidden={true} /> 
-
-      <AppIntroSlider slides={slides} 
-      onDone={on_Done_all_slides} 
-      showSkipButton={true} 
-      onSkip={on_Skip_slides}/>
-
-    </>
+          <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
+            <Text style={styles.textButton}>LOGIN</Text>
+          </TouchableOpacity>
 
 
-  ); 
-} 
+      </View>
+      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+
+    );
+  }
+
+  else {  
+
+    return ( 
+
+      <>
+
+        <StatusBar hidden={true} /> 
+
+        <AppIntroSlider slides={slides} 
+        onDone={on_Done_all_slides} 
+        showSkipButton={true} 
+        onSkip={on_Skip_slides}/>
+
+      </>
+
+
+    ); 
+  } 
+  }
 }
-
 
 const styles = StyleSheet.create({
 
