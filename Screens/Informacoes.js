@@ -112,7 +112,7 @@ export default function Informacoes({ navigation }){
 
         try {
     
-            const response = await api.get(`/favoritar/${id}`);
+            const response = await api.get(`/favoritar/${id}/`);
 
             await console.log(response.data.message)
 
@@ -172,7 +172,7 @@ export default function Informacoes({ navigation }){
                     <View style={{justifyContent: "center"}}>
 
                         <Image  style={styles.fotoPalestrante}
-                                source={{ uri: `http://appsfe.herokuapp.com${navigation.state.params.data.foto_palestrante}` }}/>
+                                source={{ uri: `http://67.205.161.203${navigation.state.params.data.foto_palestrante}` }}/>
 
 
                     </View>
@@ -307,7 +307,14 @@ const styles = StyleSheet.create({
     header:{
         flexDirection: 'row',
         alignItems: 'center',
-        height: screenHeight*0.07,
+        ...Platform.select({
+            ios: {
+                height: screenHeight*0.1,
+            },
+            android: {
+                height: screenHeight*0.07,
+            },      
+          }),
         backgroundColor: colors.tertiary,
         
   

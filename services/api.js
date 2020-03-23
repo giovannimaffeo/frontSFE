@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { create } from 'apisauce';
 
 const api = create({
-    baseURL: 'http://appsfe.herokuapp.com'
+    baseURL: 'http://67.205.161.203'
 });
 
 api.addAsyncRequestTransform(request => async() => {

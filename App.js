@@ -1,16 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+
 
 import React, { useState, useEffect } from "react";
 
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
@@ -20,13 +13,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import ImagePicker from 'react-native-image-picker';
 
@@ -34,21 +20,11 @@ import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-n
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 
-
-//import 'react-native-gesture-handler'
-
-//import Dimensoes, { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
-
-import Dia1 from './Screens/Dia1'
-import Dia2 from './Screens/Dia2'
-import Dia3 from './Screens/Dia3'
-import Dia4 from './Screens/Dia4'
-import Dia5 from './Screens/Dia5' 
+import FlashMessage from 'react-native-flash-message';
 
 import Programacao from './Screens/Programacao'
 
 
-import Screen2 from './Screens/Screen2'
 import Screen3 from './Screens/Screen3'
 import Screen4 from './Screens/Screen4'
 
@@ -61,15 +37,10 @@ Icon.loadFont();
 
 import TelaFavorito from './Screens/TelaFavorito';
 
-import AppIntroSlider from 'react-native-app-intro-slider';
-import { hidden } from "ansi-colors";
 
 import colors from "./styles/colors";
 import fonts from './styles/fonts';
-import { set } from "react-native-reanimated";
-import { RawButton } from "react-native-gesture-handler";
 
-//foto neymar: https://pbs.twimg.com/profile_images/1195070652346241024/TY83Cwxb_400x400.jpg
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -89,34 +60,6 @@ const DATA =
 
 
 
-
-
-/*const Stack = createStackNavigator (
-  {
-    Dia1: {
-      screen: Dia1
-    },
-    Dia2: {
-      screen: Dia2
-    },
-    Dia3: {
-      screen: Dia3
-    },
-    Dia4: {
-      screen: Dia4
-    },
-    Dia5: {
-      screen: Dia5
-    },
-    Informacoes: {
-      screen: Informacoes
-    },
-  },
-  {
-    initialRouteName: 'Dia1'
-  },
-
-);*/
 
 const Stack = createStackNavigator (
   {
@@ -152,9 +95,20 @@ const StackFavorito = createStackNavigator (
   }
 );
 
+const StackQR = createStackNavigator(
+  {
+    QRcode:{
+      screen:Screen3
+    }
+  },
+  {
+    initialRouteName:'QRcode'
+  }
+)
+
 const AppContainerFavorito = createAppContainer(StackFavorito);
 
-
+const QRContainer = createAppContainer(StackQR);
 
 const CustomDrawer = (props) => {
 
@@ -279,13 +233,13 @@ const CustomDrawer = (props) => {
 
       <View style={styles.perfil_container}>
 
-        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', alignItems: 'center'}}>
 
           <TouchableOpacity onPress={pickImageHandler}>
 
             <Image 
-            style={{height: screenHeight*0.13, width: screenHeight*0.13, borderRadius: screenWidth*0.1125}}  
-            source={{ uri: imageSource }} />
+            style={{height: screenHeight*0.1, width: screenHeight*0.1, borderRadius: screenHeight*0.05}}  
+            source={{ uri: imageSource ? imageSource : "https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg" }} />
 
           </TouchableOpacity>
 
@@ -299,26 +253,26 @@ const CustomDrawer = (props) => {
       <View style={{backgroundColor: colors.primary, flex: 1}}>
       
       
-        <DrawerItems {...props} style={{Colors: colors.secondary}} />
+        <DrawerItems {...props} style={{Colors: colors.secondary}}  />
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
           <View style={{marginRight: screenWidth*0.1}}>
 
-            <Icon name="note-outline" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color='#a6a6a6' style={styles.icone}/>
 
 
           </View>
 
           <View>
             
-            <Text style = {styles.texto}>Inscrição Processo Seletivo</Text>
+            <Text style = {styles.texto}>Processo Seletivo</Text>
 
           </View>
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.botao_sair} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', position:'absolute', bottom:"2%",top:'90%', left:'70%', height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -356,7 +310,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Programação",
       drawerIcon: () => (
-        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary} />
+        <View style = {{width:screenWidth*0.07}}>
+        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary}  resizeMode = 'contain'/>
+        </View>
       )
 
     },
@@ -366,19 +322,22 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Favoritos",
       drawerIcon: () => (
+        <View style = {{width:screenWidth*0.07}}>
         <Icon name="heart" size={screenWidth*0.06} color={colors.secondary} />
+        </View>
       )
 
     },
   },
 
   Screen3: {
-    screen: Screen3,
+    screen: QRContainer,
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
       drawerIcon: () => (
+        <View style = {{width:screenWidth*0.07}}>
         <Icon name="qrcode" size={screenWidth*0.06} color={colors.secondary} />
-
+        </View>
       )
     },
   },
@@ -388,8 +347,9 @@ const Drawer = createDrawerNavigator(
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
+        <TouchableOpacity style = {{width:screenWidth*0.07}} >
         <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
-
+        </TouchableOpacity>
       )
     },
   },
@@ -421,90 +381,7 @@ const Drawer = createDrawerNavigator(
 export const RouteNav = createAppContainer(Drawer)
 
 
-  /*const isSignedIn = () => {
 
-  logout()
-
-  const token =  await AsyncStorage.getItem('@storage_Key');
-  
-  console.log("token", token)
-  if (token !== null){
-    return true;
-  }
-  else{
-    return false; 
-   }*/
-
-   /*const isSignedIn = () => {
-
-    return new Promise((resolve, reject) => {
-      AsyncStorage.getItem('@storage_Key')
-        .then(res => {
-          if (res !== null) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
-        })
-        .catch(err => reject(err));
-    });
-  };
-  
-*/
-
-/*function CreateRootNavigator({logado, createSwitchNavigator, RouteNav, Login}){
-
-  return(
-
-    createSwitchNavigator(
-      {
-        RouteNav: {
-          screen: RouteNav
-        },
-        Login: {
-          screen: Login
-        }
-      },
-      {
-        initialRouteName: logado ? "RouteNav" : "Login"
-      }
-    )
-  )
-}*/
-
-  /*const CreateRootNavigator = createSwitchNavigator(
-      {
-        RouteNav: {
-          screen: RouteNav
-        },
-        Login: {
-          screen: Login
-        }
-      },
-      {
-        initialRouteName: isSignedIn ? "RouteNav" : "Login"
-      }
-    )
-*/
-
-
-/*async function logout(){
-
-  await AsyncStorage.removeItem('@storage_Key')
-  console.log('está deslogado')
-}*/
-
-/*export const SignedOutRoutes = createSwitchNavigator({
-  Login: {
-    screen: Login,
-  },
-});
-
-export const SignedInRoutes = createSwitchNavigator({
-  RouteNav: {
-    screen: RouteNav,
-  },
-});*/
 
 export const createRootNavigator = (signedIn = null) => {
   return createSwitchNavigator({
@@ -534,30 +411,7 @@ async function logout(){
 
 export default function App(){
 
-  /*const [ logado, setlogado ] = useState(null)
-
-  const isSignedIn = () => {
-
-    return new Promise((resolve, reject) => {
-      AsyncStorage.getItem('@storage_Key')
-        .then(res => {
-          if (res !== null) {
-            resolve(true);
-            setlogado(true)
-          } else {
-            resolve(false);
-            setlogado(false)
-          }
-        })
-        .catch(err => reject(err));
-    });
-  };*/
-
-  /*useEffect(() => {
-
-    isSignedIn()
-    
-  }, [])*/
+ 
 
 
   
@@ -570,29 +424,19 @@ export default function App(){
 
   };
 
-  /*isSignedIn()
-      .then(res => useState({ signed: res, signLoaded: true }));*/
-
-  /*const [signed, signLoaded] = useState({
-    signed: isSignedIn().then((res) => res),
-    signLoaded: true,
-  });*/
+ 
 
   const [ signed, setSigned ] = useState(null);
   const [ signLoaded, setSignLoaded ] = useState(null)
 
-  //const RotaPrincipal = LoginRoute();
 
-  //const RotaPrincipalNav = createAppContainer(RotaPrincipal)
 
   useEffect(() => {
 
     isSignedIn()
  
 
-    /*return function cleanup(){
-      AbortController.abort
-    }*/
+
   }, [])
 
 
@@ -612,17 +456,13 @@ export default function App(){
           barStyle="light-content"
                   />
 
-        <RotaPrincipal />
-
-
+      <RotaPrincipal />
+      <FlashMessage position="top"/>
     </>
     
     );
   }
 
-    //<RotaPrincipalNav />
-
-  
 
 const styles = StyleSheet.create({
 
@@ -686,7 +526,7 @@ const styles = StyleSheet.create({
     fontSize: screenWidth*0.045, 
     fontFamily: fonts.bold, 
     textAlign: "justify",
-    textAlign: 'justify'
+    textAlign: 'justify',
 
   },
 
@@ -695,6 +535,7 @@ const styles = StyleSheet.create({
     width: screenWidth*0.5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: screenWidth*0.02
   },
 
   placeholder:{
@@ -719,6 +560,7 @@ const styles = StyleSheet.create({
 
   menu_lateral_container: {
     flex: 1,
+    backgroundColor: '#DCDCDC',
     ...Platform.select({
       ios: {
         //marginTop: screenWidth*0.6, 
@@ -740,6 +582,7 @@ const styles = StyleSheet.create({
       }),
       borderBottomWidth: screenHeight*0.01, 
       borderBottomColor: colors.tertiary,
+      justifyContent: 'center'
     }
 
 })

@@ -37,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>O aplicativo SFE gostaria de usar a sua câmera para alterar sua foto de perfil</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>O aplicativo SFE gostaria de salvar fotos no seu rolo de câmera para você ter acesso as suas fotos de perfil</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>O aplicativo SFE gostaria de usar o seu rolo de câmera para alterar sua foto de perfil</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
