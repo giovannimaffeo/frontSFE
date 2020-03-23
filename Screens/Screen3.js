@@ -67,15 +67,12 @@ export default function Screen3({navigation}){
   <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
           
           {/*<View style = {{backgroundColor: 'red',width:screenWidth, height:screenHeight*0.5,}}/>*/}
-          <QRCodeScanner  cameraStyle={{height:screenHeight*1}} onRead = {(e) => confirmarPresenca(e)} reactivate = {true} reactivateTimeout={5000}/>
+          <QRCodeScanner  cameraStyle={{height:screenHeight*1, marginTop: -screenWidth*0.29}} onRead = {(e) => confirmarPresenca(e)} reactivate = {true} reactivateTimeout={5000}/>
           <View style={{position:"absolute",bottom:0, width:screenWidth, height:screenHeight, justifyContent:'center'}}>
           <LottieView autoPlay loop source ={require('./../assets/leitorQR')} style={{ width:screenHeight*0.4,height:screenHeight*0.4, alignSelf:'center',}}/>
           </View> 
           <View style={{ borderBottomWidth:(screenHeight-(screenHeight*0.4))/2,borderTopWidth:(screenHeight-(screenHeight*0.4))/2,borderLeftWidth:(screenWidth-(screenHeight*0.4))/2 ,borderRightWidth:(screenWidth-(screenHeight*0.4))/2, borderRadius:0,borderColor:"rgba(52, 52, 52, 0.4)", width:screenWidth,height:screenHeight,position:'absolute', bottom: 0,alignSelf:'center'}}/>
-          
-          <View >
-
-          </View>
+      
     </SafeAreaView>
 
 

@@ -10,7 +10,9 @@ import {
   Image,
   Linking,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 
@@ -18,7 +20,7 @@ import ImagePicker from 'react-native-image-picker';
 
 import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems, dangerouslyGetParent } from 'react-navigation-drawer';
 
 import FlashMessage from 'react-native-flash-message';
 
@@ -112,7 +114,9 @@ const QRContainer = createAppContainer(StackQR);
 
 const CustomDrawer = (props) => {
 
-  const [ contador, set_contador ] = useState(20)
+  const [ contador, set_contador ] = useState(null)
+
+  const [ numero, set_numero ] = useState(null)
 
   const [ esta_mudando, set_esta_mudando ] = useState(false)
 
@@ -145,25 +149,25 @@ const CustomDrawer = (props) => {
 
     <View>
 
-      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly'}}>
+      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly', marginLeft: screenWidth*0.03}}>
 
         <TextInput 
         placeholder="Coloque seu nome aqui"
-        onChangeText={(text) => { text != null ? set_contador(20 - text.length) : set_contador(20) ; set_username(text); } }
+        onChangeText={(text) => { text != null ? set_numero(20 - text.length) : set_contador(20) ; set_username(text); } }
         value={username}
         maxLength = {20}
         autoCorrect = {false}
         textContentType = "name"
-        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold'}} 
+        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold', flex: 1, height: screenWidth*0.12}} 
         />
 
-        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{contador}</Text>
+        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{numero}</Text>
 
       </View>
 
       <View style={{alignItems: 'flex-end'}}>  
 
-        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_contador(contador)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
+        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_numero(numero)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
 
           <Text style={{fontSize: screenWidth*0.033}}>Confirmar</Text>
 
@@ -195,9 +199,9 @@ const CustomDrawer = (props) => {
 
   }
 
-  async function armazena_contador(contador){
+  async function armazena_numero(numero){
 
-    await AsyncStorage.setItem('@AppSFE:contador', String(contador))
+    await AsyncStorage.setItem('@AppSFE:contador', String(numero))
 
     
 
@@ -210,25 +214,27 @@ const CustomDrawer = (props) => {
 
     var foto_perfil_armazenada = await AsyncStorage.getItem('@AppSFE:foto_perfil')
 
-    var contador_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+    var numero_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
 
 
     set_username(username_armazenado)
     setImageSource(foto_perfil_armazenada)
-    set_contador(contador_armazenado)
+    set_numero(numero_armazenado)
 
   }
 
    
   useEffect( () => {
  
+    props.navigation.state.isDrawerOpen ? null : (Keyboard.dismiss(), set_esta_mudando(false))
     reset_dados()
-    
-  }, [])
+
+  },[props.navigation.state.isDrawerOpen] )
 
 
   return (
 
+    <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
     <View style={styles.menu_lateral_container}>
 
       <View style={styles.perfil_container}>
@@ -257,7 +263,14 @@ const CustomDrawer = (props) => {
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
-          <View style={{marginRight: screenWidth*0.1}}>
+          <View style={{...Platform.select({
+                ios: {
+                  marginRight: screenWidth*0.11
+                },
+                android: {
+                  marginRight: screenWidth*0.1
+                },
+              }),}}>
 
             <Icon name="note-outline" size={screenWidth*0.0625} color='#a6a6a6' style={styles.icone}/>
 
@@ -291,8 +304,9 @@ const CustomDrawer = (props) => {
 
       </View>
 
-
     </View>
+    </TouchableWithoutFeedback>
+
 
 
     
@@ -358,7 +372,9 @@ const Drawer = createDrawerNavigator(
   {
     initialRouteName: 'AppContainer',
     contentComponent: props => < CustomDrawer {...props} />,
+    keyboardDismissMode: 'on-drag',
     drawerWidth: screenWidth*0.8,
+    
     
     contentOptions: {
       labelStyle: {
@@ -433,8 +449,7 @@ export default function App(){
 
   useEffect(() => {
 
-    isSignedIn()
- 
+    isSignedIn() 
 
 
   }, [])
@@ -450,12 +465,12 @@ export default function App(){
 
     <>
 
-    
+      
       <StatusBar
           backgroundColor={colors.tertiary}
           barStyle="light-content"
                   />
-
+      
       <RotaPrincipal />
       <FlashMessage position="top"/>
     </>
@@ -493,7 +508,7 @@ const styles = StyleSheet.create({
     color: colors.tertiary,
     ...Platform.select({
       ios: {
-        fontSize: screenHeight*0.0198,
+        fontSize: screenHeight*0.026,
         marginTop: screenHeight*0.0045
       },
       android: {
