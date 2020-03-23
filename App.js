@@ -275,9 +275,9 @@ const CustomDrawer = (props) => {
 
   return (
 
-    <View style={{flex: 1}}>
+    <View style={styles.menu_lateral_container}>
 
-      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
+      <View style={styles.perfil_container}>
 
         <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
 
@@ -318,7 +318,7 @@ const CustomDrawer = (props) => {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: screenWidth*0.57, marginTop: screenWidth*0.3, height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
+        <TouchableOpacity style={styles.botao_sair} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
 
           <View >
 
@@ -339,6 +339,9 @@ const CustomDrawer = (props) => {
 
 
     </View>
+
+
+    
   );
 };
 
@@ -697,8 +700,47 @@ const styles = StyleSheet.create({
   placeholder:{
     fontSize: screenWidth*0.03,
     fontFamily: fonts.primary
-  }
+  },
 
+  botao_sair: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    marginLeft: screenWidth*0.57, 
+    ...Platform.select({
+      ios: {
+        marginTop: screenWidth*0.6, 
+      },
+      android: {
+        marginTop: screenWidth*0.3, 
+      },      
+    }),
+    height: screenWidth*0.1
+  },
+
+  menu_lateral_container: {
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        //marginTop: screenWidth*0.6, 
+      },
+      android: {
+      },      
+    }),
+    },
+  
+    perfil_container:{
+      height: screenHeight*0.187, 
+      backgroundColor: '#DCDCDC', 
+      ...Platform.select({
+        ios: {
+          marginTop: screenHeight*0.04,          
+        },
+        android: {
+        },      
+      }),
+      borderBottomWidth: screenHeight*0.01, 
+      borderBottomColor: colors.tertiary,
+    }
 
 })
 

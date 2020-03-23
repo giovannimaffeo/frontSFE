@@ -287,7 +287,7 @@ export default function Informacoes({ navigation }){
 Informacoes.navigationOptions = ({ navigation }) => ({
     header: ( 
 
-      <View style={styles.header} >
+      <SafeAreaView style={styles.header} >
 
         <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
 
@@ -298,7 +298,7 @@ Informacoes.navigationOptions = ({ navigation }) => ({
         
   
   
-      </View>
+      </SafeAreaView>
     )
   })
 
