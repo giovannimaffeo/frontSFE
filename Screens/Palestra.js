@@ -54,6 +54,7 @@ export default function Palestra( props ){
 
   const length = props.length
 
+
   if(length == 1){
 
     return(
