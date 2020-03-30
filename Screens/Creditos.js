@@ -42,16 +42,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-import Header from './Header'
+import Header from './Header';
+import Error from './Error';
 
 import api from '../services/api'
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
+
 export default function TelaCreditos({navigation}){
 
   const [patrocinadores, setPatrocinadores] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
   const [loading, setLoading] = useState(true)
 
   async function carrega_patrocinadores(){
@@ -67,7 +70,8 @@ export default function TelaCreditos({navigation}){
     
     } catch{
 
-      console.log('fail')
+      setErrorMessage('Não foi possível carregar essa página')
+      setLoading(false)
 
     }
 
@@ -85,11 +89,13 @@ export default function TelaCreditos({navigation}){
 
     <ScrollView style={{backgroundColor: colors.primary}}>
 
-      <Spinner visible={loading}/>
-
       <Header navigation = {navigation} />
+
+      { !!errorMessage && <Error errorMessage={errorMessage}/> }
       
       <View style={styles.container}>
+
+        <Spinner visible={loading}/> 
 
         <View>
 

@@ -27,8 +27,8 @@ import FlashMessage from 'react-native-flash-message';
 import Programacao from './Screens/Programacao'
 
 
-import Screen3 from './Screens/Screen3'
-import Screen4 from './Screens/Screen4'
+import QrCode from './Screens/QrCode'
+import Creditos from './Screens/Creditos'
 
 import Informacoes from './Screens/Informacoes'
 import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
@@ -100,7 +100,7 @@ const StackFavorito = createStackNavigator (
 const StackQR = createStackNavigator(
   {
     QRcode:{
-      screen:Screen3
+      screen: QrCode
     }
   },
   {
@@ -344,7 +344,7 @@ const Drawer = createDrawerNavigator(
     },
   },
 
-  Screen3: {
+  QRcode: {
     screen: QRContainer,
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
@@ -356,8 +356,8 @@ const Drawer = createDrawerNavigator(
     },
   },
 
-  Screen4: {
-    screen: Screen4,
+  Creditos: {
+    screen: Creditos,
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
