@@ -102,7 +102,8 @@ export default function TelaFavorito({ navigation }){
             source={require('../assets/coracao_laranja_maior')} 
             autoPlay 
             loop 
-            style={{height: screenHeight*0.0719}}/>
+            style={{height: screenHeight*0.0719}}
+            />
 
         </View>
 
