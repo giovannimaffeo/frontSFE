@@ -83,6 +83,8 @@ export default function Informacoes({ navigation }){
 
     const [favorito, set_favorito] = useState(null);
 
+    const [loading, setLoading] = useState(true)
+
 
     async function verifica_se_e_favorita(palestra){
 
@@ -97,6 +99,8 @@ export default function Informacoes({ navigation }){
 
             set_favorito(true)
 
+            setLoading(false)
+
         }
 
         else{
@@ -104,6 +108,8 @@ export default function Informacoes({ navigation }){
             set_color('#ffffff')
 
             set_favorito(false)
+
+            setLoading(false)
 
         }
     };
@@ -250,11 +256,11 @@ export default function Informacoes({ navigation }){
 
                     <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
-                        <Icon name="heart" size={screenWidth*0.05} color = {color} />
+                        { !(loading) ? <Icon name="heart" size={screenWidth*0.05} color = {color} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover'/> }
 
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
 
-                    <View>
+                    <View> 
 
                         <Text style={styles.texto}>Adicionar aos Favoritos </Text>
                         
@@ -367,6 +373,11 @@ const styles = StyleSheet.create({
     descricaoCompletaPalestrante: {
         marginLeft: screenWidth*0.028,
         marginRight: screenWidth*0.25,
+    },
+
+    imagefluxo: {
+        width: screenWidth * 0.075, 
+        height: screenHeight * 0.04,
     },
 
     }

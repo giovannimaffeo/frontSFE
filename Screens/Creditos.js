@@ -71,7 +71,7 @@ export default function TelaCreditos({navigation}){
     } catch{
 
       setErrorMessage('Não foi possível carregar essa página')
-      setLoading(false)
+      //setLoading(false)
 
     }
 
@@ -95,13 +95,17 @@ export default function TelaCreditos({navigation}){
       
       <View style={styles.container}>
 
-        <Spinner visible={loading}/> 
+        {/*<Spinner visible={loading}/> */}
 
         <View>
 
           <Text style={styles.title}>Nossos Colaboradores</Text>
 
-          <View style={styles.patrocinadoresContainer}>  
+          <View style={styles.patrocinadoresContainer}> 
+
+            {loading ? <View style={{width: screenWidth*0.5, height: screenWidth*0.18, justifyContent: 'center', alignItems: 'center'}}>
+              <Image source={require('../assets/LogoForca.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+            </View> : null} 
 
             <FlatList
 
@@ -268,7 +272,12 @@ logofluxo:{
     alignSelf: 'center',
     textAlign: 'center'
 
-  }
+  },
+
+  imagefluxo: {
+    width: screenWidth * 0.18, 
+    height: screenHeight * 0.1,
+    },
 
 
 }
