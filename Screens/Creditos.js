@@ -137,7 +137,7 @@ export default function TelaCreditos({navigation}){
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.instagram.com/fluxoconsultoria/')} style={styles.iconeContainer}>
 
               <Image 
-              source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/instagram.png'}} 
+              source = {require('../assets/instagram_verde.png')} 
               style = {styles.icone}/>
 
               <Text style={styles.texto_icone}>Instagram</Text>
@@ -148,7 +148,7 @@ export default function TelaCreditos({navigation}){
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.facebook.com/fluxoconsultoria') } style={styles.iconeContainer}>
 
             <Image 
-            source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/07/facebook-logo.png'}} 
+            source = {require('../assets/facebook_verde.png')} 
             style = {styles.icone}/>
 
             <Text style={styles.texto_icone}>Facebook</Text>
@@ -159,7 +159,7 @@ export default function TelaCreditos({navigation}){
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://fluxoconsultoria.poli.ufrj.br/contato') } style={styles.iconeContainer}>
 
             <Image 
-            source = {{uri: 'https://fluxoconsultoria.poli.ufrj.br/wp-content/uploads/2019/01/speech-bubble.png'}} 
+            source = {require('../assets/chat_verde.png')} 
             style = {styles.icone}/>
 
             <Text style={styles.texto_icone}>Nosso site</Text>
