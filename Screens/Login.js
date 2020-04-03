@@ -219,10 +219,10 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    justifyContent:'flex-end',
+    justifyContent:'center',
     backgroundColor: "white",
     paddingHorizontal: screenWidth * 0.05,
-    paddingVertical: screenHeight * 0.1
+    //marginTop: screenHeight * 0.05
   },
 
   imageView: {
