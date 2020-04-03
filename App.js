@@ -47,6 +47,7 @@ import fonts from './styles/fonts';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Login from './Screens/Login'
+import SplashScreen from "react-native-splash-screen";
 
 const DATA = 
 
@@ -445,19 +446,22 @@ export default function App(){
   const [ signed, setSigned ] = useState(null);
   const [ signLoaded, setSignLoaded ] = useState(null)
 
+  function confere_ja_logou(){
+
+    (!signLoaded) ? SplashScreen.show() : SplashScreen.hide()
+  }
+
 
 
   useEffect(() => {
 
+    confere_ja_logou()
+
     isSignedIn() 
 
 
-  }, [])
+  }, [signLoaded] )
 
-
-    if (!signLoaded) {
-      return null;
-  }
 
   const Layout = createRootNavigator(signed);
   const RotaPrincipal = createAppContainer(Layout)

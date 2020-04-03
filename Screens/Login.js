@@ -26,6 +26,7 @@ import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage';
 import { SafeAreaView } from 'react-navigation';
 
+import SplashScreen from 'react-native-splash-screen'
 
 
 
@@ -111,14 +112,18 @@ async function confere_se_ja_logou(){
         
 }
 
-useEffect( () =>
-  (confere_se_ja_logou(),
-  navegar_para_o_App())
-)
+function controla_splash_screen(){
 
-if (!confere_ja_logou){
-  return null
+  (confere_ja_logou) ? SplashScreen.hide() : SplashScreen.show()
+
 }
+
+useEffect( () =>
+  (controla_splash_screen(),
+  confere_se_ja_logou(),
+  navegar_para_o_App()
+  )
+)
 
 if (ja_logou){
 

@@ -70,6 +70,8 @@ target 'AplicativoSFC2' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'AplicativoSFC2Tests' do
     inherit! :search_paths
     # Pods for testing
