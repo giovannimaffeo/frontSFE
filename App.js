@@ -127,8 +127,22 @@ const CustomDrawer = (props) => {
 
   const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
 
+  const options = {
+    title: "Escolha uma Foto Irada!",
+    maxWidth: 800, 
+    maxHeight: 600,
+    takePhotoButtonTitle: 'Tirar foto agora...',
+    chooseFromLibraryButtonTitle: 'Escolher da biblioteca...',
+    cancelButtonTitle: 'Cancelar',
+    allowsEditing: 'true'
+    
+  };
+
+
+
+
     pickImageHandler = () => {
-    ImagePicker.showImagePicker({title: "Escolha uma Foto", maxWidth: 800, maxHeight: 600}, res => {
+    ImagePicker.showImagePicker(options, res => {
       if (res.didCancel) {
         console.log("User cancelled!");
       } else if (res.error) {
@@ -232,13 +246,13 @@ const CustomDrawer = (props) => {
 
     //var numero_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
 
-    var token = await AsyncStorage.getItem('@storage_Key')
+    var password = await AsyncStorage.getItem('@AppSFE:password')
 
 
     set_username(username_armazenado)
     setImageSource(foto_perfil_armazenada)
     username_armazenado ? set_numero(20 - username_armazenado.length) : set_numero(20)
-    setToken(token)
+    setToken(password)
 
   }
 

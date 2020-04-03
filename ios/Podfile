@@ -61,7 +61,6 @@ target 'AplicativoSFC2' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 

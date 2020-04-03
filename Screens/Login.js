@@ -64,6 +64,7 @@ async function fazendo_login(){
     const { token } = response.data;
     console.log(token)
     await AsyncStorage.setItem('@storage_Key', token)
+    await AsyncStorage.setItem('@AppSFE:password', userPassword)
     
 
     set_login_feito(true)
@@ -104,11 +105,15 @@ if (show_Main_App) {
       style={{flex: 1}} >
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
     <View style={styles.container}>
-      <View style={styles.imageView}>
+      {/*<View style={styles.imageView}>
         <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
-      </View>
+      </View>*/}
+    <View style={styles.imageView}>
 
-        <View >
+      <Image source={require('../assets/LogoFrases.gif')} style={styles.imagefluxo} />
+
+    </View>
+        <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
           <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
         </View>
         {/*<View style={styles.orangeBorder}>*/}
@@ -222,6 +227,7 @@ const styles = StyleSheet.create({
 
   imageView: {
     alignItems: "center",
+    marginTop: screenWidth*0.03
   },
   imagefluxo: {
     width: screenWidth * 0.65, 
@@ -274,7 +280,8 @@ const styles = StyleSheet.create({
       borderRadius:15
 
 
-    }
+    },
+    
 })
 
 
