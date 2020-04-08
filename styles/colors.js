@@ -1,11 +1,11 @@
 
 export default {
     //#ffffff
-    primary: '#777b7e',
+    primary: '#ffffff',
     //#FFFFFF
-    secondary: '#ffffff',
+    secondary: '#ff3968',
     //#F4893B
-    tertiary: '#319aff',
+    tertiary: '#56e8b8',
     //#C0C0C0
-    quaternary: '#f24ef5'
+    quaternary: '#ff3968'
 }
