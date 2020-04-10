@@ -295,7 +295,7 @@ const styles = StyleSheet.create({ //d9d9d9
 
   container_index_0:{
     flexDirection: 'row',
-    borderColor: 'blue',
+    borderColor: '#a9a9a9',
     height: screenHeight*0.137,
     borderRadius: screenWidth*0.03, 
     width: screenWidth*0.98,
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({ //d9d9d9
 
   container_index_menos1:{
     flexDirection: 'row',
-    borderColor: '#a9a9a9',
+    borderColor: 'blue',
     height: screenHeight*0.137,
     borderRadius: screenWidth*0.03, 
     width: screenWidth*0.98,
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({ //d9d9d9
   },
 
   background:{
-    backgroundColor:'#ff3968',
+    backgroundColor:'#ff9e38',
     marginTop: screenHeight*0.005,
     borderRadius: screenWidth*0.03,
     width: screenWidth*0.986,

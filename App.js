@@ -280,7 +280,7 @@ const CustomDrawer = (props) => {
 
           <View style={{marginLeft: screenWidth*0.02}}>
 
-            <Text style={{color: 'white', fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
+            <Text style={{color: '#a6a6a6', fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
 
 
           </View>
