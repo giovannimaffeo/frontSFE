@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   },
 
   textoBotao:{
-    color: colors.secondary,
+    color: 'white',
     fontFamily: fonts.bold,
     fontSize: screenWidth*0.039
   },

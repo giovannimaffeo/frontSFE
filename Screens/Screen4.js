@@ -251,7 +251,7 @@ logofluxo:{
 
   icone:{
     width: screenHeight*0.0864,
-    height: screenHeight*0.0864
+    height: screenHeight*0.0864,
   },
 
   texto_icone:{
