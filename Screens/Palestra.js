@@ -81,7 +81,7 @@ export default function Palestra( props ){
 
                       <Text>
 
-                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+                        <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema.length > 26 ? `${props.data.tema.slice(0,24)}...` : props.data.tema}</Text>
 
                       </Text>
 
@@ -92,7 +92,7 @@ export default function Palestra( props ){
 
                       <Text>
 
-                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+                        <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante.length > 20 ? `${props.data.palestrante.slice(0,16)}...` : props.data.palestrante}</Text>
 
                       </Text>
 
@@ -142,7 +142,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema.length > 26 ? `${props.data.tema.slice(0,24)}...` : props.data.tema}</Text>
 
                     </Text>
 
@@ -153,7 +153,7 @@ export default function Palestra( props ){
 
                     <Text>
 
-                    <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+                    <Text style={styles.texto_padrao}>Palestrante:</Text> <Text style={styles.texto_variavel}>{props.data.palestrante.length > 20 ? `${props.data.palestrante.slice(0,16)}...` : props.data.palestrante}</Text>
 
                     </Text>
 
@@ -201,7 +201,7 @@ if(index == lastindex){
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema.length > 26 ? `${props.data.tema.slice(0,24)}...` : props.data.tema}</Text>
 
                     </Text>
 
@@ -212,7 +212,7 @@ if(index == lastindex){
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante.length > 20 ? `${props.data.palestrante.slice(0,16)}...` : props.data.palestrante}</Text>
 
                     </Text>
 
@@ -261,7 +261,7 @@ else{
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema}</Text>
+                      <Text style={styles.texto_padrao}>Tema:</Text> <Text style={styles.texto_variavel}>{props.data.tema.length > 26 ? `${props.data.tema.slice(0,24)}...` : props.data.tema}</Text>
 
                     </Text>
 
@@ -272,7 +272,7 @@ else{
 
                     <Text>
 
-                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante}</Text>
+                      <Text style={styles.texto_padrao}>Palestrante: </Text> <Text style={styles.texto_variavel}>{props.data.palestrante.length > 20 ? `${props.data.palestrante.slice(0,16)}...` : props.data.palestrante}</Text>
 
                     </Text>
 

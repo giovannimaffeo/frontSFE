@@ -37,7 +37,6 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Hyperlink from 'react-native-hyperlink';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -49,6 +48,12 @@ import api from '../services/api'
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
+
+import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont();
+
+import Icon2 from 'react-native-vector-icons/SimpleLineIcons'
+Icon2.loadFont();
 
 
 export default function TelaCreditos({navigation}){
@@ -136,9 +141,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.instagram.com/fluxoconsultoria/')} style={styles.iconeContainer}>
 
-              <Image 
-              source = {require('../assets/instagram_verde.png')} 
-              style = {styles.icone}/>
+              <Icon name="logo-instagram" color={colors.tertiary} size={screenWidth*0.18} />
 
               <Text style={styles.texto_icone}>Instagram</Text>
 
@@ -147,9 +150,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.facebook.com/fluxoconsultoria') } style={styles.iconeContainer}>
 
-            <Image 
-            source = {require('../assets/facebook_verde.png')} 
-            style = {styles.icone}/>
+            <Icon name="logo-facebook" color={colors.tertiary} size={screenWidth*0.18} />
 
             <Text style={styles.texto_icone}>Facebook</Text>
 
@@ -158,9 +159,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://fluxoconsultoria.poli.ufrj.br/contato') } style={styles.iconeContainer}>
 
-            <Image 
-            source = {require('../assets/chat_verde.png')} 
-            style = {styles.icone}/>
+            <Icon2 name="bubbles" color={colors.tertiary} size={screenWidth*0.18} />
 
             <Text style={styles.texto_icone}>Nosso site</Text>
 
