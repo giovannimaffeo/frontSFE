@@ -34,7 +34,7 @@ import { useState, useEffect } from 'react';
 import { createAppContainer, } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 
@@ -79,11 +79,12 @@ export default function Informacoes({ navigation }){
 
     const [errorMessage, seterror] = useState(null);
 
-    const [color, set_color ] = useState(null);
-
     const [favorito, set_favorito] = useState(null);
 
     const [loading, setLoading] = useState(true)
+
+
+    const [icon, setIcon] = useState('')
 
 
     async function verifica_se_e_favorita(palestra){
@@ -95,7 +96,7 @@ export default function Informacoes({ navigation }){
 
         if((lista_favoritos.some(({id}) => id === palestra.id))){
 
-            set_color(colors.tertiary)
+            setIcon("favorite")
 
             set_favorito(true)
 
@@ -104,8 +105,8 @@ export default function Informacoes({ navigation }){
         }
 
         else{
-            
-            set_color('#ffffff')
+
+            setIcon("favorite-border")
 
             set_favorito(false)
 
@@ -117,25 +118,25 @@ export default function Informacoes({ navigation }){
     async function favoritar_palestra(id){
 
         try {
-    
-            const response = await api.get(`/favoritar/${id}/`);
 
-            await console.log(response.data.message)
 
             if(favorito){
 
-                set_color('#ffffff')
+                setIcon('favorite-border')
                 set_favorito(false)
 
             }
 
             else{
 
-                set_color(colors.tertiary)
+                setIcon('favorite')
                 set_favorito(true)
 
             }
-      
+    
+            const response = await api.get(`/favoritar/${id}/`);
+
+            await console.log(response.data.message)
 
         } catch(err) {
       
@@ -192,7 +193,7 @@ export default function Informacoes({ navigation }){
 
                         </Text>
 
-                        <Text>
+                        <Text style={{textAlign: 'justify'}}>
 
                             <Text style={styles.textoPrincipal}>Quem sou?</Text> <Text style={styles.texto}> { navigation.state.params.data.descricao_palestrante } </Text>
 
@@ -254,9 +255,9 @@ export default function Informacoes({ navigation }){
 
                 <View style={{marginTop: screenHeight*0.06, flexDirection: "row", alignItems: "center"}}>
 
-                    <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
+                    <TouchableOpacity style = {{width: screenWidth*0.1, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
-                        { !(loading) ? <Icon name="heart" size={screenWidth*0.05} color = {color} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover'/> }
+                        { !(loading) ? <Icon name={icon} size={screenWidth*0.059} color = {colors.tertiary} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover' regular /> }
 
                     </TouchableOpacity> 
 
@@ -297,8 +298,8 @@ Informacoes.navigationOptions = ({ navigation }) => ({
 
         <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
 
-            <Icon name="chevron-left" size={screenWidth*0.05} color = {colors.secondary} />
-
+            <Icon name="keyboard-arrow-left" size={screenWidth*0.09} color = {colors.secondary} />
+            
         </TouchableOpacity>
 
         
@@ -335,7 +336,8 @@ const styles = StyleSheet.create({
     textoTitulo: {
         fontSize: screenHeight*0.04,
         color: colors.secondary,
-        fontFamily: fonts.bold
+        fontFamily: fonts.bold,
+        textAlign: 'center'
         
     },
 
@@ -343,7 +345,7 @@ const styles = StyleSheet.create({
         paddingRight: screenWidth*0.05,
         marginTop: screenHeight*0.04,
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
 
 
     },
@@ -356,7 +358,7 @@ const styles = StyleSheet.create({
     },
 
     texto:{
-        color: 'white',
+        color: colors.text_color,
         fontSize: screenWidth*0.04,
         fontFamily: fonts.regular,
         textAlign: "justify"

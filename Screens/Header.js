@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
             borderBottomWidth: screenHeight*0.01, 
           },      
         }),
-        borderBottomColor: colors.quaternary,
+        borderBottomColor: colors.secondary,
         justifyContent: "space-between",
         paddingRight: screenWidth*0.05
   

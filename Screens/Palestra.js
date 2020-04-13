@@ -18,6 +18,7 @@ import {
   AppRegistry,
   Image,
   FlatList,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import {
@@ -59,8 +60,11 @@ export default function Palestra( props ){
 
     return(
 
-      <TouchableOpacity style={styles.container_length_igual_1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+      <TouchableWithoutFeedback>
+      <View style={styles.background}>
 
+      <TouchableOpacity style={styles.container_length_igual_1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
+        
           
           <View style={styles.containerImagem}>
 
@@ -108,6 +112,9 @@ export default function Palestra( props ){
           </View>
 
       </TouchableOpacity >
+      </View>
+
+      </TouchableWithoutFeedback>
 
     );
   }
@@ -116,6 +123,7 @@ export default function Palestra( props ){
 
     return(
 
+      <View style={styles.background}>
       <TouchableOpacity style={styles.container_index_0} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
         
@@ -165,6 +173,7 @@ export default function Palestra( props ){
         </View>
 
     </TouchableOpacity >
+    </View>
   )
 }
 
@@ -173,6 +182,7 @@ if(index == lastindex){
 
   return(
 
+    <View style={styles.background}>
     <TouchableOpacity style={styles.container_index_menos1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
         
@@ -222,6 +232,7 @@ if(index == lastindex){
         </View>
 
     </TouchableOpacity >
+    </View>
 
   );
 }
@@ -229,6 +240,8 @@ if(index == lastindex){
 else{
 
   return(
+
+    <View style={styles.background}>
 
     <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
 
@@ -279,7 +292,7 @@ else{
         </View>
 
     </TouchableOpacity >
-
+    </View>
   );
 }
 }
@@ -287,38 +300,56 @@ const styles = StyleSheet.create({ //d9d9d9
 
   container_index_0:{
     flexDirection: 'row',
-    borderColor: colors.quaternary,
     height: screenHeight*0.137,
-    borderBottomWidth: screenHeight*0.003,
-    borderTopStartRadius: screenWidth*0.05,
-    borderTopEndRadius: screenWidth*0.05,
-    backgroundColor: colors.secondary
+    borderRadius: screenWidth*0.03, 
+    width: screenWidth*0.98,
+    alignSelf: "center",
+    marginBottom: screenHeight*0.005,
+    marginTop: screenHeight*0.005,
+    // borderBottomWidth: screenHeight*0.003,
+    // borderTopStartRadius: screenWidth*0.05,
+    // borderTopEndRadius: screenWidth*0.05,
 
   },
 
   container_index_menos1:{
     flexDirection: 'row',
-    borderColor: colors.quaternary,
     height: screenHeight*0.137,
-    borderBottomStartRadius: screenWidth*0.05,
-    borderBottomEndRadius: screenWidth*0.05,
-    backgroundColor: colors.secondary
+    borderRadius: screenWidth*0.03, 
+    width: screenWidth*0.98,
+    alignSelf: "center",
+    marginBottom: screenHeight*0.005,
+    marginTop: screenHeight*0.005,
+    // borderBottomStartRadius: screenWidth*0.05,
+    // borderBottomEndRadius: screenWidth*0.05,
   },
 
   container_length_igual_1:{
     flexDirection: 'row',
-    borderColor: colors.quaternary,
     height: screenHeight*0.137,
-    borderRadius: screenWidth*0.05,
-    backgroundColor: colors.secondary
+
+   // borderRadius: screenWidth*0.05,
+
+    borderRadius: screenWidth*0.03, 
+    width: screenWidth*0.98,
+    alignSelf: "center",
+    marginBottom: screenHeight*0.005,
+    marginTop: screenHeight*0.005,
+
   },
 
   container:{
     flexDirection: 'row',
-    borderColor: colors.quaternary,
     height: screenHeight*0.137,
-    borderBottomWidth: screenHeight*0.003,
-    backgroundColor: colors.secondary
+
+    // borderBottomWidth: screenHeight*0.003,
+
+    borderRadius: screenWidth*0.03, 
+    width: screenWidth*0.98,
+    alignSelf: "center",
+    marginBottom: screenHeight*0.005,
+    marginTop: screenHeight*0.005,
+
     
   },
 
@@ -335,7 +366,6 @@ const styles = StyleSheet.create({ //d9d9d9
     width: screenWidth*0.19,  
     height: screenWidth*0.19, 
     
-
   },
 
   programacao:{
@@ -345,24 +375,37 @@ const styles = StyleSheet.create({ //d9d9d9
   },
 
   texto_padrao:{
-    color: colors.tertiary,
+    color: colors.secondary,
     fontFamily: fonts.bold,
     fontSize: screenHeight*0.023
   },
 
   texto_variavel:{
-    color: colors.primary,
+    color: colors.text_color,
     fontFamily: fonts.semi_bold,
     fontSize: screenWidth*0.034
 
   },
 
   horario:{
-    color: colors.tertiary,
+    color: colors.dark_tertiary,
     fontFamily: fonts.bold,
     fontSize: screenHeight*0.0215,
     
     
+
+  },
+
+  background:{
+    borderColor: colors.tertiary,
+    borderWidth: screenWidth*0.005,
+    marginTop: screenHeight*0.005,
+    borderRadius: screenWidth*0.03,
+    width: screenWidth*0.986,
+    height: screenHeight*0.141,
+    alignSelf: "center",
+    justifyContent: "center"
+
 
   }
 
