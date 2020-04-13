@@ -187,7 +187,7 @@ textoHeader:{
   container: {
     backgroundColor: colors.primary,
     flex: 1,
-
+    borderRadius: screenWidth*0.015,
   
     
   },
@@ -211,9 +211,7 @@ textoHeader:{
 
   bodyContainer:{
     marginTop: screenHeight*0.018,
-    borderTopWidth: screenHeight*0.003,
-    borderBottomColor: colors.quaternary,
-    backgroundColor: colors.secondary,
+    //borderTopWidth: screenHeight*0.003, 
     borderRadius: screenHeight*0.015,
   },
 

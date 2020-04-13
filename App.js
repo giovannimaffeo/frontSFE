@@ -170,12 +170,13 @@ const CustomDrawer = (props) => {
 
         <TextInput 
         placeholder="Coloque seu nome aqui"
+        placeholderTextColor='rgba(0, 0, 0, 0.25)'
         onChangeText={(text) => { text != null ? set_numero(20 - text.length) : set_contador(20) ; set_username(text); } }
         value={username}
         maxLength = {20}
         autoCorrect = {false}
         textContentType = "name"
-        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold', flex: 1, height: screenWidth*0.12}} 
+        style={{fontSize: screenWidth*0.035, color: 'rgba(0, 0, 0, 0.25)', fontWeight: 'bold', flex: 1, height: screenWidth*0.12}} 
         />
 
         <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{numero}</Text>
@@ -206,9 +207,9 @@ const CustomDrawer = (props) => {
 
       <TouchableOpacity onPress={showToken} style={{height: screenWidth*0.08,flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: screenWidth*0.03}}>
 
-        <Text style={{color: '#ff3968', fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
+        <Text style={{color: colors.secondary, fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
 
-        <Icon name="lead-pencil" size={screenWidth*0.04} color='#ff3968' style={styles.icone}/>
+        <Icon name="lead-pencil" size={screenWidth*0.04} color={colors.secondary} style={styles.icone}/>
 
       </TouchableOpacity>
 
@@ -313,7 +314,7 @@ const CustomDrawer = (props) => {
                 },
               }),}}>
 
-            <Icon name="note-outline" size={screenWidth*0.0625} color='#a6a6a6' style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
 
 
           </View>
@@ -330,13 +331,13 @@ const CustomDrawer = (props) => {
 
           <View >
 
-            <Icon name="logout" size={screenWidth*0.0625} color="#a6a6a6" style={styles.icone}/>
+            <Icon name="logout" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
 
           </View>
 
           <View style={{marginLeft: screenWidth*0.02}}>
 
-            <Text style={{color: 'white', fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
+            <Text style={{color: colors.secondary, fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
 
 
           </View>
@@ -531,7 +532,7 @@ const styles = StyleSheet.create({
   }, 
   title: { 
    fontSize: screenHeight*0.03737, 
-   color: '#FFFFFF', 
+   color: 'black', 
    fontWeight: 'bold', 
    textAlign: 'center', 
    marginTop: screenHeight*0.02875, 
@@ -570,7 +571,7 @@ const styles = StyleSheet.create({
   },
 
   texto_inicial: {
-    color: colors.primary, 
+    color: 'rgba(0, 0, 0, 0.25)', 
     fontSize: screenWidth*0.031, 
     fontFamily: fonts.bold, 
     textAlign: "justify"
@@ -578,7 +579,7 @@ const styles = StyleSheet.create({
   },
 
   texto_username: {
-    color: colors.primary, 
+    color: colors.dark_tertiary, 
     fontSize: screenWidth*0.045, 
     fontFamily: fonts.bold, 
     textAlign: 'center',
@@ -616,7 +617,6 @@ const styles = StyleSheet.create({
 
   menu_lateral_container: {
     flex: 1,
-    backgroundColor: '#DCDCDC',
     ...Platform.select({
       ios: {
         //marginTop: screenWidth*0.6, 
@@ -628,7 +628,7 @@ const styles = StyleSheet.create({
   
     perfil_container:{
       height: screenHeight*0.187, 
-      backgroundColor: '#DCDCDC', 
+      backgroundColor: colors.quaternary, 
       ...Platform.select({
         ios: {
           marginTop: screenHeight*0.04,          

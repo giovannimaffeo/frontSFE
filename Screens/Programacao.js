@@ -67,12 +67,12 @@ export default function Programacao({ navigation }){
   const [loading, setloading] = useState(true)
 
 
-  const [colorList, setColorList] = useState([colors.quaternary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
+  const [colorList, setColorList] = useState([colors.secondary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
   function changeColorList(indexButtonToChange){
 
     const newList = [colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary];
 
-    newList[indexButtonToChange] = colors.quaternary;
+    newList[indexButtonToChange] = colors.secondary;
 
     setColorList(newList)
     
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   },
 
   textoBotao:{
-    color: colors.secondary,
+    color: colors.primary,
     fontFamily: fonts.bold,
     fontSize: screenWidth*0.039
   },
