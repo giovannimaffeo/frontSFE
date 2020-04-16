@@ -279,9 +279,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       ios: {
-        borderRadius: screenHeight*0.025,   
-        height: screenHeight*0.05,
-        width: screenWidth*0.11
+        borderRadius: screenWidth*0.0525,   
+        height: screenWidth*0.105,
+        width: screenWidth*0.105
       },
       android: {
         borderRadius: screenWidth*0.05, 
