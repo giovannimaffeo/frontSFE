@@ -120,7 +120,7 @@ export default function TelaCreditos({navigation}){
 
             data = {patrocinadores}
 
-            renderItem = { ({item}) => <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: `http://67.205.161.203${item.logo}`}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
+            renderItem = { ({item}) => <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: `http://67.205.161.203:8000${item.logo}`}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
 
             keyExtractor={ (item) => item.id.toString() }
             />
