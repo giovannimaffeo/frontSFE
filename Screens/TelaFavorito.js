@@ -95,24 +95,20 @@ export default function TelaFavorito({ navigation }){
 
       <View style={styles.titleContainer}>
 
-        <View style={{marginTop: screenHeight*0.02}}>
-
           <Text style={styles.title}>Palestras Favoritas</Text>
 
-        </View>
+          <View style={{height: screenHeight*0.056, alignItems: 'center', width: screenWidth*0.15 }}>
 
-        <View style={{height: screenHeight*0.056, justifyContent: 'center', marginTop: screenWidth*0.05}}>
+            {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
 
-          {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
+            <LottieView 
+              source={require('../assets/coracao_verde')} 
+              autoPlay 
+              loop 
+              style={{height: screenHeight*0.0719}}
+            />
 
-          <LottieView 
-            source={require('../assets/coracao_verde')} 
-            autoPlay 
-            loop 
-            style={{height: screenHeight*0.0719}}
-          />
-
-        </View>
+          </View>
 
       </View>
 
@@ -196,6 +192,7 @@ textoHeader:{
     height: screenHeight*0.1,
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center'
 
   
 

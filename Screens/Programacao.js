@@ -66,6 +66,9 @@ export default function Programacao({ navigation }){
 
   const [loading, setloading] = useState(true)
 
+  const [daysList, setDaysList] = useState({})
+  const [preloading, setPreLoading] = useState(true)
+
 
   const [colorList, setColorList] = useState([colors.secondary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
   function changeColorList(indexButtonToChange){
@@ -113,11 +116,17 @@ export default function Programacao({ navigation }){
 
     
     try{
-      const data_primeiro_dia = await DefinePalestraList('30-03-2020')
-      const data_segundo_dia = await DefinePalestraList('31-03-2020')
-      const data_terceiro_dia = await DefinePalestraList('01-04-2020')
-      const data_quarto_dia = await DefinePalestraList('02-04-2020')
-      const data_quinto_dia = await DefinePalestraList('03-04-2020')
+
+      const response = await api.get('/dias/')
+      const daysList = response.data
+      setDaysList(daysList)
+      setPreLoading(false)
+
+      const data_primeiro_dia = await DefinePalestraList(daysList.pri)
+      const data_segundo_dia = await DefinePalestraList(daysList.seg)
+      const data_terceiro_dia = await DefinePalestraList(daysList.ter)
+      const data_quarto_dia = await DefinePalestraList(daysList.qua)
+      const data_quinto_dia = await DefinePalestraList(daysList.qui)
 
       setdata(data_primeiro_dia)
 
@@ -144,83 +153,86 @@ export default function Programacao({ navigation }){
     
   }, [])
 
+  if (preloading){
+    return null
+  }
+
   //acaba aqui
-    return(
+  return(
 
 
-        <View style={{flex: 1, backgroundColor: colors.primary, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
+      <View style={{flex: 1, backgroundColor: colors.primary, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
 
-            { !!errorMessage && <Error errorMessage={errorMessage}/> }
+          { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
-            {/*<View style={{zIndex: 5}}> 
-              <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
-            </View>*/}
+          {/*<View style={{zIndex: 5}}> 
+            <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
+          </View>*/}
 
-            {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-              <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
-            </View> : null}
+          {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+            <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+          </View> : null}
 
-            {/*<Spinner visible={loading}/>*/ }
-            
-            <View style={styles.title}>
+          {/*<Spinner visible={loading}/>*/ }
+          
+          <View style={styles.title}>
 
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
 
-                <Text style={styles.textoBotao}>30</Text>
-      
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
-                
-                <Text style={styles.textoBotao}>31</Text>
-
-            </TouchableOpacity>
+              <Text style={styles.textoBotao}>{daysList.pri.slice(0,2)}</Text>
+    
+          </TouchableOpacity>
 
 
 
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
-                
-                <Text style={styles.textoBotao}>01</Text>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
+              
+              <Text style={styles.textoBotao}>{daysList.seg.slice(0,2)}</Text>
 
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
-                
-                <Text style={styles.textoBotao}>02</Text>
-
-            </TouchableOpacity>
+          </TouchableOpacity>
 
 
 
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
-                
-                <Text style={styles.textoBotao}>03</Text>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
+              
+              <Text style={styles.textoBotao}>{daysList.ter.slice(0,2)}</Text>
 
-            </TouchableOpacity>
-
-            </View>
+          </TouchableOpacity>
 
 
-            <View style={styles.tabela}>
 
-            <FlatList 
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
+              
+              <Text style={styles.textoBotao}>{daysList.qua.slice(0,2)}</Text>
 
-              data = {data_parcial}
-
-              renderItem = { ({item}) =>  < Palestra length={data_parcial.length} index = {data_parcial.indexOf(item)} lastindex = {data_parcial.length - 1} data = { item } navigation = {navigation} /> }
-
-              keyExtractor={ (item) => item.id.toString() }
-
-            />
+          </TouchableOpacity>
 
 
-            </View>
 
-        </View>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
+              
+              <Text style={styles.textoBotao}>{daysList.qui.slice(0,2)}</Text>
+
+          </TouchableOpacity>
+
+          </View>
+
+
+          <View style={styles.tabela}>
+
+          <FlatList 
+
+            data = {data_parcial}
+
+            renderItem = { ({item}) =>  < Palestra length={data_parcial.length} index = {data_parcial.indexOf(item)} lastindex = {data_parcial.length - 1} data = { item } navigation = {navigation} /> }
+
+            keyExtractor={ (item) => item.id.toString() }
+
+          />
+
+          </View>
+
+      </View>
 
 
   );
@@ -284,9 +296,9 @@ const styles = StyleSheet.create({
         width: screenWidth*0.11
       },
       android: {
-        borderRadius: screenWidth*0.05, 
-        height: screenHeight*0.06,
-        width: screenWidth*0.1
+        borderRadius: screenWidth*0.525, 
+        height: screenWidth*0.105,
+        width: screenWidth*0.105
 
       }     
     }),

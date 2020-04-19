@@ -49,6 +49,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import Login from './Screens/Login'
 
+
 const DATA = 
 
     [
@@ -493,11 +494,10 @@ export default function App(){
 
     isSignedIn() 
 
-
   }, [])
 
 
-    if (!signLoaded) {
+  if (!signLoaded) {
       return null;
   }
 

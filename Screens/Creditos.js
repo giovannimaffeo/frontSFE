@@ -53,7 +53,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 Icon.loadFont();
 
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons'
-Icon2.loadFont();
+Icon2.loadFont()
 
 
 export default function TelaCreditos({navigation}){
@@ -61,6 +61,18 @@ export default function TelaCreditos({navigation}){
   const [patrocinadores, setPatrocinadores] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
   const [loading, setLoading] = useState(true)
+  const [Colors, setColors] = useState([])
+
+  
+  async function loadColors(){
+    try{
+        const response = await api.get('/cores/');
+        console.log(response.data)
+        setColors(response.data)
+    } catch{
+        console.log('Não foi possível carregar as cores')
+    }
+  };
 
   async function carrega_patrocinadores(){
 
@@ -85,6 +97,7 @@ export default function TelaCreditos({navigation}){
   useEffect(() => {
 
     carrega_patrocinadores()
+    loadColors()
 
   }, []);
 
@@ -212,7 +225,7 @@ logofluxo:{
   container: {
     
     backgroundColor: colors.primary,
-    padding: screenWidth*0.02
+    padding: screenWidth*0.02,
   }, 
 
   title: {
