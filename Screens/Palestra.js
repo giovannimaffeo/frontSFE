@@ -66,7 +66,7 @@ export default function Palestra( props ){
           <View style={styles.containerImagem}>
 
               <Image  style={styles.fotoPalestrante}
-              source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
+              source={{ uri: `http://67.205.161.203:8000${props.data.foto_palestrante}`}}/>
 
           </View>
 
@@ -125,7 +125,7 @@ export default function Palestra( props ){
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203:8000${props.data.foto_palestrante}`}}/>
 
         </View>
 
@@ -184,7 +184,7 @@ if(index == lastindex){
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203:8000${props.data.foto_palestrante}`}}/>
 
         </View>
 
@@ -244,7 +244,7 @@ else{
         <View style={styles.containerImagem}>
 
             <Image  style={styles.fotoPalestrante}
-            source={{ uri: `http://67.205.161.203${props.data.foto_palestrante}`}}/>
+            source={{ uri: `http://67.205.161.203:8000${props.data.foto_palestrante}`}}/>
 
         </View>
 

@@ -170,7 +170,7 @@ export default function Informacoes({ navigation }){
                     <View style={{justifyContent: "center"}}>
 
                         <Image  style={styles.fotoPalestrante}
-                                source={{ uri: `http://67.205.161.203${navigation.state.params.data.foto_palestrante}` }}/>
+                                source={{ uri: `http://67.205.161.203:8000${navigation.state.params.data.foto_palestrante}` }}/>
 
 
                     </View>
