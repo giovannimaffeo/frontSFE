@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -42,55 +42,60 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-import Header from './Header'
+import Header from './Header';
+import Error from './Error';
 
+import api from '../services/api'
 
-
-
-const DATA = [
-  {
-    key: "k1",
-    logo: 'https://s3.glbimg.com/v1/AUTH_b58693ed41d04a39826739159bf600a0/photos/logo_redes.png'
-  },
-  {
-    key: "k2",
-    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
-  },
-  {
-    key: "k3",
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Logo_Ambev.png'
-  },
-  {
-    key: "k4",
-    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
-  },
-  {
-    key: "k5",
-    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
-  },
-  {
-    key: "k6",
-    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
-  },
-  {
-    key: "k7",
-    logo: 'https://www.whatsrel.com.br/wp-content/uploads/2018/09/vagas-grupo-soma-moda.png'
-  },
-];
-
-
-
-
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
 export default function TelaCreditos({navigation}){
+
+  const [patrocinadores, setPatrocinadores] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  async function carrega_patrocinadores(){
+
+    try{
+
+      const response = await api.get('/parceiros/');
+
+      lista_patrocinadores = response.data
+
+      setPatrocinadores(response.data)
+      setLoading(false)
+    
+    } catch{
+
+      setErrorMessage('Não foi possível carregar essa página')
+      setLoading(false)
+
+    }
+
+  }
+
+  useEffect(() => {
+
+    carrega_patrocinadores()
+
+  }, []);
+
+  //<View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: item.logo}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View>
+
   return(
+
     <ScrollView style={{backgroundColor: colors.primary}}>
 
       <Header navigation = {navigation} />
+
+      { !!errorMessage && <Error errorMessage={errorMessage}/> }
       
       <View style={styles.container}>
+
+        <Spinner visible={loading}/> 
 
         <View>
 
@@ -100,13 +105,15 @@ export default function TelaCreditos({navigation}){
 
             <FlatList
 
+            horizontal={true}
 
-            horizontal = {true}
-        
-            data = {DATA}
+            showsHorizontalScrollIndicator={false}
 
-            renderItem = { ({item}) =>  <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: item.logo}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
+            data = {patrocinadores}
 
+            renderItem = { ({item}) => <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: `http://67.205.161.203${item.logo}`}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
+
+            keyExtractor={ (item) => item.id.toString() }
             />
 
           </View>
