@@ -1,5 +1,6 @@
 
-import api from '../services/api'
+import api from '../services/api';
+import store from '../redux/store';
 
 async function loadColors(){
 
@@ -22,16 +23,18 @@ async function getData() {
     console.log(await getData())
   })()
 
+const state = store.getState();
+
 export default {
     //#ffffff
-    primary: '#FFFFFF',
+    primary: state.data.primaria,
     //#FFFFFF
-    secondary: '#ff9e38',
+    secondary: state.data.secundaria,
     //#F4893B
-    tertiary: '#56e8b8',
+    tertiary: 'pink',
     //#C0C0C0
-    dark_tertiary: '#00b588', 
-    text_color: 'black',
+    dark_tertiary: 'pink', 
+    text_color: 'pink',
     //#00b588
-    quaternary: '#f2f2f2' 
+    quaternary: 'pink' 
 }

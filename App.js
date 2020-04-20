@@ -49,6 +49,24 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import Login from './Screens/Login'
 
+//Redux
+
+//disponibiliza a store de forma global pra aplicação
+import { Provider } from 'react-redux';
+//para pegar informações da store
+
+import api from './services/api';
+
+//Redux
+import { useDispatch, useSelector } from 'react-redux';
+//Redux
+
+import store from './redux/store';
+
+//Redux
+
+import DrawerIcon from './Screens/DrawerIcon';
+import Drawerlabel from './Screens/DrawerLabel';
 
 const DATA = 
 
@@ -116,6 +134,10 @@ const QRContainer = createAppContainer(StackQR);
 
 const CustomDrawer = (props) => {
 
+  //Redux
+  const colorsList = useSelector(state => state.data)
+  //Redux
+
   const [ contador, set_contador ] = useState(null)
 
   const [ numero, set_numero ] = useState(20)
@@ -161,7 +183,7 @@ const CustomDrawer = (props) => {
   }
 
   const texto_inicial = <Text style={styles.texto_inicial}>Clique para colocar seu nome!</Text>
-  const texto_username = <Text style={styles.texto_username}>{username}</Text>
+  const texto_username = <Text style={[styles.texto_username, {color: colorsList.dark_terciaria}]}>{username}</Text>
 
   const texto_mudando =
 
@@ -208,9 +230,9 @@ const CustomDrawer = (props) => {
 
       <TouchableOpacity onPress={showToken} style={{height: screenWidth*0.08,flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: screenWidth*0.03}}>
 
-        <Text style={{color: colors.secondary, fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
+        <Text style={{color: colorsList.secundaria, fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
 
-        <Icon name="lead-pencil" size={screenWidth*0.04} color={colors.secondary} style={styles.icone}/>
+        <Icon name="lead-pencil" size={screenWidth*0.04} color={colorsList.secundaria} style={styles.icone}/>
 
       </TouchableOpacity>
 
@@ -280,7 +302,7 @@ const CustomDrawer = (props) => {
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
     <View style={styles.menu_lateral_container}>
 
-      <View style={styles.perfil_container}>
+      <View style={[styles.perfil_container, {backgroundColor: colorsList.quaternaria, borderBottomColor: colorsList.terciaria}]}>
 
         <View style={{paddingLeft: screenWidth*0.03,flexDirection: 'row', alignItems: 'center'}}>
 
@@ -299,10 +321,10 @@ const CustomDrawer = (props) => {
       </View>
 
       
-      <View style={{backgroundColor: colors.primary, flex: 1}}>
+      <View style={{backgroundColor: colorsList.primaria, flex: 1}}>
       
       
-        <DrawerItems {...props} style={{Colors: colors.secondary}}  />
+        <DrawerItems {...props} />
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
@@ -315,14 +337,14 @@ const CustomDrawer = (props) => {
                 },
               }),}}>
 
-            <Icon name="note-outline" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
+            <Icon name="note-outline" size={screenWidth*0.0625} color={colorsList.secundaria} style={styles.icone}/>
 
 
           </View>
 
           <View>
             
-            <Text style = {styles.texto}>Processo Seletivo</Text>
+            <Text style = {[styles.texto, {color: colorsList.terciaria}]}>Processo Seletivo</Text>
 
           </View>
 
@@ -332,13 +354,13 @@ const CustomDrawer = (props) => {
 
           <View >
 
-            <Icon name="logout" size={screenWidth*0.0625} color={colors.secondary} style={styles.icone}/>
+            <Icon name="logout" size={screenWidth*0.0625} color={colorsList.secundaria} style={styles.icone}/>
 
           </View>
 
           <View style={{marginLeft: screenWidth*0.02}}>
 
-            <Text style={{color: colors.secondary, fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
+            <Text style={{color: colorsList.secundaria, fontSize: screenWidth*0.05, fontFamily: fonts.bold}}>Sair</Text>
 
 
           </View>
@@ -357,57 +379,42 @@ const CustomDrawer = (props) => {
 };
 
 
+const Drawer = () => {
 
+  const state = store.getState();
+  console.log(state.data.primaria)
+  const cor = state.data.primaria;
 
-
-const Drawer = createDrawerNavigator(
+  return createDrawerNavigator(
   {
   AppContainer: {
     screen: AppContainer,
     navigationOptions: {
-      drawerLabel: "Programação",
-      drawerIcon: () => (
-        <View style = {{width:screenWidth*0.07}}>
-        <Icon name="popcorn" size={screenWidth*0.06} color={colors.secondary}  resizeMode = 'contain'/>
-        </View>
-      )
-
+      drawerLabel: (<Drawerlabel labelName={"Programação"}/>),
+      drawerIcon: (<DrawerIcon iconName={"popcorn"} />)
     },
   },
   AppContainerFavorito: {
     screen: AppContainerFavorito,
     navigationOptions: {
-      drawerLabel: "Favoritos",
-      drawerIcon: () => (
-        <View style = {{width:screenWidth*0.07}}>
-        <Icon name="heart" size={screenWidth*0.06} color={colors.secondary} />
-        </View>
-      )
-
+      drawerLabel: (<Drawerlabel labelName={"Favoritos"}/>),
+      drawerIcon: (<DrawerIcon iconName={"heart"} />)
     },
   },
 
   QRcode: {
     screen: QRContainer,
     navigationOptions: {
-      drawerLabel: "Confirmar Presença",
-      drawerIcon: () => (
-        <View style = {{width:screenWidth*0.07}}>
-        <Icon name="qrcode" size={screenWidth*0.06} color={colors.secondary} />
-        </View>
-      )
+      drawerLabel: (<Drawerlabel labelName={"Confirmar Presença"}/>),
+      drawerIcon: (<DrawerIcon iconName={"qrcode"} />)
     },
   },
 
   Creditos: {
     screen: Creditos,
     navigationOptions: {
-      drawerLabel: "Créditos",
-      drawerIcon: () => (
-        <TouchableOpacity style = {{width:screenWidth*0.07}} >
-        <Icon name="help-circle-outline" size={screenWidth*0.06} color={colors.secondary} />
-        </TouchableOpacity>
-      )
+      drawerLabel: (<Drawerlabel labelName={"Créditos"}/>),
+      drawerIcon: (<DrawerIcon iconName={"help-circle-outline"} />)
     },
   },
 
@@ -421,7 +428,7 @@ const Drawer = createDrawerNavigator(
     
     contentOptions: {
       labelStyle: {
-        color: colors.tertiary,
+        //color: () => <View><Text color={'blue'}>oi</Text></View>,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
         //fontFamily: fonts.regular,
@@ -435,10 +442,10 @@ const Drawer = createDrawerNavigator(
     
   }
 
-)
+)}
 
-export const RouteNav = createAppContainer(Drawer)
 
+const RouteNav = Drawer();
 
 
 
@@ -470,10 +477,6 @@ async function logout(){
 
 export default function App(){
 
- 
-
-
-  
   const isSignedIn = async () => {
     const token = await AsyncStorage.getItem('@storage_Key');
 
@@ -488,14 +491,49 @@ export default function App(){
   const [ signed, setSigned ] = useState(null);
   const [ signLoaded, setSignLoaded ] = useState(null)
 
+  //Redux
 
+  //estado das cores no componente
+  const [colorsList, setColorsList] = useState(false);
+  const [loadingColors, setLoadingColors] = useState(true);
+
+  //nos permite realizar uma action
+  const dispatch = useDispatch();
+
+  //carregando cores do back
+  async function loadColors(){
+    try{
+      const response = await api.get('/cores/');
+      console.log(response.data)
+      setColorsList(response.data);
+      //parar de exibir a splash screen
+      setLoadingColors(false)
+    }
+    catch{
+      console.log('Não foi possível carregar as cores');
+    }
+  }
+
+  //realiza a action
+  function addColors(){
+    (colorsList) ? dispatch({ type: 'ADD_COLORS', colors: colorsList }) : null
+  }
+
+  //Redux
 
   useEffect(() => {
 
+    loadColors()
+    //addColors()
     isSignedIn() 
+
 
   }, [])
 
+  if (loadingColors){
+    addColors()
+    return null
+  }
 
   if (!signLoaded) {
       return null;
@@ -505,17 +543,15 @@ export default function App(){
   const RotaPrincipal = createAppContainer(Layout)
     return (
 
-    <>
-
-      
+    <Provider store={store}>
       <StatusBar
-          backgroundColor={colors.tertiary}
+          backgroundColor={colorsList.terciaria}
           barStyle="light-content"
                   />
       
       <RotaPrincipal />
       <FlashMessage position="top"/>
-    </>
+    </Provider>
     
     );
   }
@@ -530,24 +566,7 @@ const styles = StyleSheet.create({
    justifyContent: 'center', 
    padding: screenHeight*0.02875,
   }, 
-  title: { 
-   fontSize: screenHeight*0.03737, 
-   color: 'black', 
-   fontWeight: 'bold', 
-   textAlign: 'center', 
-   marginTop: screenHeight*0.02875, 
-  }, 
-  text: { 
-   color: '#FFFFFF', 
-   fontSize: screenHeight*0.02875, 
-  }, 
-  image: { 
-   width: screenHeight*0.2875, 
-   height: screenHeight*0.2875, 
-   resizeMode: 'contain' 
-  },
   texto: {
-    color: colors.tertiary,
     ...Platform.select({
       ios: {
         fontSize: screenHeight*0.026,
@@ -579,7 +598,6 @@ const styles = StyleSheet.create({
   },
 
   texto_username: {
-    color: colors.dark_tertiary, 
     fontSize: screenWidth*0.045, 
     fontFamily: fonts.bold, 
     textAlign: 'center',
@@ -627,8 +645,7 @@ const styles = StyleSheet.create({
     },
   
     perfil_container:{
-      height: screenHeight*0.187, 
-      backgroundColor: colors.quaternary, 
+      height: screenHeight*0.187,  
       ...Platform.select({
         ios: {
           marginTop: screenHeight*0.04,          
@@ -637,7 +654,6 @@ const styles = StyleSheet.create({
         },      
       }),
       borderBottomWidth: screenHeight*0.01, 
-      borderBottomColor: colors.tertiary,
       justifyContent: 'center'
     }
 

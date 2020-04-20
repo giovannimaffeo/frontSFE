@@ -38,7 +38,6 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 import Hyperlink from 'react-native-hyperlink';
 
 
-import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 import Header from './Header';
@@ -55,8 +54,16 @@ Icon.loadFont();
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons'
 Icon2.loadFont()
 
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
+
 
 export default function TelaCreditos({navigation}){
+
+  //Redux
+  const colorsList = useSelector(state => state.data)
+  //Redux
 
   const [patrocinadores, setPatrocinadores] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
@@ -105,19 +112,19 @@ export default function TelaCreditos({navigation}){
 
   return(
 
-    <ScrollView style={{backgroundColor: colors.primary}}>
+    <ScrollView style={{backgroundColor: colorsList.primaria}}>
 
       <Header navigation = {navigation} />
 
       { !!errorMessage && <Error errorMessage={errorMessage}/> }
       
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: colorsList.primaria}]}>
 
         {/*<Spinner visible={loading}/> */}
 
         <View>
 
-          <Text style={styles.title}>Nossos Colaboradores</Text>
+          <Text style={[styles.title, {color: colorsList.terciaria}]}>Nossos Colaboradores</Text>
 
           <View style={styles.patrocinadoresContainer}> 
 
@@ -144,9 +151,9 @@ export default function TelaCreditos({navigation}){
 
         <View style={styles.faleConosco}>
 
-          <Text style={styles.title}>Fale Conosco</Text>
+          <Text style={[styles.title, {color: colorsList.terciaria}]}>Fale Conosco</Text>
 
-          <Text style={styles.subtitle}>Clique para acompanhar nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
+          <Text style={[styles.subtitle, {color: colorsList.secundaria}]}>Clique para acompanhar nosso trabalho nas redes sociais ou entre em contato diretamente pelo site!</Text>
 
         </View>
 
@@ -154,27 +161,27 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.instagram.com/fluxoconsultoria/')} style={styles.iconeContainer}>
 
-              <Icon name="logo-instagram" color={colors.tertiary} size={screenWidth*0.18} />
+              <Icon name="logo-instagram" color={colorsList.terciaria} size={screenWidth*0.18} />
 
-              <Text style={styles.texto_icone}>Instagram</Text>
+              <Text style={[styles.texto_icone, {color: colorsList.terciaria}]}>Instagram</Text>
 
           </TouchableOpacity>
 
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.facebook.com/fluxoconsultoria') } style={styles.iconeContainer}>
 
-            <Icon name="logo-facebook" color={colors.tertiary} size={screenWidth*0.18} />
+            <Icon name="logo-facebook" color={colorsList.terciaria} size={screenWidth*0.18} />
 
-            <Text style={styles.texto_icone}>Facebook</Text>
+            <Text style={[styles.texto_icone, {color: colorsList.terciaria}]}>Facebook</Text>
 
           </TouchableOpacity>
 
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://fluxoconsultoria.poli.ufrj.br/contato') } style={styles.iconeContainer}>
 
-            <Icon2 name="bubbles" color={colors.tertiary} size={screenWidth*0.18} />
+            <Icon2 name="bubbles" color={colorsList.terciaria} size={screenWidth*0.18} />
 
-            <Text style={styles.texto_icone}>Nosso site</Text>
+            <Text style={[styles.texto_icone, {color: colorsList.terciaria}]}>Nosso site</Text>
 
           </TouchableOpacity>
 
@@ -194,42 +201,11 @@ export default function TelaCreditos({navigation}){
 
 const styles = StyleSheet.create({
 
-  header:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: screenHeight*0.1,
-    backgroundColor: colors.tertiary,
-    borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: colors.quaternary,
-    justifyContent: "space-between",
-    padding: screenWidth*0.05
-
-    
-},
-
-textoHeader:{
-  fontSize: screenHeight*0.03,
-  fontFamily: fonts.bold,
-  color: colors.primary
-
-  
-},
-
-logofluxo:{
-  borderRadius: screenWidth*0.0125,
-  width: screenWidth*0.1625,
-  height: screenWidth*0.1625,
-
-},
-
   container: {
-    
-    backgroundColor: colors.primary,
     padding: screenWidth*0.02,
   }, 
 
   title: {
-    color: colors.tertiary,
     fontSize: screenHeight*0.04,
     fontFamily: fonts.bold,
     alignSelf: 'center'
@@ -249,7 +225,6 @@ logofluxo:{
   },
 
   subtitle: {
-    color: colors.secondary,
     fontSize: screenHeight*0.02,
     fontFamily: fonts.bold,
     alignSelf: 'center',
@@ -278,7 +253,6 @@ logofluxo:{
   },
 
   texto_icone:{
-    color: colors.tertiary,
     fontSize: screenHeight*0.02,
     fontFamily: fonts.bold,
     alignSelf: 'center',
