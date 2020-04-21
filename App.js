@@ -12,7 +12,8 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Alert
 } from 'react-native';
 
 
@@ -116,11 +117,13 @@ const CustomDrawer = (props) => {
 
   const [ contador, set_contador ] = useState(null)
 
-  const [ numero, set_numero ] = useState(null)
+  const [ numero, set_numero ] = useState(20)
 
   const [ esta_mudando, set_esta_mudando ] = useState(false)
 
-  const [ username, set_username ] = useState(null)
+  const [ username, set_username ] = useState('')
+
+  const [token, setToken] = useState('')
 
   const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
 
@@ -179,13 +182,26 @@ const CustomDrawer = (props) => {
 
   const texto_nao_mudando = 
 
-    <TouchableOpacity style={styles.botao_username} onPress={() => set_esta_mudando(true)}>
+    <View style={{height: screenWidth*0.3, width: screenWidth*0.58 }}>
 
-      { username == null || username == '' ? texto_inicial : texto_username }
+      <TouchableOpacity style={[styles.botao_username, {marginTop: screenWidth*0.08}]} onPress={() => set_esta_mudando(true)}>
 
-    </TouchableOpacity>
+        { username == null || username == '' ? texto_inicial : texto_username }
 
-  
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={showToken} style={{height: screenWidth*0.08,flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: screenWidth*0.03}}>
+
+        <Text style={{color: '#ff3968', fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
+
+        <Icon name="lead-pencil" size={screenWidth*0.04} color='#ff3968' style={styles.icone}/>
+
+      </TouchableOpacity>
+
+
+    </View>
+
+    
 
   async function armazena_username(username){
 
@@ -214,12 +230,23 @@ const CustomDrawer = (props) => {
 
     var foto_perfil_armazenada = await AsyncStorage.getItem('@AppSFE:foto_perfil')
 
-    var numero_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+    //var numero_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+
+    var token = await AsyncStorage.getItem('@storage_Key')
 
 
     set_username(username_armazenado)
     setImageSource(foto_perfil_armazenada)
-    set_numero(numero_armazenado)
+    username_armazenado ? set_numero(20 - username_armazenado.length) : set_numero(20)
+    setToken(token)
+
+  }
+
+  function showToken(){
+
+    Alert.alert('Número de Inscrição da Semana',
+    (username) ? `Eaí ${username}, o seu número é:  ${token}` :
+    `O seu número é:  ${token}`,[ {text: 'Beleza!'} ])
 
   }
 
@@ -239,7 +266,7 @@ const CustomDrawer = (props) => {
 
       <View style={styles.perfil_container}>
 
-        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{paddingLeft: screenWidth*0.03,flexDirection: 'row', alignItems: 'center'}}>
 
           <TouchableOpacity onPress={pickImageHandler}>
 
@@ -540,17 +567,17 @@ const styles = StyleSheet.create({
     color: colors.primary, 
     fontSize: screenWidth*0.045, 
     fontFamily: fonts.bold, 
-    textAlign: "justify",
-    textAlign: 'justify',
+    textAlign: 'center',
+    
 
   },
 
   botao_username: {
     height:screenHeight*0.08,
-    width: screenWidth*0.5,
+    width: screenWidth*0.56,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: screenWidth*0.02
+    alignItems: 'center', 
+    marginLeft: screenWidth*0.012
   },
 
   placeholder:{

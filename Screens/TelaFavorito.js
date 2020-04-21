@@ -101,16 +101,16 @@ export default function TelaFavorito({ navigation }){
 
         </View>
 
-        <View >
+        <View style={{height: screenHeight*0.056, justifyContent: 'center', marginTop: screenWidth*0.05}}>
 
-          <Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>
+          {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
 
-         {/*} <LottieView 
-            source={require('../assets/coracao_laranja_maior')} 
+          <LottieView 
+            source={require('../assets/coracao_verde')} 
             autoPlay 
             loop 
             style={{height: screenHeight*0.0719}}
-  />*/}
+          />
 
         </View>
 
@@ -187,6 +187,7 @@ textoHeader:{
   container: {
     backgroundColor: colors.primary,
     flex: 1,
+
   
     
   },
@@ -194,15 +195,18 @@ textoHeader:{
   titleContainer: {
     height: screenHeight*0.1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    justifyContent: 'center',
+
+  
 
 
   },
   title:{
     color: colors.tertiary,
     fontFamily: fonts.bold,
-    fontSize: screenWidth*0.075
+    fontSize: screenWidth*0.075,
+    marginLeft: screenWidth*0.04,
+    alignItems: 'center'
   },
 
   bodyContainer:{
