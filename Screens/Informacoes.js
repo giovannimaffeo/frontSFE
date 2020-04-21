@@ -35,6 +35,8 @@ import { createAppContainer, } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
+
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
@@ -81,6 +83,8 @@ export default function Informacoes({ navigation }){
 
     const [favorito, set_favorito] = useState(null);
 
+    const [loading, setLoading] = useState(true)
+
 
     async function verifica_se_e_favorita(palestra){
 
@@ -95,6 +99,8 @@ export default function Informacoes({ navigation }){
 
             set_favorito(true)
 
+            setLoading(false)
+
         }
 
         else{
@@ -103,6 +109,8 @@ export default function Informacoes({ navigation }){
 
             set_favorito(false)
 
+            setLoading(false)
+
         }
     };
 
@@ -110,7 +118,7 @@ export default function Informacoes({ navigation }){
 
         try {
     
-            const response = await api.get(`/favoritar/${id}`);
+            const response = await api.get(`/favoritar/${id}/`);
 
             await console.log(response.data.message)
 
@@ -248,11 +256,11 @@ export default function Informacoes({ navigation }){
 
                     <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
-                        <Icon name="heart" size={screenWidth*0.05} color = {color} />
+                        { !(loading) ? <Icon name="heart" size={screenWidth*0.05} color = {color} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover'/> }
 
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
 
-                    <View>
+                    <View> 
 
                         <Text style={styles.texto}>Adicionar aos Favoritos </Text>
                         
@@ -285,7 +293,7 @@ export default function Informacoes({ navigation }){
 Informacoes.navigationOptions = ({ navigation }) => ({
     header: ( 
 
-      <View style={styles.header} >
+      <SafeAreaView style={styles.header} >
 
         <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
 
@@ -296,7 +304,7 @@ Informacoes.navigationOptions = ({ navigation }) => ({
         
   
   
-      </View>
+      </SafeAreaView>
     )
   })
 
@@ -305,7 +313,14 @@ const styles = StyleSheet.create({
     header:{
         flexDirection: 'row',
         alignItems: 'center',
-        height: screenHeight*0.07,
+        ...Platform.select({
+            ios: {
+                height: screenHeight*0.1,
+            },
+            android: {
+                height: screenHeight*0.07,
+            },      
+          }),
         backgroundColor: colors.tertiary,
         
   
@@ -358,6 +373,11 @@ const styles = StyleSheet.create({
     descricaoCompletaPalestrante: {
         marginLeft: screenWidth*0.028,
         marginRight: screenWidth*0.25,
+    },
+
+    imagefluxo: {
+        width: screenWidth * 0.075, 
+        height: screenHeight * 0.04,
     },
 
     }

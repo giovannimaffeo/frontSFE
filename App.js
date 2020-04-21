@@ -10,28 +10,33 @@ import {
   Image,
   Linking,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Alert
 } from 'react-native';
 
 
 import ImagePicker from 'react-native-image-picker';
 
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems, dangerouslyGetParent } from 'react-navigation-drawer';
 
 import FlashMessage from 'react-native-flash-message';
 
 import Programacao from './Screens/Programacao'
 
 
-import Screen3 from './Screens/Screen3'
-import Screen4 from './Screens/Screen4'
+import QrCode from './Screens/QrCode'
+import Creditos from './Screens/Creditos'
 
 import Informacoes from './Screens/Informacoes'
 import { screenWidth, screenHeight } from './Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
+
 
 import TelaFavorito from './Screens/TelaFavorito';
 
@@ -96,7 +101,7 @@ const StackFavorito = createStackNavigator (
 const StackQR = createStackNavigator(
   {
     QRcode:{
-      screen:Screen3
+      screen: QrCode
     }
   },
   {
@@ -110,16 +115,34 @@ const QRContainer = createAppContainer(StackQR);
 
 const CustomDrawer = (props) => {
 
-  const [ contador, set_contador ] = useState(20)
+  const [ contador, set_contador ] = useState(null)
+
+  const [ numero, set_numero ] = useState(20)
 
   const [ esta_mudando, set_esta_mudando ] = useState(false)
 
-  const [ username, set_username ] = useState(null)
+  const [ username, set_username ] = useState('')
+
+  const [token, setToken] = useState('')
 
   const [ imageSource, setImageSource ] = useState("https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg");
 
+  const options = {
+    title: "Escolha uma Foto Irada!",
+    maxWidth: 800, 
+    maxHeight: 600,
+    takePhotoButtonTitle: 'Tirar foto agora...',
+    chooseFromLibraryButtonTitle: 'Escolher da biblioteca...',
+    cancelButtonTitle: 'Cancelar',
+    allowsEditing: 'true'
+    
+  };
+
+
+
+
     pickImageHandler = () => {
-    ImagePicker.showImagePicker({title: "Escolha uma Foto", maxWidth: 800, maxHeight: 600}, res => {
+    ImagePicker.showImagePicker(options, res => {
       if (res.didCancel) {
         console.log("User cancelled!");
       } else if (res.error) {
@@ -143,25 +166,25 @@ const CustomDrawer = (props) => {
 
     <View>
 
-      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly'}}>
+      <View style={{flexDirection:'row', alignItems: 'center', width: screenWidth*0.5, justifyContent: 'space-evenly', marginLeft: screenWidth*0.03}}>
 
         <TextInput 
         placeholder="Coloque seu nome aqui"
-        onChangeText={(text) => { text != null ? set_contador(20 - text.length) : set_contador(20) ; set_username(text); } }
+        onChangeText={(text) => { text != null ? set_numero(20 - text.length) : set_contador(20) ; set_username(text); } }
         value={username}
         maxLength = {20}
         autoCorrect = {false}
         textContentType = "name"
-        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold'}} 
+        style={{fontSize: screenWidth*0.035, color: colors.primary, fontWeight: 'bold', flex: 1, height: screenWidth*0.12}} 
         />
 
-        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{contador}</Text>
+        <Text style={{color:  'rgba(0, 0, 0, 0.25)', fontSize: screenWidth*0.033}}>{numero}</Text>
 
       </View>
 
       <View style={{alignItems: 'flex-end'}}>  
 
-        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_contador(contador)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
+        <TouchableOpacity onPress={() => { set_esta_mudando(false); armazena_username(username); armazena_numero(numero)}} style={{alignItems: 'flex-end', width: screenWidth*0.35, justifyContent: 'center', height: screenWidth*0.07}}>
 
           <Text style={{fontSize: screenWidth*0.033}}>Confirmar</Text>
 
@@ -173,13 +196,26 @@ const CustomDrawer = (props) => {
 
   const texto_nao_mudando = 
 
-    <TouchableOpacity style={styles.botao_username} onPress={() => set_esta_mudando(true)}>
+    <View style={{height: screenWidth*0.3, width: screenWidth*0.58 }}>
 
-      { username == null || username == '' ? texto_inicial : texto_username }
+      <TouchableOpacity style={[styles.botao_username, {marginTop: screenWidth*0.08}]} onPress={() => set_esta_mudando(true)}>
 
-    </TouchableOpacity>
+        { username == null || username == '' ? texto_inicial : texto_username }
 
-  
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={showToken} style={{height: screenWidth*0.08,flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: screenWidth*0.03}}>
+
+        <Text style={{color: '#ff3968', fontFamily: fonts.bold, fontSize: screenWidth*0.035}}> N° de inscrição  </Text>
+
+        <Icon name="lead-pencil" size={screenWidth*0.04} color='#ff3968' style={styles.icone}/>
+
+      </TouchableOpacity>
+
+
+    </View>
+
+    
 
   async function armazena_username(username){
 
@@ -193,9 +229,9 @@ const CustomDrawer = (props) => {
 
   }
 
-  async function armazena_contador(contador){
+  async function armazena_numero(numero){
 
-    await AsyncStorage.setItem('@AppSFE:contador', String(contador))
+    await AsyncStorage.setItem('@AppSFE:contador', String(numero))
 
     
 
@@ -208,36 +244,49 @@ const CustomDrawer = (props) => {
 
     var foto_perfil_armazenada = await AsyncStorage.getItem('@AppSFE:foto_perfil')
 
-    var contador_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+    //var numero_armazenado = Number(await AsyncStorage.getItem('@AppSFE:contador'))
+
+    var password = await AsyncStorage.getItem('@AppSFE:password')
 
 
     set_username(username_armazenado)
     setImageSource(foto_perfil_armazenada)
-    set_contador(contador_armazenado)
+    username_armazenado ? set_numero(20 - username_armazenado.length) : set_numero(20)
+    setToken(password)
+
+  }
+
+  function showToken(){
+
+    Alert.alert('Número de Inscrição da Semana',
+    (username) ? `Eaí ${username}, o seu número é:  ${token}` :
+    `O seu número é:  ${token}`,[ {text: 'Beleza!'} ])
 
   }
 
    
   useEffect( () => {
  
+    props.navigation.state.isDrawerOpen ? null : (Keyboard.dismiss(), set_esta_mudando(false))
     reset_dados()
-    
-  }, [])
+
+  },[props.navigation.state.isDrawerOpen] )
 
 
   return (
 
-    <View style={{flex: 1}}>
+    <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+    <View style={styles.menu_lateral_container}>
 
-      <View style={{height: screenHeight*0.187, backgroundColor: '#DCDCDC', borderBottomWidth: screenHeight*0.01, borderBottomColor: colors.tertiary}}>
+      <View style={styles.perfil_container}>
 
-        <View style={{padding: screenWidth*0.0375, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={{paddingLeft: screenWidth*0.03,flexDirection: 'row', alignItems: 'center'}}>
 
           <TouchableOpacity onPress={pickImageHandler}>
 
             <Image 
-            style={{height: screenHeight*0.13, width: screenHeight*0.13, borderRadius: screenWidth*0.1125}}  
-            source={{ uri: imageSource }} />
+            style={{height: screenHeight*0.1, width: screenHeight*0.1, borderRadius: screenHeight*0.05}}  
+            source={{ uri: imageSource ? imageSource : "https://www.bu.edu/disability/files/2019/02/no_profile_photo.jpg" }} />
 
           </TouchableOpacity>
 
@@ -255,7 +304,14 @@ const CustomDrawer = (props) => {
 
         <TouchableOpacity style = {styles.itemcontainer} onPress={() => Linking.openURL('https://forms.gle/aZtsrLLHxRDHv6wx5')}>
 
-          <View style={{marginRight: screenWidth*0.1}}>
+          <View style={{...Platform.select({
+                ios: {
+                  marginRight: screenWidth*0.11
+                },
+                android: {
+                  marginRight: screenWidth*0.1
+                },
+              }),}}>
 
             <Icon name="note-outline" size={screenWidth*0.0625} color='#a6a6a6' style={styles.icone}/>
 
@@ -289,8 +345,12 @@ const CustomDrawer = (props) => {
 
       </View>
 
-
     </View>
+    </TouchableWithoutFeedback>
+
+
+
+    
   );
 };
 
@@ -325,7 +385,7 @@ const Drawer = createDrawerNavigator(
     },
   },
 
-  Screen3: {
+  QRcode: {
     screen: QRContainer,
     navigationOptions: {
       drawerLabel: "Confirmar Presença",
@@ -337,8 +397,8 @@ const Drawer = createDrawerNavigator(
     },
   },
 
-  Screen4: {
-    screen: Screen4,
+  Creditos: {
+    screen: Creditos,
     navigationOptions: {
       drawerLabel: "Créditos",
       drawerIcon: () => (
@@ -353,14 +413,16 @@ const Drawer = createDrawerNavigator(
   {
     initialRouteName: 'AppContainer',
     contentComponent: props => < CustomDrawer {...props} />,
+    keyboardDismissMode: 'on-drag',
     drawerWidth: screenWidth*0.8,
+    
     
     contentOptions: {
       labelStyle: {
         color: colors.tertiary,
         fontSize: screenWidth*0.045,
         padding: screenWidth*0.025,
-        fontFamily: fonts.regular,
+        //fontFamily: fonts.regular,
         textAlign: "justify"
 
       },
@@ -428,8 +490,7 @@ export default function App(){
 
   useEffect(() => {
 
-    isSignedIn()
- 
+    isSignedIn() 
 
 
   }, [])
@@ -444,12 +505,13 @@ export default function App(){
     return (
 
     <>
-    
-    <StatusBar
-        backgroundColor={colors.tertiary}
-        barStyle="white-content"
-                />
 
+      
+      <StatusBar
+          backgroundColor={colors.tertiary}
+          barStyle="light-content"
+                  />
+      
       <RotaPrincipal />
       <FlashMessage position="top"/>
     </>
@@ -485,14 +547,23 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: colors.tertiary,
-    fontSize: screenHeight*0.027,
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontSize: screenHeight*0.026,
+        marginTop: screenHeight*0.0045
+      },
+      android: {
+        fontSize: screenHeight*0.027,
+      },
+    }),
+    fontWeight: "bold",
+    //fontFamily: fonts.bold,
     height: screenHeight*0.035,
   },
 
   itemcontainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    //alignItems: 'center',
     //justifyContent: 'space-around',
     marginLeft: screenWidth*0.043,
     marginTop: screenHeight*0.028
@@ -510,28 +581,65 @@ const styles = StyleSheet.create({
     color: colors.primary, 
     fontSize: screenWidth*0.045, 
     fontFamily: fonts.bold, 
-    textAlign: "justify",
-    textAlign: 'justify'
+    textAlign: 'center',
+    
 
   },
 
   botao_username: {
     height:screenHeight*0.08,
-    width: screenWidth*0.5,
+    width: screenWidth*0.56,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
+    marginLeft: screenWidth*0.012
   },
 
   placeholder:{
     fontSize: screenWidth*0.03,
     fontFamily: fonts.primary
-  }
+  },
 
+  botao_sair: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    marginLeft: screenWidth*0.57, 
+    ...Platform.select({
+      ios: {
+        marginTop: screenWidth*0.6, 
+      },
+      android: {
+        marginTop: screenWidth*0.3, 
+      },      
+    }),
+    height: screenWidth*0.1
+  },
+
+  menu_lateral_container: {
+    flex: 1,
+    backgroundColor: '#DCDCDC',
+    ...Platform.select({
+      ios: {
+        //marginTop: screenWidth*0.6, 
+      },
+      android: {
+      },      
+    }),
+    },
+  
+    perfil_container:{
+      height: screenHeight*0.187, 
+      backgroundColor: '#DCDCDC', 
+      ...Platform.select({
+        ios: {
+          marginTop: screenHeight*0.04,          
+        },
+        android: {
+        },      
+      }),
+      borderBottomWidth: screenHeight*0.01, 
+      borderBottomColor: colors.tertiary,
+      justifyContent: 'center'
+    }
 
 })
 
-
-
-
-
-    

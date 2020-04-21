@@ -1,8 +1,32 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+# Add this code at the top of Podfile right after platform definition.
+# It will make all the dynamic frameworks turning into static libraries.
+
+use_frameworks!
+
+$dynamic_frameworks = ['RxCocoa', 'RxSwift', 'WhatEverSDKName']
+
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if !$dynamic_frameworks.include?(pod.name)
+      puts "Link #{pod.name} as static_library"
+      def pod.build_type;
+        # Uncomment one line depending on your CocoaPods version
+        # Pod::BuildType.static_library # >= 1.9
+        Pod::Target::BuildType.static_library # < 1.9
+      end
+    end
+  end
+end
+
 target 'AplicativoSFC2' do
   # Pods for AplicativoSFC2
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -21,6 +45,7 @@ target 'AplicativoSFC2' do
   pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
   pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native/'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
@@ -36,8 +61,10 @@ target 'AplicativoSFC2' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'

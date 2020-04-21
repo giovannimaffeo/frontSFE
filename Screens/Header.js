@@ -35,6 +35,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
 
 import colors from '../styles/colors'
 import fonts from '../styles/fonts';
@@ -42,7 +43,7 @@ import fonts from '../styles/fonts';
 export default function Header( props ){
     return(
 
-        <View style={styles.header}>
+    <SafeAreaView style={styles.header}>
 
         <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => props.navigation.openDrawer()}>
 
@@ -58,22 +59,51 @@ export default function Header( props ){
         </View>
 
         <Image style={styles.logofluxo}
-            source = {require('../Assets/FluxoSemFundo.png') } />
+            source = {require('../assets/FluxoSemFundo.png') } />
 
         
     
-    </View>
+    </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
 
+  texto: {
+    color: colors.tertiary,
+    ...Platform.select({
+      ios: {
+        fontSize: screenHeight*0.0198,
+        marginTop: screenHeight*0.0045
+      },
+      android: {
+        fontSize: screenHeight*0.027,
+      },
+    }),
+    fontWeight: "bold",
+    //fontFamily: fonts.bold,
+    height: screenHeight*0.035,
+  },
+
     header:{
         flexDirection: 'row',
         alignItems: 'center',
-        height: screenHeight*0.1,
-        backgroundColor: colors.tertiary,
-        borderBottomWidth: screenHeight*0.01,
+        ...Platform.select({
+          ios: {
+            height: screenHeight*0.12,          
+          },
+          android: {
+            height: screenHeight*0.1, 
+          },      
+        }),
+        backgroundColor: colors.tertiary, ...Platform.select({
+          ios: {
+            borderBottomWidth: screenHeight*0.011,          
+          },
+          android: {
+            borderBottomWidth: screenHeight*0.01, 
+          },      
+        }),
         borderBottomColor: colors.quaternary,
         justifyContent: "space-between",
         paddingRight: screenWidth*0.05

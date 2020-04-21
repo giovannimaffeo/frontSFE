@@ -12,12 +12,17 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList} from 'react-native';
+  FlatList,
+  Image,
+  Keyboard} from 'react-native';
 
 //novo:
 import { useState, useEffect } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Error from './Error'
+
+import LottieView from 'lottie-react-native';
+
 
 
 
@@ -47,21 +52,32 @@ const date = new Date();
 
 export default function Programacao({ navigation }){
 
-    const [data_parcial, setdata] = useState(null);
+  const [data_parcial, setdata] = useState(null);
 
-    //novo: começa aqui
+  //novo: começa aqui
 
-    const [errorMessage, seterror] = useState(null);
+  const [errorMessage, seterror] = useState(null);
 
-    //const [verificationToken, setVerificationToken] = useState(null);
+  //const [verificationToken, setVerificationToken] = useState(null);
 
-    //const [PalestraList, setPalestraList] = useState(null)
+  //const [PalestraList, setPalestraList] = useState(null)
 
-    const [lista_datas, set_lista_datas] = useState(null)
+  const [lista_datas, set_lista_datas] = useState(null)
 
-    const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true)
 
-  
+
+  const [colorList, setColorList] = useState([colors.quaternary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
+  function changeColorList(indexButtonToChange){
+
+    const newList = [colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary];
+
+    newList[indexButtonToChange] = colors.quaternary;
+
+    setColorList(newList)
+    
+  }
+
 
   async function DefinePalestraList(data) {
 
@@ -69,9 +85,8 @@ export default function Programacao({ navigation }){
 
       //  const token = await AsyncStorage.getItem('@storage_Key');
 
-      //  console.log(token)
+      const response = await api.get(`/p/${data}/`);
 
-      const response = await api.get(`/p/${data}`);
         
       /*, {
         headers: {
@@ -92,28 +107,28 @@ export default function Programacao({ navigation }){
 
     }
 
-    
-
-    
-
   };
 
   async function DefineDatas() {
 
     
+    try{
+      const data_primeiro_dia = await DefinePalestraList('30-03-2020')
+      const data_segundo_dia = await DefinePalestraList('31-03-2020')
+      const data_terceiro_dia = await DefinePalestraList('01-04-2020')
+      const data_quarto_dia = await DefinePalestraList('02-04-2020')
+      const data_quinto_dia = await DefinePalestraList('03-04-2020')
 
-    const data_primeiro_dia = await DefinePalestraList('30-03-2020')
-    const data_segundo_dia = await DefinePalestraList('31-03-2020')
-    const data_terceiro_dia = await DefinePalestraList('01-04-2020')
-    const data_quarto_dia = await DefinePalestraList('02-04-2020')
-    const data_quinto_dia = await DefinePalestraList('03-04-2020')
+      setdata(data_primeiro_dia)
 
-    await setdata(data_primeiro_dia)
+      setloading(false) 
 
-    await setloading(false) 
+      set_lista_datas([data_primeiro_dia,data_segundo_dia,data_terceiro_dia,data_quarto_dia,data_quinto_dia])
+    
+    } catch {
 
-    await set_lista_datas([data_primeiro_dia,data_segundo_dia,data_terceiro_dia,data_quarto_dia,data_quinto_dia])
 
+    }
 
   };
 
@@ -125,32 +140,39 @@ export default function Programacao({ navigation }){
   useEffect( () => {
 
    // signIn()
-
     DefineDatas()
     
   }, [])
 
   //acaba aqui
-
     return(
 
-        <View style={{flex: 1, backgroundColor: colors.primary }}>
+
+        <View style={{flex: 1, backgroundColor: colors.primary, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
 
             { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
-            <Spinner visible={loading}/> 
+            {/*<View style={{zIndex: 5}}> 
+              <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
+            </View>*/}
+
+            {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+              <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+            </View> : null}
+
+            {/*<Spinner visible={loading}/>*/ }
             
             <View style={styles.title}>
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[0])} >
-                
-                <Text style={styles.textoBotao}>30</Text>
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
 
+                <Text style={styles.textoBotao}>30</Text>
+      
             </TouchableOpacity>
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[1])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
                 
                 <Text style={styles.textoBotao}>31</Text>
 
@@ -158,7 +180,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[2])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
                 
                 <Text style={styles.textoBotao}>01</Text>
 
@@ -166,7 +188,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[3])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
                 
                 <Text style={styles.textoBotao}>02</Text>
 
@@ -174,7 +196,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[4])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
                 
                 <Text style={styles.textoBotao}>03</Text>
 
@@ -240,6 +262,7 @@ const styles = StyleSheet.create({
     width: screenWidth*0.1625,
     height: screenWidth*0.1625,
 
+
   },
 
 
@@ -254,10 +277,19 @@ const styles = StyleSheet.create({
   botao:{
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: screenWidth*0.05,
-    backgroundColor: colors.tertiary,
-    height: screenHeight*0.06,
-    width: screenWidth*0.1
+    ...Platform.select({
+      ios: {
+        borderRadius: screenHeight*0.025,   
+        height: screenHeight*0.05,
+        width: screenWidth*0.11
+      },
+      android: {
+        borderRadius: screenWidth*0.05, 
+        height: screenHeight*0.06,
+        width: screenWidth*0.1
+
+      }     
+    }),
 
   },
 
@@ -277,5 +309,11 @@ const styles = StyleSheet.create({
 
     
   },
+
+  imagefluxo: {
+    width: screenWidth * 0.33, 
+    height: screenHeight * 0.18,
+    //backgroundColor: 'pink'
+    },
 }
 );

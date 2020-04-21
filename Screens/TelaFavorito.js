@@ -12,6 +12,8 @@ import {
   View,
   Text,
   FlatList,
+  Keyboard,
+  Image
 } from 'react-native';
 
 
@@ -64,7 +66,7 @@ export default function TelaFavorito({ navigation }){
 
       seterror( 'Não foi possível carregar os favoritos' );
 
-      setloading(false)
+      //setloading(false)
 
     }
 
@@ -83,7 +85,11 @@ export default function TelaFavorito({ navigation }){
     
     <View style={styles.container}>
 
-      <Spinner visible={loading}/>
+      { /*<Spinner visible={loading}/>*/}
+
+      {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+              <Image source={require('../assets/LogoAudicao.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+      </View> : null}
 
       { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
@@ -95,13 +101,16 @@ export default function TelaFavorito({ navigation }){
 
         </View>
 
-        <View>
+        <View style={{height: screenHeight*0.056, justifyContent: 'center', marginTop: screenWidth*0.05}}>
+
+          {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
 
           <LottieView 
-            source={require('../Assets/coracao_laranja_maior')} 
+            source={require('../assets/coracao_verde')} 
             autoPlay 
             loop 
-            style={{height: screenHeight*0.0719}}/>
+            style={{height: screenHeight*0.0719}}
+          />
 
         </View>
 
@@ -178,6 +187,7 @@ textoHeader:{
   container: {
     backgroundColor: colors.primary,
     flex: 1,
+
   
     
   },
@@ -185,15 +195,18 @@ textoHeader:{
   titleContainer: {
     height: screenHeight*0.1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    justifyContent: 'center',
+
+  
 
 
   },
   title:{
     color: colors.tertiary,
     fontFamily: fonts.bold,
-    fontSize: screenWidth*0.075
+    fontSize: screenWidth*0.075,
+    marginLeft: screenWidth*0.04,
+    alignItems: 'center'
   },
 
   bodyContainer:{
@@ -202,6 +215,16 @@ textoHeader:{
     borderBottomColor: colors.quaternary,
     backgroundColor: colors.secondary,
     borderRadius: screenHeight*0.015,
+  },
+
+  imagefluxo: {
+    width: screenWidth * 0.29, 
+    height: screenHeight * 0.15,
+  },
+
+  animacao_vermelha: {
+    width: screenWidth * 0.09375, 
+    height: screenHeight * 0.05,
   }
 
 
