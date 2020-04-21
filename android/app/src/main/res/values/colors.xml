@@ -2,6 +2,6 @@
 
 <resources>
 <!-- Podemos acessar essa cor em todo o App digitando @color/primary -->
-    <color name="primary">#FFFFFF</color>
+    <color name="primary">#FFF</color>
 </resources>
 
