@@ -37,7 +37,6 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Hyperlink from 'react-native-hyperlink';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -50,12 +49,30 @@ import api from '../services/api'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
+import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont();
+
+import Icon2 from 'react-native-vector-icons/SimpleLineIcons'
+Icon2.loadFont()
+
 
 export default function TelaCreditos({navigation}){
 
   const [patrocinadores, setPatrocinadores] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
   const [loading, setLoading] = useState(true)
+  const [Colors, setColors] = useState([])
+
+  
+  async function loadColors(){
+    try{
+        const response = await api.get('/cores/');
+        console.log(response.data)
+        setColors(response.data)
+    } catch{
+        console.log('Não foi possível carregar as cores')
+    }
+  };
 
   async function carrega_patrocinadores(){
 
@@ -80,6 +97,7 @@ export default function TelaCreditos({navigation}){
   useEffect(() => {
 
     carrega_patrocinadores()
+    loadColors()
 
   }, []);
 
@@ -115,7 +133,7 @@ export default function TelaCreditos({navigation}){
 
             data = {patrocinadores}
 
-            renderItem = { ({item}) => <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: `http://67.205.161.203${item.logo}`}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
+            renderItem = { ({item}) => <View style={{marginTop: screenWidth*0.05}}>< Image source={{ uri: `http://67.205.161.203:8000${item.logo}`}} style={{height: screenHeight*0.115, width: screenWidth*0.375, marginRight: screenWidth*0.05}} /></View> }
 
             keyExtractor={ (item) => item.id.toString() }
             />
@@ -136,9 +154,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.instagram.com/fluxoconsultoria/')} style={styles.iconeContainer}>
 
-              <Image 
-              source = {require('../assets/instagram_verde.png')} 
-              style = {styles.icone}/>
+              <Icon name="logo-instagram" color={colors.tertiary} size={screenWidth*0.18} />
 
               <Text style={styles.texto_icone}>Instagram</Text>
 
@@ -147,9 +163,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.facebook.com/fluxoconsultoria') } style={styles.iconeContainer}>
 
-            <Image 
-            source = {require('../assets/facebook_verde.png')} 
-            style = {styles.icone}/>
+            <Icon name="logo-facebook" color={colors.tertiary} size={screenWidth*0.18} />
 
             <Text style={styles.texto_icone}>Facebook</Text>
 
@@ -158,9 +172,7 @@ export default function TelaCreditos({navigation}){
 
           <TouchableOpacity onPress={ ()=> Linking.openURL('https://fluxoconsultoria.poli.ufrj.br/contato') } style={styles.iconeContainer}>
 
-            <Image 
-            source = {require('../assets/chat_verde.png')} 
-            style = {styles.icone}/>
+            <Icon2 name="bubbles" color={colors.tertiary} size={screenWidth*0.18} />
 
             <Text style={styles.texto_icone}>Nosso site</Text>
 
@@ -213,7 +225,7 @@ logofluxo:{
   container: {
     
     backgroundColor: colors.primary,
-    padding: screenWidth*0.02
+    padding: screenWidth*0.02,
   }, 
 
   title: {
@@ -262,7 +274,7 @@ logofluxo:{
 
   icone:{
     width: screenHeight*0.0864,
-    height: screenHeight*0.0864
+    height: screenHeight*0.0864,
   },
 
   texto_icone:{

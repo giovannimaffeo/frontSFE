@@ -17,10 +17,11 @@ import {showMessage, hideMessage} from 'react-native-flash-message';
 export default function Screen3({navigation}){
 
 
-    async function confirmarPresenca(response){  
+    async function confirmarPresenca(response){ 
 
     try{
-    const result = await api.get(`/validar/${response.data}`);
+    const result = await api.get(`/validar/${response.data}/`);
+    console.log(response.data)
      console.log("log de sucesso:",result.data.message);
      showMessage({
        message:"Sua presença foi contabilizada!",
@@ -30,7 +31,9 @@ export default function Screen3({navigation}){
        animated:false,
        //floating:true,
        style:{
-         height:screenHeight*0.1
+        height:screenHeight*0.1,
+        justifyContent: 'center',
+        alignItems: 'center'
        },
        titleStyle:{
          fontWeight:'bold',
@@ -50,7 +53,9 @@ export default function Screen3({navigation}){
       animated:false,
       //floating:true,
       style:{
-        height:screenHeight*0.1
+        height:screenHeight*0.1,
+        justifyContent: 'center',
+        alignItems: 'center'
       },
       titleStyle:{
         fontWeight:'bold',
