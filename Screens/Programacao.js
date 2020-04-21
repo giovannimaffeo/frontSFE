@@ -148,7 +148,7 @@ export default function Programacao({ navigation }){
     return(
 
 
-        <View style={{flex: 1, backgroundColor: colors.primary, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
+        <View style={{flex: 1, backgroundColor: colors.primary}} pointerEvents={loading ? 'none' : 'auto'}>
 
             { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
@@ -262,6 +262,7 @@ const styles = StyleSheet.create({
     width: screenWidth*0.1625,
     height: screenWidth*0.1625,
 
+
   },
 
 
@@ -310,8 +311,9 @@ const styles = StyleSheet.create({
   },
 
   imagefluxo: {
-    width: screenWidth * 0.29, 
-    height: screenHeight * 0.15,
+    width: screenWidth * 0.33, 
+    height: screenHeight * 0.18,
+    //backgroundColor: 'pink'
     },
 }
 );
