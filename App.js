@@ -41,7 +41,6 @@ Icon.loadFont();
 import TelaFavorito from './Screens/TelaFavorito';
 
 
-import colors from "./styles/colors";
 import fonts from './styles/fonts';
 
 
@@ -67,6 +66,7 @@ import store from './redux/store';
 
 import DrawerIcon from './Screens/DrawerIcon';
 import Drawerlabel from './Screens/DrawerLabel';
+import TelaCreditos from "./Screens/Creditos";
 
 const DATA = 
 
@@ -128,9 +128,22 @@ const StackQR = createStackNavigator(
   }
 )
 
+const StackCredits = createStackNavigator(
+  {
+    Creditos:{
+      screen: Creditos
+    },
+  },
+  {
+    initialRouteName: 'Creditos'
+  }
+)
+
 const AppContainerFavorito = createAppContainer(StackFavorito);
 
 const QRContainer = createAppContainer(StackQR);
+
+const CreditsContainer = createAppContainer(StackCredits);
 
 const CustomDrawer = (props) => {
 
@@ -411,7 +424,7 @@ const Drawer = () => {
   },
 
   Creditos: {
-    screen: Creditos,
+    screen: CreditsContainer,
     navigationOptions: {
       drawerLabel: (<Drawerlabel labelName={"Créditos"}/>),
       drawerIcon: (<DrawerIcon iconName={"help-circle-outline"} />)

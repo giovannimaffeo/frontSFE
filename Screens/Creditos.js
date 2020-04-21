@@ -114,7 +114,6 @@ export default function TelaCreditos({navigation}){
 
     <ScrollView style={{backgroundColor: colorsList.primaria}}>
 
-      <Header navigation = {navigation} />
 
       { !!errorMessage && <Error errorMessage={errorMessage}/> }
       
@@ -198,6 +197,14 @@ export default function TelaCreditos({navigation}){
 
   );
 }
+
+TelaCreditos.navigationOptions = ({ navigation }) => ({
+  header: ( /* Your custom header */
+    
+    <Header navigation = {navigation} />
+
+  )
+})
 
 const styles = StyleSheet.create({
 
