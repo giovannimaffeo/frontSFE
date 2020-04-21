@@ -82,6 +82,10 @@ export default function Palestra( props ){
 
                   <View>
 
+                    {(props.favorite) ? <View style={{width: screenWidth*0.68, alignItems: 'flex-end', height: screenWidth*0.05}}>
+                      <Text style={{color: colorsList.dark_terciaria, fontFamily: fonts.regular, fontSize: screenWidth*0.032}}>{props.data.dia}</Text>
+                    </View> : null}
+
                     <View>
 
                       <Text>
@@ -143,6 +147,10 @@ export default function Palestra( props ){
 
                 <View>
 
+                  {(props.favorite) ? <View style={{width: screenWidth*0.68, alignItems: 'flex-end', height: screenWidth*0.05}}>
+                    <Text style={{color: colorsList.dark_terciaria, fontFamily: fonts.regular,fontSize: screenWidth*0.032}}>{props.data.dia}</Text>
+                  </View> : null}
+
                   <View>
 
                     <Text>
@@ -189,7 +197,6 @@ if(index == lastindex){
 
     <View style={[styles.background, {borderColor: colorsList.terciaria}]}>
     <TouchableOpacity style={styles.container_index_menos1} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
-
         
         <View style={[styles.containerImagem, {borderColor: colorsList.primaria}]}>
 
@@ -201,6 +208,10 @@ if(index == lastindex){
         <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
 
                 <View>
+
+                  {(props.favorite) ? <View style={{width: screenWidth*0.68, alignItems: 'flex-end', height: screenWidth*0.05}}>
+                    <Text style={{color: colorsList.dark_terciaria, fontFamily: fonts.regular,fontSize: screenWidth*0.032}}>{props.data.dia}</Text>
+                  </View> : null}
 
                   <View>
 
@@ -249,7 +260,6 @@ else{
     <View style={[styles.background, {borderColor: colorsList.terciaria}]}>
 
     <TouchableOpacity style={styles.container} onPress = {() => props.navigation.navigate('Informacoes', { data } )} >
-
         
         <View style={[styles.containerImagem, {borderColor: colorsList.primaria}]}>
 
@@ -261,6 +271,10 @@ else{
         <View style={styles.programacao} onPress = {() => props.navigation.navigate('Informacoes')}>
 
                 <View>
+
+                  {(props.favorite) ? <View style={{width: screenWidth*0.68, alignItems: 'flex-end', height: screenWidth*0.05}}>
+                    <Text style={{color: colorsList.dark_terciaria, fontFamily: fonts.regular,fontSize: screenWidth*0.032}}>{props.data.dia}</Text>
+                  </View> : null}
 
                   <View>
 

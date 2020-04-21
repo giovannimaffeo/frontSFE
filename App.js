@@ -50,9 +50,6 @@ import Login from './Screens/Login'
 
 //Redux
 
-//disponibiliza a store de forma global pra aplicação
-import { Provider } from 'react-redux';
-//para pegar informações da store
 
 import api from './services/api';
 
@@ -556,7 +553,7 @@ export default function App(){
   const RotaPrincipal = createAppContainer(Layout)
     return (
 
-    <Provider store={store}>
+    <>
       <StatusBar
           backgroundColor={colorsList.terciaria}
           barStyle="light-content"
@@ -564,7 +561,7 @@ export default function App(){
       
       <RotaPrincipal />
       <FlashMessage position="top"/>
-    </Provider>
+    </>
     
     );
   }

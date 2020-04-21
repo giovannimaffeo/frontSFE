@@ -50,7 +50,6 @@ import { stringify } from 'querystring';
 //Redux
 import { useSelector } from 'react-redux';
 import BackHeader from './BackHeader';
-import store from '../redux/store';
 //Redux
 
 
@@ -72,8 +71,6 @@ const DATA =
     }
 
 ];
-
-const COLORS = store.getState()
 
 export default function Informacoes({ navigation }){
 
@@ -158,7 +155,6 @@ export default function Informacoes({ navigation }){
 
             verifica_se_e_favorita(navigation.state.params.data)
 
-            console.log(COLORS)
           }, )
 
     

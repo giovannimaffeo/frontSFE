@@ -125,7 +125,7 @@ export default function TelaFavorito({ navigation }){
 
         data = {lista_favoritos}
 
-        renderItem = { ({item}) =>  < Palestra data = {item} length={lista_favoritos.length} index = {lista_favoritos.indexOf(item)} lastindex = {lista_favoritos.length - 1} navigation = {navigation}  /> }
+        renderItem = { ({item}) =>  < Palestra favorite = {true} data = {item} length={lista_favoritos.length} index = {lista_favoritos.indexOf(item)} lastindex = {lista_favoritos.length - 1} navigation = {navigation}  /> }
 
         keyExtractor={ (item) => item.id.toString() }
 
