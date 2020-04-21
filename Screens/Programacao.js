@@ -48,21 +48,32 @@ const date = new Date();
 
 export default function Programacao({ navigation }){
 
-    const [data_parcial, setdata] = useState(null);
+  const [data_parcial, setdata] = useState(null);
 
-    //novo: começa aqui
+  //novo: começa aqui
 
-    const [errorMessage, seterror] = useState(null);
+  const [errorMessage, seterror] = useState(null);
 
-    //const [verificationToken, setVerificationToken] = useState(null);
+  //const [verificationToken, setVerificationToken] = useState(null);
 
-    //const [PalestraList, setPalestraList] = useState(null)
+  //const [PalestraList, setPalestraList] = useState(null)
 
-    const [lista_datas, set_lista_datas] = useState(null)
+  const [lista_datas, set_lista_datas] = useState(null)
 
-    const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true)
 
-  
+
+  const [colorList, setColorList] = useState([colors.quaternary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
+  function changeColorList(indexButtonToChange){
+
+    const newList = [colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary];
+
+    newList[indexButtonToChange] = colors.quaternary;
+
+    setColorList(newList)
+    
+  }
+
 
   async function DefinePalestraList(data) {
 
@@ -91,10 +102,6 @@ export default function Programacao({ navigation }){
 
 
     }
-
-    
-
-    
 
   };
 
@@ -141,15 +148,15 @@ export default function Programacao({ navigation }){
             
             <View style={styles.title}>
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[0])} >
-                
-                <Text style={styles.textoBotao}>30</Text>
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
 
+                <Text style={styles.textoBotao}>30</Text>
+      
             </TouchableOpacity>
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[1])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
                 
                 <Text style={styles.textoBotao}>31</Text>
 
@@ -157,7 +164,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[2])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
                 
                 <Text style={styles.textoBotao}>01</Text>
 
@@ -165,7 +172,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[3])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
                 
                 <Text style={styles.textoBotao}>02</Text>
 
@@ -173,7 +180,7 @@ export default function Programacao({ navigation }){
 
 
 
-            <TouchableOpacity style={styles.botao} onPress = {() => setdata(lista_datas[4])} >
+            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
                 
                 <Text style={styles.textoBotao}>03</Text>
 
@@ -253,7 +260,7 @@ const styles = StyleSheet.create({
   botao:{
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.tertiary, ...Platform.select({
+    ...Platform.select({
       ios: {
         borderRadius: screenHeight*0.025,   
         height: screenHeight*0.05,
@@ -266,7 +273,6 @@ const styles = StyleSheet.create({
 
       }     
     }),
-    backgroundColor: colors.tertiary,
 
   },
 
