@@ -301,7 +301,7 @@ const CustomDrawer = (props) => {
    
   useEffect( () => {
  
-    props.navigation.state.isDrawerOpen ? null : (Keyboard.dismiss(), set_esta_mudando(false))
+    props.navigation.state.isDrawerOpen ? StatusBar.setHidden(true) : (Keyboard.dismiss(), set_esta_mudando(false), StatusBar.setHidden(false))
     reset_dados()
 
   },[props.navigation.state.isDrawerOpen] )
