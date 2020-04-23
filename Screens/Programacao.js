@@ -169,7 +169,7 @@ export default function Programacao({ navigation }){
   return(
 
 
-      <View style={{flex: 1, backgroundColor: colorsList.primaria, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
+      <View style={{flex: 1, backgroundColor: colorsList.primaria}} pointerEvents={loading ? 'none' : 'auto'}>
 
           { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
@@ -266,9 +266,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       ios: {
-        borderRadius: screenHeight*0.025,   
-        height: screenHeight*0.05,
-        width: screenWidth*0.11
+        borderRadius: screenWidth*0.0525,   
+        height: screenWidth*0.105,
+        width: screenWidth*0.105
       },
       android: {
         borderRadius: screenWidth*0.525, 

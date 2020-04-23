@@ -647,7 +647,8 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        //marginTop: screenWidth*0.6, 
+        //marginTop: screenWidth*0.05, 
+        backgroundColor: colors.quaternary
       },
       android: {
       },      
@@ -658,7 +659,7 @@ const styles = StyleSheet.create({
       height: screenHeight*0.187,  
       ...Platform.select({
         ios: {
-          marginTop: screenHeight*0.04,          
+          marginTop: screenHeight*0.02,          
         },
         android: {
         },      

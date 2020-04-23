@@ -149,11 +149,11 @@ if(!showPresentation) {
         <Image source={require('../assets/LogoFrases.gif')} style={styles.imagefluxo} />
 
       </View>
-          <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
+          <View style={{...Platform.select({ios: {}, android: {height: screenWidth*0.099, marginBottom: screenWidth*0.02}})}}>
             <Text style={[styles.textIntro, {color: colorsList.terciaria}]} >Semana Fluxo de Engenharia</Text>
           </View>
           {/*<View style={styles.orangeBorder}>*/}
-          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, marginTop: screenHeight*0.06, backgroundColor: colorsList.quaternaria}]}>
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, backgroundColor: colorsList.quaternaria}, {...Platform.select({ios: {marginTop: screenHeight*0.025}, android:{marginTop: screenHeight*0.06} })}]}>
             <TextInput
             style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
             keyboardType='email-address'
@@ -220,11 +220,11 @@ else{
         <Image source={require('../assets/LogoFrases.gif')} style={styles.imagefluxo} />
 
       </View>
-          <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
+          <View style={{...Platform.select({ios: {}, android: {height: screenWidth*0.099, marginBottom: screenWidth*0.02}})}}>
             <Text style={[styles.textIntro, {color: colorsList.terciaria}]} >Semana Fluxo de Engenharia</Text>
           </View>
           {/*<View style={styles.orangeBorder}>*/}
-          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, marginTop: screenHeight*0.06, backgroundColor: colorsList.quaternaria}]}>
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, backgroundColor: colorsList.quaternaria}, {...Platform.select({ios: {marginTop: screenHeight*0.025}, android:{marginTop: screenHeight*0.06} })}]}>
             <TextInput
             style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
             keyboardType='email-address'
@@ -340,10 +340,20 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.65, 
     height: screenHeight * 0.3,
     },
-  loginBox: {
-    marginTop:screenHeight*0.04,
-    borderBottomWidth: screenWidth*0.005,
-    borderRadius: screenWidth*0.01,
+  loginBox: {...Platform.select({
+    android:{
+      marginTop:screenHeight*0.04,
+      borderBottomWidth: screenWidth*0.005,
+      borderRadius: screenWidth*0.01,
+    },
+    ios: {
+      height: screenHeight*0.055,
+      justifyContent: 'center',
+      marginTop:screenHeight*0.04,
+      borderBottomWidth: screenWidth*0.005,
+      borderRadius: screenWidth*0.01,
+    }
+  })
   },
   textIntro: {
     //textShadowColor: "#F4893B",
