@@ -360,7 +360,7 @@ const CustomDrawer = (props) => {
 
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', position:'absolute', bottom:"2%",top:'90%', left:'70%', height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'))}  >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', position:'absolute', bottom:"2%",top:'90%', left:'70%', height: screenWidth*0.1}} onPress={() => (logout(), props.navigation.navigate('SignedOut'), StatusBar.setHidden(false))}  >
 
           <View >
 

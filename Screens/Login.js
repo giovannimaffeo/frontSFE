@@ -27,7 +27,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { SafeAreaView } from 'react-navigation';
 
 
-
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
 
 
 
@@ -45,6 +47,11 @@ const inputSenha = useRef(null);
 
 const [showPresentation, setShowPresentation] = useState(null);
 const [showPresentationLoaded, setShowPresentationLoaded] = useState(false);
+
+//Redux
+//permite que usarmos os estados que está armazenado na store
+const colorsList = useSelector(state => state.data);
+//Redux
 
 
 async function verifyIfShowPresentation(){
@@ -127,69 +134,70 @@ if (!showPresentationLoaded) {
 if(!showPresentation) {
 
   return(
-    <KeyboardAvoidingView 
-    behavior={Platform.select({
-    ios: 'padding',
-    android: null,})} 
-    style={{flex: 1}} >
-  <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-  <View style={styles.container}>
-    {/*<View style={styles.imageView}>
-      <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
-    </View>*/}
-  <View style={styles.imageView}>
+      <KeyboardAvoidingView 
+        behavior={Platform.select({
+        ios: 'padding',
+        android: null,})} 
+        style={{flex: 1}} >
+      <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+      <View style={[styles.container, {backgroundColor: colorsList.primaria}]}>
+        {/*<View style={styles.imageView}>
+          <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
+        </View>*/}
+      <View style={styles.imageView}>
 
-    <Image source={require('../assets/LogoFrases.gif')} style={styles.imagefluxo} />
+        <Image source={require('../assets/LogoFrases.gif')} style={styles.imagefluxo} />
 
-  </View>
-      <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
-        <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
       </View>
-      {/*<View style={styles.orangeBorder}>*/}
-      <View style={styles.loginBox} >
-        <TextInput
-        style={styles.textLogin}
-        keyboardType='email-address'
-        autoCorrect={false}
-        autoCapitalize='none'
-        placeholder='Email'
-        returnKeyType='next'
-        placeholderTextColor= '#319aff'
-        onSubmitEditing={() => inputSenha.current.focus()}
-        onChangeText= {(value) => setEmail(value) }
-        />
+          <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
+            <Text style={[styles.textIntro, {color: colorsList.terciaria}]} >Semana Fluxo de Engenharia</Text>
+          </View>
+          {/*<View style={styles.orangeBorder}>*/}
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, marginTop: screenHeight*0.06, backgroundColor: colorsList.quaternaria}]}>
+            <TextInput
+            style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
+            keyboardType='email-address'
+            autoCorrect={false}
+            autoCapitalize='none'
+            placeholder='Email'
+            returnKeyType='next'
+            placeholderTextColor= {colorsList.terciaria}
+            onSubmitEditing={() => inputSenha.current.focus()}
+            onChangeText= {(value) => setEmail(value) }
+            />
+          </View>
+        {/* </View>          */}
+          
+          {/*<View style={styles.orangeBorder}>*/}
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, backgroundColor: colorsList.quaternaria}]}>
+            <TextInput
+            style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
+            placeholder='Senha'
+            autoCorrect={false}
+            autoCapitalize='none'
+            placeholderTextColor= {colorsList.terciaria} 
+            keyboardType='default'
+            returnKeyType='done'
+            secureTextEntry= {true}
+            ref={inputSenha}
+            onChangeText= {(value) => setPassword(value) }
+            />
+          </View>
+          {/*</View>*/}
+          <View>
+        <Text style={{color: 'red', fontSize: screenWidth*0.05, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+        </View>
+
+          <TouchableOpacity onPress={() => (fazendo_login()) } style = {[styles.button, {backgroundColor: colorsList.secundaria}]}>
+            <Text style={[styles.textButton, {color: colorsList.primaria}]}>LOGIN</Text>
+          </TouchableOpacity>
+
+
       </View>
-     {/* </View>          */}
-      
-      {/*<View style={styles.orangeBorder}>*/}
-      <View style={styles.loginBox}>
-        <TextInput
-        style={styles.textLogin}
-        placeholder='Senha'
-        autoCorrect={false}
-        autoCapitalize='none'
-        placeholderTextColor= '#319aff' 
-        keyboardType='default'
-        returnKeyType='done'
-        secureTextEntry= {true}
-        ref={inputSenha}
-        onChangeText= {(value) => setPassword(value) }
-        />
-      </View>
-      {/*</View>*/}
-      <View>
-     <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
-     </View>
+      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
 
-      <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
-        <Text style={styles.textButton}>LOGIN</Text>
-      </TouchableOpacity>
-
-
-  </View>
-  </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
-  );
+    );
 }
 
 else{
@@ -203,7 +211,7 @@ else{
         android: null,})} 
         style={{flex: 1}} >
       <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: colorsList.primaria}]}>
         {/*<View style={styles.imageView}>
           <LottieView style={styles.imagefluxo} autoPlay loop source={require("../assets/logotipoLottieMelhor")} />
         </View>*/}
@@ -213,18 +221,18 @@ else{
 
       </View>
           <View style={{height: screenWidth*0.099, marginBottom: screenWidth*0.02}}>
-            <Text style={styles.textIntro} >Semana Fluxo de Engenharia</Text>
+            <Text style={[styles.textIntro, {color: colorsList.terciaria}]} >Semana Fluxo de Engenharia</Text>
           </View>
           {/*<View style={styles.orangeBorder}>*/}
-          <View style={styles.loginBox} >
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, marginTop: screenHeight*0.06, backgroundColor: colorsList.quaternaria}]}>
             <TextInput
-            style={styles.textLogin}
+            style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
             keyboardType='email-address'
             autoCorrect={false}
             autoCapitalize='none'
             placeholder='Email'
             returnKeyType='next'
-            placeholderTextColor= '#319aff'
+            placeholderTextColor= {colorsList.terciaria}
             onSubmitEditing={() => inputSenha.current.focus()}
             onChangeText= {(value) => setEmail(value) }
             />
@@ -232,13 +240,13 @@ else{
         {/* </View>          */}
           
           {/*<View style={styles.orangeBorder}>*/}
-          <View style={styles.loginBox}>
+          <View style={[styles.loginBox, {borderBottomColor: colorsList.secundaria, backgroundColor: colorsList.quaternaria}]}>
             <TextInput
-            style={styles.textLogin}
+            style={[styles.textLogin, {color: colorsList.dark_terciaria}]}
             placeholder='Senha'
             autoCorrect={false}
             autoCapitalize='none'
-            placeholderTextColor= '#319aff' 
+            placeholderTextColor= {colorsList.terciaria} 
             keyboardType='default'
             returnKeyType='done'
             secureTextEntry= {true}
@@ -248,11 +256,11 @@ else{
           </View>
           {/*</View>*/}
           <View>
-        <Text style={{color: 'red', fontSize: 20, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
+        <Text style={{color: 'red', fontSize: screenWidth*0.05, alignSelf:"center", marginTop: screenHeight*0.02}} >{error}</Text>
         </View>
 
-          <TouchableOpacity onPress={() => (fazendo_login()) } style = {styles.button}>
-            <Text style={styles.textButton}>LOGIN</Text>
+          <TouchableOpacity onPress={() => (fazendo_login()) } style = {[styles.button, {backgroundColor: colorsList.secundaria}]}>
+            <Text style={[styles.textButton, {color: colorsList.primaria}]}>LOGIN</Text>
           </TouchableOpacity>
 
 
@@ -320,7 +328,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent:'center',
-    backgroundColor: "white",
     paddingHorizontal: screenWidth * 0.05,
     //marginTop: screenHeight * 0.05
   },
@@ -335,49 +342,29 @@ const styles = StyleSheet.create({
     },
   loginBox: {
     marginTop:screenHeight*0.04,
-    backgroundColor: "#F8F8F8",
-    borderTopColor:'orange',
-    borderBottomWidth:2,
-    borderBottomColor:"#F24ef5",
-    borderRadius: 4,
-  },
-  orangeBorder: {
-    backgroundColor: "#F24ef5",
-    borderRadius: 15,
-    padding: 1,
-    marginTop: screenHeight * 0.05,
+    borderBottomWidth: screenWidth*0.005,
+    borderRadius: screenWidth*0.01,
   },
   textIntro: {
-    color: "#319aff",
     //textShadowColor: "#F4893B",
-    fontSize: 22,
+    fontSize: screenWidth*0.055,
     fontWeight:'bold',
     alignSelf: "center",
     marginTop: screenHeight * 0.05,
     },
-    textSenha: {
-      color: "#319aff",
-      fontSize: 15,
-      textDecorationLine:"underline",
-      textAlign: "right",
-      marginBottom: 5,
-    },
     textButton: {
-      fontSize: 20,
-      color: "white",
+      fontSize: screenWidth*0.05,
       textAlign:'center',
     },
     textLogin: {
-      color: "#319aff",
     },
     button:{
       justifyContent: 'center',
       alignSelf:'center',
-      backgroundColor: "#319aff",
-      marginTop: screenHeight *0.08,
+      marginTop: screenHeight *0.05,
       height:screenHeight * 0.06,
       width:screenWidth*0.4,
-      borderRadius:15
+      borderRadius: screenWidth*0.0385
 
 
     },
