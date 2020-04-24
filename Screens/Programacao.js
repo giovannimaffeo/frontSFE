@@ -168,8 +168,7 @@ export default function Programacao({ navigation }){
   //acaba aqui
   return(
 
-
-      <View style={{flex: 1, backgroundColor: colorsList.primaria, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
+        <View style={{flex: 1, backgroundColor: colors.primary}} pointerEvents={loading ? 'none' : 'auto'}>
 
           { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
