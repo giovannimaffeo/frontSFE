@@ -452,15 +452,8 @@ export default function App(){
           backgroundColor={colors.tertiary}
           barStyle="light-content"
                   />
-
-        <RotaPrincipal />
-
-<<<<<<< HEAD
-
-=======
       <RotaPrincipal />
       <FlashMessage position="top"/>
->>>>>>> 5681b6c08674cab5bcaa86114a790facefd4c111
     </>
     
     );
