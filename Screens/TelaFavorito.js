@@ -104,7 +104,7 @@ export default function TelaFavorito({ navigation }){
 
           <Text style={[styles.title, {color: colorsList.terciaria}]}>Palestras Favoritas</Text>
 
-          <View style={{height: screenHeight*0.056, alignItems: 'center', width: screenWidth*0.15 }}>
+          <View style={{height: screenHeight*0.056, alignItems: 'center', width: screenWidth*0.15, justifyContent: 'center' }}>
 
             {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
 
