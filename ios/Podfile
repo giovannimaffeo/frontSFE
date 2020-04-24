@@ -77,12 +77,3 @@ target 'AplicativoSFC2' do
   use_native_modules!
 end
 
-target 'AplicativoSFC2-tvOS' do
-  # Pods for AplicativoSFC2-tvOS
-
-  target 'AplicativoSFC2-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end

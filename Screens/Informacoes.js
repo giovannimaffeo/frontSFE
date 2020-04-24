@@ -34,13 +34,12 @@ import { useState, useEffect } from 'react';
 import { createAppContainer, } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
-import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 //novo
@@ -48,6 +47,10 @@ import api from '../services/api'
 import Error from './Error'
 import { stringify } from 'querystring';
 
+//Redux
+import { useSelector } from 'react-redux';
+import BackHeader from './BackHeader';
+//Redux
 
 
 const DATA = 
@@ -69,21 +72,24 @@ const DATA =
 
 ];
 
-
 export default function Informacoes({ navigation }){
 
-    
+    //Redux
+    //permite que usarmos os estados que está armazenado na store
+    const colorsList = useSelector(state => state.data);
+    //Redux
 
 
     //novo
 
     const [errorMessage, seterror] = useState(null);
 
-    const [color, set_color ] = useState(null);
-
     const [favorito, set_favorito] = useState(null);
 
     const [loading, setLoading] = useState(true)
+
+
+    const [icon, setIcon] = useState('')
 
 
     async function verifica_se_e_favorita(palestra){
@@ -95,7 +101,7 @@ export default function Informacoes({ navigation }){
 
         if((lista_favoritos.some(({id}) => id === palestra.id))){
 
-            set_color(colors.tertiary)
+            setIcon("favorite")
 
             set_favorito(true)
 
@@ -104,8 +110,8 @@ export default function Informacoes({ navigation }){
         }
 
         else{
-            
-            set_color('#ffffff')
+
+            setIcon("favorite-border")
 
             set_favorito(false)
 
@@ -117,25 +123,25 @@ export default function Informacoes({ navigation }){
     async function favoritar_palestra(id){
 
         try {
-    
-            const response = await api.get(`/favoritar/${id}/`);
 
-            await console.log(response.data.message)
 
             if(favorito){
 
-                set_color('#ffffff')
+                setIcon('favorite-border')
                 set_favorito(false)
 
             }
 
             else{
 
-                set_color(colors.tertiary)
+                setIcon('favorite')
                 set_favorito(true)
 
             }
-      
+    
+            const response = await api.get(`/favoritar/${id}/`);
+
+            await console.log(response.data.message)
 
         } catch(err) {
       
@@ -148,15 +154,15 @@ export default function Informacoes({ navigation }){
         useEffect( () => {
 
             verifica_se_e_favorita(navigation.state.params.data)
-            
-          }, [])
+
+          }, )
 
     
 
 
     return(
         
-        <ScrollView style={{backgroundColor: colors.primary, flex: 1}}>
+        <ScrollView style={{backgroundColor: colorsList.primaria, flex: 1}}>
 
             { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
@@ -167,7 +173,7 @@ export default function Informacoes({ navigation }){
                 <View style={styles.titulo}>
 
 
-                    <Text style={styles.textoTitulo}> { navigation.state.params.data.tema } </Text>
+                    <Text style={[styles.textoTitulo, {color: colorsList.secundaria}]}> { navigation.state.params.data.tema } </Text>
                     
 
                 </View>
@@ -178,7 +184,7 @@ export default function Informacoes({ navigation }){
                     <View style={{justifyContent: "center"}}>
 
                         <Image  style={styles.fotoPalestrante}
-                                source={{ uri: `http://67.205.161.203${navigation.state.params.data.foto_palestrante}` }}/>
+                                source={{ uri: `http://67.205.161.203:8000${navigation.state.params.data.foto_palestrante}` }}/>
 
 
                     </View>
@@ -188,13 +194,13 @@ export default function Informacoes({ navigation }){
 
                         <Text> 
                             
-                            <Text style={styles.textoPrincipal}>Palestrante:</Text> <Text style={styles.texto}> { navigation.state.params.data.palestrante } </Text> 
+                            <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Palestrante:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.palestrante } </Text> 
 
                         </Text>
 
-                        <Text>
+                        <Text style={{textAlign: 'justify'}}>
 
-                            <Text style={styles.textoPrincipal}>Quem sou?</Text> <Text style={styles.texto}> { navigation.state.params.data.descricao_palestrante } </Text>
+                            <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Quem sou?</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.descricao_palestrante } </Text>
 
                         </Text>
 
@@ -211,13 +217,13 @@ export default function Informacoes({ navigation }){
                     
                     <View>
 
-                        <Text style={styles.textoPrincipal}>Sobre o que é a Palestra?</Text> 
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Sobre o que é a Palestra?</Text> 
 
                     </View>
 
                     <View>
 
-                        <Text style={styles.texto}> { navigation.state.params.data.descricao_palestra }. </Text>
+                        <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.descricao_palestra }. </Text>
 
                     </View>
 
@@ -232,19 +238,19 @@ export default function Informacoes({ navigation }){
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.dia } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Dia:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.dia } </Text>
 
                     </Text>
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.inicio.slice(0,5) } às { navigation.state.params.data.termino.slice(0,5) } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Horário:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.inicio.slice(0,5) } às { navigation.state.params.data.termino.slice(0,5) } </Text>
 
                     </Text>
 
                     <Text>
 
-                        <Text style={styles.textoPrincipal}>Sala:</Text> <Text style={styles.texto}> { navigation.state.params.data.sala } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Sala:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.sala } </Text>
 
                     </Text>
 
@@ -254,15 +260,15 @@ export default function Informacoes({ navigation }){
 
                 <View style={{marginTop: screenHeight*0.06, flexDirection: "row", alignItems: "center"}}>
 
-                    <TouchableOpacity style = {{width: screenWidth*0.15, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
+                    <TouchableOpacity style = {{width: screenWidth*0.1, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
-                        { !(loading) ? <Icon name="heart" size={screenWidth*0.05} color = {color} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover'/> }
+                        { !(loading) ? <Icon name={icon} size={screenWidth*0.059} color = {colorsList.terciaria} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover' regular /> }
 
                     </TouchableOpacity> 
 
                     <View> 
 
-                        <Text style={styles.texto}>Adicionar aos Favoritos </Text>
+                        <Text style={[styles.texto, {color: colorsList.texto}]}>Adicionar aos Favoritos </Text>
                         
                     </View>    
 
@@ -291,22 +297,11 @@ export default function Informacoes({ navigation }){
 }
 
 Informacoes.navigationOptions = ({ navigation }) => ({
-    header: ( 
-
-      <SafeAreaView style={styles.header} >
-
-        <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
-
-            <Icon name="chevron-left" size={screenWidth*0.05} color = {colors.secondary} />
-
-        </TouchableOpacity>
-
-        
-  
-  
-      </SafeAreaView>
+    header:(
+        <BackHeader navigation={navigation}/>
     )
-  })
+  });
+
 
 const styles = StyleSheet.create({
 
@@ -321,10 +316,6 @@ const styles = StyleSheet.create({
                 height: screenHeight*0.07,
             },      
           }),
-        backgroundColor: colors.tertiary,
-        
-  
-        
     },
 
     titulo: {
@@ -334,8 +325,8 @@ const styles = StyleSheet.create({
 
     textoTitulo: {
         fontSize: screenHeight*0.04,
-        color: colors.secondary,
-        fontFamily: fonts.bold
+        fontFamily: fonts.bold,
+        textAlign: 'center'
         
     },
 
@@ -343,7 +334,7 @@ const styles = StyleSheet.create({
         paddingRight: screenWidth*0.05,
         marginTop: screenHeight*0.04,
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
 
 
     },
@@ -356,7 +347,6 @@ const styles = StyleSheet.create({
     },
 
     texto:{
-        color: 'white',
         fontSize: screenWidth*0.04,
         fontFamily: fonts.regular,
         textAlign: "justify"
@@ -364,7 +354,6 @@ const styles = StyleSheet.create({
     },
 
     textoPrincipal:{
-        color: colors.tertiary,
         fontSize: screenWidth*0.045,
         fontFamily: fonts.bold
 

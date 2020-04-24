@@ -17,8 +17,6 @@ import {
 } from 'react-native';
 
 
-
-
 import { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
 import Header from './Header'
@@ -29,7 +27,6 @@ import LottieView from 'lottie-react-native';
 
 import Palestra from '../Screens/Palestra'
 
-import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 //novo
@@ -38,9 +35,16 @@ import { useState, useEffect } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Error from './Error'
 
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
 
 
 export default function TelaFavorito({ navigation }){
+
+  //Redux
+  const colorsList = useSelector(state => state.data)
+  //Redux
 
   //puxando do back comecando aqui
 
@@ -48,7 +52,8 @@ export default function TelaFavorito({ navigation }){
 
   const [errorMessage, seterror] = useState(null);
 
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
+
 
   async function DefineListaFavoritos() {
 
@@ -72,9 +77,11 @@ export default function TelaFavorito({ navigation }){
 
   };
 
-  useEffect( () => {
 
+  useEffect( () => {
+ 
     DefineListaFavoritos()
+    
     
   })
 
@@ -83,7 +90,7 @@ export default function TelaFavorito({ navigation }){
 
   return(
     
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colorsList.primaria}]}>
 
       { /*<Spinner visible={loading}/>*/}
 
@@ -93,26 +100,22 @@ export default function TelaFavorito({ navigation }){
 
       { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
-      <View style={styles.titleContainer}>
+      <View style={[styles.titleContainer, {backgroundColor: colorsList.primaria}]}>
 
-        <View style={{marginTop: screenHeight*0.02}}>
+          <Text style={[styles.title, {color: colorsList.terciaria}]}>Palestras Favoritas</Text>
 
-          <Text style={styles.title}>Palestras Favoritas</Text>
+          <View style={{height: screenHeight*0.056, alignItems: 'center', width: screenWidth*0.15, justifyContent: 'center' }}>
 
-        </View>
+            {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
 
-        <View style={{height: screenHeight*0.056, justifyContent: 'center', marginTop: screenWidth*0.05}}>
+            <LottieView 
+              source={require('../assets/coracao_verde')} 
+              autoPlay 
+              loop 
+              style={{height: screenHeight*0.0719}}
+            />
 
-          {/*<Image source={require('../assets/LogoExtraordinario.gif')} style={styles.animacao_vermelha} resizeMode='cover'/>*/}
-
-          <LottieView 
-            source={require('../assets/coracao_verde')} 
-            autoPlay 
-            loop 
-            style={{height: screenHeight*0.0719}}
-          />
-
-        </View>
+          </View>
 
       </View>
 
@@ -122,7 +125,7 @@ export default function TelaFavorito({ navigation }){
 
         data = {lista_favoritos}
 
-        renderItem = { ({item}) =>  < Palestra data = {item} length={lista_favoritos.length} index = {lista_favoritos.indexOf(item)} lastindex = {lista_favoritos.length - 1} navigation = {navigation}  /> }
+        renderItem = { ({item}) =>  < Palestra favorite = {true} data = {item} length={lista_favoritos.length} index = {lista_favoritos.indexOf(item)} lastindex = {lista_favoritos.length - 1} navigation = {navigation}  /> }
 
         keyExtractor={ (item) => item.id.toString() }
 
@@ -155,39 +158,9 @@ TelaFavorito.navigationOptions = ({ navigation }) => ({
 
 const styles = StyleSheet.create({
 
-  header:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: screenHeight*0.1,
-    backgroundColor: colors.tertiary,
-    borderBottomWidth: screenHeight*0.01,
-    borderBottomColor: colors.quaternary,
-    justifyContent: "space-between",
-    padding: 20
-
-    
-},
-
-textoHeader:{
-  fontSize: screenHeight*0.03,
-  fontFamily: fonts.bold
-
-  
-},
-
-
-  logofluxo:{
-    borderRadius: screenWidth*0.0125,
-    width: screenWidth*0.1625,
-    height: screenWidth*0.1625,
-
-  },
-
-
   container: {
-    backgroundColor: colors.primary,
     flex: 1,
-
+    borderRadius: screenWidth*0.015,
   
     
   },
@@ -196,13 +169,13 @@ textoHeader:{
     height: screenHeight*0.1,
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center'
 
   
 
 
   },
   title:{
-    color: colors.tertiary,
     fontFamily: fonts.bold,
     fontSize: screenWidth*0.075,
     marginLeft: screenWidth*0.04,
@@ -211,9 +184,7 @@ textoHeader:{
 
   bodyContainer:{
     marginTop: screenHeight*0.018,
-    borderTopWidth: screenHeight*0.003,
-    borderBottomColor: colors.quaternary,
-    backgroundColor: colors.secondary,
+    //borderTopWidth: screenHeight*0.003, 
     borderRadius: screenHeight*0.015,
   },
 

@@ -24,7 +24,9 @@ import Error from './Error'
 import LottieView from 'lottie-react-native';
 
 
-
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
 
 
 
@@ -36,11 +38,11 @@ import Header from './Header'
 
 
 
-import colors from '../styles/colors'
 import fonts from '../styles/fonts';
 
 //novo:
 import api from '../services/api'
+
 
 
 
@@ -51,6 +53,11 @@ const date = new Date();
 
 
 export default function Programacao({ navigation }){
+
+  //Redux
+  //permite que usarmos os estados que está armazenado na store
+  const colorsList = useSelector(state => state.data);
+  //Redux
 
   const [data_parcial, setdata] = useState(null);
 
@@ -66,13 +73,14 @@ export default function Programacao({ navigation }){
 
   const [loading, setloading] = useState(true)
 
+  const [daysList, setDaysList] = useState({})
 
-  const [colorList, setColorList] = useState([colors.quaternary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
+  const [colorList, setColorList] = useState([colorsList.secundaria , colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria]);
   function changeColorList(indexButtonToChange){
 
-    const newList = [colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary];
+    const newList = [colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria];
 
-    newList[indexButtonToChange] = colors.quaternary;
+    newList[indexButtonToChange] = colorsList.secundaria;
 
     setColorList(newList)
     
@@ -113,11 +121,16 @@ export default function Programacao({ navigation }){
 
     
     try{
-      const data_primeiro_dia = await DefinePalestraList('30-03-2020')
-      const data_segundo_dia = await DefinePalestraList('31-03-2020')
-      const data_terceiro_dia = await DefinePalestraList('01-04-2020')
-      const data_quarto_dia = await DefinePalestraList('02-04-2020')
-      const data_quinto_dia = await DefinePalestraList('03-04-2020')
+
+      const response = await api.get('/dias/')
+      const daysList = response.data
+      setDaysList(daysList)
+
+      const data_primeiro_dia = await DefinePalestraList(daysList.pri)
+      const data_segundo_dia = await DefinePalestraList(daysList.seg)
+      const data_terceiro_dia = await DefinePalestraList(daysList.ter)
+      const data_quarto_dia = await DefinePalestraList(daysList.qua)
+      const data_quinto_dia = await DefinePalestraList(daysList.qui)
 
       setdata(data_primeiro_dia)
 
@@ -132,95 +145,99 @@ export default function Programacao({ navigation }){
 
   };
 
-
+  
   // o effect nao muda o estado, ele apenas olha para o valor entre chaves de agora e faz algo. se ele mudar o valor, ele muda.
   //se colocasssemos uma variavel ali, ele iria sempre mudar quando a variavel mudasse, como nao colocamos nada, ele muda quando qualquer variavel muda.
-
-
   useEffect( () => {
 
    // signIn()
     DefineDatas()
-    
   }, [])
 
-  //acaba aqui
+
+  if (loading){
     return(
+    <View style={{flex: 1, backgroundColor: colorsList.primaria}}>
+      <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+        <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+      </View>
+    </View>
+    );
+  }
+
+  //acaba aqui
+  return(
 
 
-        <View style={{flex: 1, backgroundColor: colors.primary, shadowOffset: loading ? 0.1 : 1 }} pointerEvents={loading ? 'none' : 'auto'}>
+      <View style={{flex: 1, backgroundColor: colorsList.primaria}} pointerEvents={loading ? 'none' : 'auto'}>
 
-            { !!errorMessage && <Error errorMessage={errorMessage}/> }
+          { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
-            {/*<View style={{zIndex: 5}}> 
-              <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
-            </View>*/}
-
-            {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-              <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
-            </View> : null}
-
-            {/*<Spinner visible={loading}/>*/ }
-            
-            <View style={styles.title}>
-
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
-
-                <Text style={styles.textoBotao}>30</Text>
-      
-            </TouchableOpacity>
+          {/*<View style={{zIndex: 5}}> 
+            <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
+          </View>*/}
 
 
+          {/*<Spinner visible={loading}/>*/ }
+          
+          <View style={styles.title}>
 
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
-                
-                <Text style={styles.textoBotao}>31</Text>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
 
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
-                
-                <Text style={styles.textoBotao}>01</Text>
-
-            </TouchableOpacity>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria}]}>{daysList.pri.slice(0,2)}</Text>
+    
+          </TouchableOpacity>
 
 
 
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
-                
-                <Text style={styles.textoBotao}>02</Text>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
+              
+              <Text style={[styles.textoBotao, {color: colorsList.primaria}]}>{daysList.seg.slice(0,2)}</Text>
 
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
-                
-                <Text style={styles.textoBotao}>03</Text>
-
-            </TouchableOpacity>
-
-            </View>
+          </TouchableOpacity>
 
 
-            <View style={styles.tabela}>
 
-            <FlatList 
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
+              
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.ter.slice(0,2)}</Text>
 
-              data = {data_parcial}
-
-              renderItem = { ({item}) =>  < Palestra length={data_parcial.length} index = {data_parcial.indexOf(item)} lastindex = {data_parcial.length - 1} data = { item } navigation = {navigation} /> }
-
-              keyExtractor={ (item) => item.id.toString() }
-
-            />
+          </TouchableOpacity>
 
 
-            </View>
 
-        </View>
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
+              
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.qua.slice(0,2)}</Text>
+
+          </TouchableOpacity>
+
+
+
+          <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
+              
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.qui.slice(0,2)}</Text>
+
+          </TouchableOpacity>
+
+          </View>
+
+
+          <View style={styles.tabela}>
+
+          <FlatList 
+
+            data = {data_parcial}
+
+            renderItem = { ({item}) =>  < Palestra length={data_parcial.length} index = {data_parcial.indexOf(item)} lastindex = {data_parcial.length - 1} data = { item } navigation = {navigation} /> }
+
+            keyExtractor={ (item) => item.id.toString() }
+
+          />
+
+          </View>
+
+      </View>
 
 
   );
@@ -236,36 +253,6 @@ Programacao.navigationOptions = ({ navigation }) => ({
 
 const styles = StyleSheet.create({
 
-  header:{
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: screenHeight*0.1,
-      backgroundColor: colors.tertiary,
-      borderBottomWidth: screenHeight*0.01,
-      borderBottomColor: colors.quaternary,
-      justifyContent: "space-between",
-      paddingRight: screenWidth*0.05
-
-      
-  },
-
-  textoHeader:{
-    fontSize: screenHeight*0.03,
-    fontFamily: fonts.bold,
-    color: colors.primary
-
-    
-  },
-
-  logofluxo:{
-    borderRadius: screenWidth*0.0125,
-    width: screenWidth*0.1625,
-    height: screenWidth*0.1625,
-
-
-  },
-
-
   title:{
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -279,14 +266,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       ios: {
-        borderRadius: screenHeight*0.025,   
-        height: screenHeight*0.05,
-        width: screenWidth*0.11
+        borderRadius: screenWidth*0.0525,   
+        height: screenWidth*0.105,
+        width: screenWidth*0.105
       },
       android: {
-        borderRadius: screenWidth*0.05, 
-        height: screenHeight*0.06,
-        width: screenWidth*0.1
+        borderRadius: screenWidth*0.525, 
+        height: screenWidth*0.105,
+        width: screenWidth*0.105
 
       }     
     }),
@@ -294,7 +281,6 @@ const styles = StyleSheet.create({
   },
 
   textoBotao:{
-    color: colors.secondary,
     fontFamily: fonts.bold,
     fontSize: screenWidth*0.039
   },
