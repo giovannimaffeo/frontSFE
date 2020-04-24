@@ -1,5 +1,5 @@
 export default {
-    regular: 'System',
-    bold: 'System',
-    semi_bold: 'System',
+    regular: 'Gelasio-Regular',
+    bold: 'Gelasio-Bold',
+    semi_bold: 'Gelasio-SemiBold',
 }

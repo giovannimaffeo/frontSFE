@@ -1,10 +1,32 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+# Add this code at the top of Podfile right after platform definition.
+# It will make all the dynamic frameworks turning into static libraries.
+
 use_frameworks!
+
+$dynamic_frameworks = ['RxCocoa', 'RxSwift', 'WhatEverSDKName']
+
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if !$dynamic_frameworks.include?(pod.name)
+      puts "Link #{pod.name} as static_library"
+      def pod.build_type;
+        # Uncomment one line depending on your CocoaPods version
+        # Pod::BuildType.static_library # >= 1.9
+        Pod::Target::BuildType.static_library # < 1.9
+      end
+    end
+  end
+end
 
 target 'AplicativoSFC2' do
   # Pods for AplicativoSFC2
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -39,17 +61,13 @@ target 'AplicativoSFC2' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-<<<<<<< HEAD
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
-=======
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
->>>>>>> 5681b6c08674cab5bcaa86114a790facefd4c111
 
   target 'AplicativoSFC2Tests' do
     inherit! :search_paths
@@ -59,12 +77,3 @@ target 'AplicativoSFC2' do
   use_native_modules!
 end
 
-target 'AplicativoSFC2-tvOS' do
-  # Pods for AplicativoSFC2-tvOS
-
-  target 'AplicativoSFC2-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end

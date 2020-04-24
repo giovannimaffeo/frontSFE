@@ -22,7 +22,6 @@ import {
 
 import {
   LearnMoreLinks,
-  Colors,
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
@@ -37,34 +36,43 @@ import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 import Icon from 'react-native-vector-icons/FontAwesome';
 Icon.loadFont();
 
-import colors from '../styles/colors'
 import fonts from '../styles/fonts';
 
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
+
 export default function Header( props ){
-    return(
 
-        <View style={styles.header}>
+  //Redux
+  //permite que usarmos os estados que está armazenado na store
+  const colorsList = useSelector(state => state.data);
+  //Redux
 
-        <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => props.navigation.openDrawer()}>
+  return(
 
-            <Icon name="bars" size={screenWidth*0.0625} color = {colors.secondary} />
+  <SafeAreaView style={[styles.header, {backgroundColor: colorsList.terciaria, borderBottomColor: colorsList.secundaria}]}>
 
-        </TouchableOpacity>
+      <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.15, alignItems: 'center', justifyContent: 'center'}} onPress={() => props.navigation.openDrawer()}>
+
+          <Icon name="bars" size={screenWidth*0.0625} color = {colorsList.secundaria} />
+
+      </TouchableOpacity>
 
 
-        <View style={{alignSelf: 'center'}}>
-        
-            <Text style={styles.textoHeader}>SEMANA FLUXO</Text>
+      <View style={{alignSelf: 'center'}}>
+      
+          <Text style={[styles.textoHeader, {color: colorsList.primaria}]}>SEMANA FLUXO</Text>
 
-        </View>
+      </View>
 
-        <Image style={styles.logofluxo}
-            source = {require('../Assets/FluxoSemFundo.png') } />
+      <Image style={styles.logofluxo}
+          source = {require('../assets/FluxoSemFundo.png') } />
 
-        
-    
-    </View>
-    )
+      
+  
+  </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -72,10 +80,23 @@ const styles = StyleSheet.create({
     header:{
         flexDirection: 'row',
         alignItems: 'center',
-        height: screenHeight*0.1,
-        backgroundColor: colors.tertiary,
-        borderBottomWidth: screenHeight*0.01,
-        borderBottomColor: colors.quaternary,
+        ...Platform.select({
+          ios: {
+            height: screenHeight*0.12,          
+          },
+          android: {
+            height: screenHeight*0.1, 
+          },      
+        }),
+
+        ...Platform.select({
+          ios: {
+            borderBottomWidth: screenHeight*0.011,          
+          },
+          android: {
+            borderBottomWidth: screenHeight*0.01, 
+          },      
+        }),
         justifyContent: "space-between",
         paddingRight: screenWidth*0.05
   
@@ -85,7 +106,6 @@ const styles = StyleSheet.create({
     textoHeader:{
       fontSize: screenHeight*0.03,
       fontFamily: fonts.bold,
-      color: colors.primary
   
       
     },
