@@ -24,7 +24,9 @@ import Error from './Error'
 import LottieView from 'lottie-react-native';
 
 
-
+//Redux
+import { useSelector } from 'react-redux';
+//Redux
 
 
 
@@ -36,11 +38,11 @@ import Header from './Header'
 
 
 
-import colors from '../styles/colors'
 import fonts from '../styles/fonts';
 
 //novo:
 import api from '../services/api'
+
 
 
 
@@ -51,6 +53,11 @@ const date = new Date();
 
 
 export default function Programacao({ navigation }){
+
+  //Redux
+  //permite que usarmos os estados que está armazenado na store
+  const colorsList = useSelector(state => state.data);
+  //Redux
 
   const [data_parcial, setdata] = useState(null);
 
@@ -67,15 +74,13 @@ export default function Programacao({ navigation }){
   const [loading, setloading] = useState(true)
 
   const [daysList, setDaysList] = useState({})
-  const [preloading, setPreLoading] = useState(true)
 
-
-  const [colorList, setColorList] = useState([colors.secondary , colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary]);
+  const [colorList, setColorList] = useState([colorsList.secundaria , colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria]);
   function changeColorList(indexButtonToChange){
 
-    const newList = [colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary, colors.tertiary];
+    const newList = [colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria, colorsList.terciaria];
 
-    newList[indexButtonToChange] = colors.secondary;
+    newList[indexButtonToChange] = colorsList.secundaria;
 
     setColorList(newList)
     
@@ -120,7 +125,6 @@ export default function Programacao({ navigation }){
       const response = await api.get('/dias/')
       const daysList = response.data
       setDaysList(daysList)
-      setPreLoading(false)
 
       const data_primeiro_dia = await DefinePalestraList(daysList.pri)
       const data_segundo_dia = await DefinePalestraList(daysList.seg)
@@ -141,20 +145,24 @@ export default function Programacao({ navigation }){
 
   };
 
-
+  
   // o effect nao muda o estado, ele apenas olha para o valor entre chaves de agora e faz algo. se ele mudar o valor, ele muda.
   //se colocasssemos uma variavel ali, ele iria sempre mudar quando a variavel mudasse, como nao colocamos nada, ele muda quando qualquer variavel muda.
-
-
   useEffect( () => {
 
    // signIn()
     DefineDatas()
-    
   }, [])
 
-  if (preloading){
-    return null
+
+  if (loading){
+    return(
+    <View style={{flex: 1, backgroundColor: colorsList.primaria}}>
+      <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+        <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
+      </View>
+    </View>
+    );
   }
 
   //acaba aqui
@@ -162,17 +170,12 @@ export default function Programacao({ navigation }){
 
         <View style={{flex: 1, backgroundColor: colors.primary}} pointerEvents={loading ? 'none' : 'auto'}>
 
-
-
           { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
           {/*<View style={{zIndex: 5}}> 
             <LottieView style={styles.imagefluxo} resizeMode='cover' autoPlay loop source={require("../assets/LogoSingularidade")} /> 
           </View>*/}
 
-          {loading ? <View style={{zIndex: 5, flex: 1, marginTop: screenHeight*0.11, height: screenHeight*0.6, width: screenWidth, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-            <Image source={require('../assets/LogoSingularidade.gif')} style={styles.imagefluxo} resizeMode='cover'/>
-          </View> : null}
 
           {/*<Spinner visible={loading}/>*/ }
           
@@ -180,7 +183,7 @@ export default function Programacao({ navigation }){
 
           <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[0]}]} onPress = {() => { setdata(lista_datas[0]); changeColorList(0); }}>
 
-              <Text style={styles.textoBotao}>{daysList.pri.slice(0,2)}</Text>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria}]}>{daysList.pri.slice(0,2)}</Text>
     
           </TouchableOpacity>
 
@@ -188,7 +191,7 @@ export default function Programacao({ navigation }){
 
           <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[1]}]} onPress = {() => { setdata(lista_datas[1]); changeColorList(1); }} >
               
-              <Text style={styles.textoBotao}>{daysList.seg.slice(0,2)}</Text>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria}]}>{daysList.seg.slice(0,2)}</Text>
 
           </TouchableOpacity>
 
@@ -196,7 +199,7 @@ export default function Programacao({ navigation }){
 
           <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[2]}]} onPress = {() => { setdata(lista_datas[2]); changeColorList(2); }} >
               
-              <Text style={styles.textoBotao}>{daysList.ter.slice(0,2)}</Text>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.ter.slice(0,2)}</Text>
 
           </TouchableOpacity>
 
@@ -204,7 +207,7 @@ export default function Programacao({ navigation }){
 
           <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[3]}]} onPress = {() => { setdata(lista_datas[3]); changeColorList(3); }} >
               
-              <Text style={styles.textoBotao}>{daysList.qua.slice(0,2)}</Text>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.qua.slice(0,2)}</Text>
 
           </TouchableOpacity>
 
@@ -212,7 +215,7 @@ export default function Programacao({ navigation }){
 
           <TouchableOpacity style={[styles.botao, {backgroundColor: colorList[4]}]} onPress = {() => { setdata(lista_datas[4]); changeColorList(4); }} >
               
-              <Text style={styles.textoBotao}>{daysList.qui.slice(0,2)}</Text>
+              <Text style={[styles.textoBotao, {color: colorsList.primaria} ]}>{daysList.qui.slice(0,2)}</Text>
 
           </TouchableOpacity>
 
@@ -249,36 +252,6 @@ Programacao.navigationOptions = ({ navigation }) => ({
 
 const styles = StyleSheet.create({
 
-  header:{
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: screenHeight*0.1,
-      backgroundColor: colors.tertiary,
-      borderBottomWidth: screenHeight*0.01,
-      borderBottomColor: colors.quaternary,
-      justifyContent: "space-between",
-      paddingRight: screenWidth*0.05
-
-      
-  },
-
-  textoHeader:{
-    fontSize: screenHeight*0.03,
-    fontFamily: fonts.bold,
-    color: colors.primary
-
-    
-  },
-
-  logofluxo:{
-    borderRadius: screenWidth*0.0125,
-    width: screenWidth*0.1625,
-    height: screenWidth*0.1625,
-
-
-  },
-
-
   title:{
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -307,7 +280,6 @@ const styles = StyleSheet.create({
   },
 
   textoBotao:{
-    color: colors.primary,
     fontFamily: fonts.bold,
     fontSize: screenWidth*0.039
   },

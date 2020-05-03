@@ -40,7 +40,6 @@ Icon.loadFont();
 
 import Dimensoes, { screenWidth, screenHeight } from '../Dimensoes/Dimensoes';
 
-import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 //novo
@@ -48,6 +47,11 @@ import api from '../services/api'
 import Error from './Error'
 import { stringify } from 'querystring';
 
+//Redux
+import { useSelector } from 'react-redux';
+import BackHeader from './BackHeader';
+import store from '../redux/store';
+//Redux
 
 
 const DATA = 
@@ -69,10 +73,14 @@ const DATA =
 
 ];
 
+const COLORS = store.getState()
 
 export default function Informacoes({ navigation }){
 
-    
+    //Redux
+    //permite que usarmos os estados que está armazenado na store
+    const colorsList = useSelector(state => state.data);
+    //Redux
 
 
     //novo
@@ -149,15 +157,16 @@ export default function Informacoes({ navigation }){
         useEffect( () => {
 
             verifica_se_e_favorita(navigation.state.params.data)
-            
-          }, [])
+
+            console.log(COLORS)
+          }, )
 
     
 
 
     return(
         
-        <ScrollView style={{backgroundColor: colors.primary, flex: 1}}>
+        <ScrollView style={{backgroundColor: colorsList.primaria, flex: 1}}>
 
             { !!errorMessage && <Error errorMessage={errorMessage}/> }
 
@@ -168,7 +177,7 @@ export default function Informacoes({ navigation }){
                 <View style={styles.titulo}>
 
 
-                    <Text style={styles.textoTitulo}> { navigation.state.params.data.tema } </Text>
+                    <Text style={[styles.textoTitulo, {color: colorsList.secundaria}]}> { navigation.state.params.data.tema } </Text>
                     
 
                 </View>
@@ -189,13 +198,13 @@ export default function Informacoes({ navigation }){
 
                         <Text> 
                             
-                            <Text style={styles.textoPrincipal}>Palestrante:</Text> <Text style={styles.texto}> { navigation.state.params.data.palestrante } </Text> 
+                            <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Palestrante:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.palestrante } </Text> 
 
                         </Text>
 
                         <Text style={{textAlign: 'justify'}}>
 
-                            <Text style={styles.textoPrincipal}>Quem sou?</Text> <Text style={styles.texto}> { navigation.state.params.data.descricao_palestrante } </Text>
+                            <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Quem sou?</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.descricao_palestrante } </Text>
 
                         </Text>
 
@@ -212,13 +221,13 @@ export default function Informacoes({ navigation }){
                     
                     <View>
 
-                        <Text style={styles.textoPrincipal}>Sobre o que é a Palestra?</Text> 
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Sobre o que é a Palestra?</Text> 
 
                     </View>
 
                     <View>
 
-                        <Text style={styles.texto}> { navigation.state.params.data.descricao_palestra }. </Text>
+                        <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.descricao_palestra }. </Text>
 
                     </View>
 
@@ -233,19 +242,19 @@ export default function Informacoes({ navigation }){
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Dia:</Text> <Text style={styles.texto}> { navigation.state.params.data.dia } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Dia:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.dia } </Text>
 
                     </Text>
 
                     <Text>
                     
-                        <Text style={styles.textoPrincipal}>Horário:</Text> <Text style={styles.texto}> { navigation.state.params.data.inicio.slice(0,5) } às { navigation.state.params.data.termino.slice(0,5) } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Horário:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.inicio.slice(0,5) } às { navigation.state.params.data.termino.slice(0,5) } </Text>
 
                     </Text>
 
                     <Text>
 
-                        <Text style={styles.textoPrincipal}>Sala:</Text> <Text style={styles.texto}> { navigation.state.params.data.sala } </Text>
+                        <Text style={[styles.textoPrincipal, {color: colorsList.dark_terciaria}]}>Sala:</Text> <Text style={[styles.texto, {color: colorsList.texto}]}> { navigation.state.params.data.sala } </Text>
 
                     </Text>
 
@@ -257,13 +266,13 @@ export default function Informacoes({ navigation }){
 
                     <TouchableOpacity style = {{width: screenWidth*0.1, height: screenWidth*0.09, alignItems: 'center', justifyContent: 'center'}} onPress = {() => favoritar_palestra(navigation.state.params.data.id) } >
 
-                        { !(loading) ? <Icon name={icon} size={screenWidth*0.059} color = {colors.tertiary} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover' regular /> }
+                        { !(loading) ? <Icon name={icon} size={screenWidth*0.059} color = {colorsList.terciaria} /> : <Image source={require('../assets/LogoInfluencia.gif')} style={styles.imagefluxo} resizeMode='cover' regular /> }
 
                     </TouchableOpacity> 
 
                     <View> 
 
-                        <Text style={styles.texto}>Adicionar aos Favoritos </Text>
+                        <Text style={[styles.texto, {color: colorsList.texto}]}>Adicionar aos Favoritos </Text>
                         
                     </View>    
 
@@ -292,22 +301,11 @@ export default function Informacoes({ navigation }){
 }
 
 Informacoes.navigationOptions = ({ navigation }) => ({
-    header: ( 
-
-      <SafeAreaView style={styles.header} >
-
-        <TouchableOpacity style={{width: screenWidth*0.18, height: screenWidth*0.18, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.goBack()}>
-
-            <Icon name="keyboard-arrow-left" size={screenWidth*0.09} color = {colors.secondary} />
-            
-        </TouchableOpacity>
-
-        
-  
-  
-      </SafeAreaView>
+    header:(
+        <BackHeader navigation={navigation}/>
     )
-  })
+  });
+
 
 const styles = StyleSheet.create({
 
@@ -322,10 +320,6 @@ const styles = StyleSheet.create({
                 height: screenHeight*0.07,
             },      
           }),
-        backgroundColor: colors.tertiary,
-        
-  
-        
     },
 
     titulo: {
@@ -335,7 +329,6 @@ const styles = StyleSheet.create({
 
     textoTitulo: {
         fontSize: screenHeight*0.04,
-        color: colors.secondary,
         fontFamily: fonts.bold,
         textAlign: 'center'
         
@@ -358,7 +351,6 @@ const styles = StyleSheet.create({
     },
 
     texto:{
-        color: colors.text_color,
         fontSize: screenWidth*0.04,
         fontFamily: fonts.regular,
         textAlign: "justify"
@@ -366,7 +358,6 @@ const styles = StyleSheet.create({
     },
 
     textoPrincipal:{
-        color: colors.tertiary,
         fontSize: screenWidth*0.045,
         fontFamily: fonts.bold
 
